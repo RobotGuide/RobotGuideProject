@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 
-readonly struct ConnectionData
+internal readonly struct ConnectionData
 {
     public Action<bool> CallBack { get; }
     public Socket Socket { get; }

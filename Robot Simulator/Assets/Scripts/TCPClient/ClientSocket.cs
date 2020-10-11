@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Net;
 using UnityEngine;
 using System.Text;
+using JetBrains.Annotations;
 
 [RequireComponent(typeof(Dispatcher))]
 public class ClientSocket : MonoBehaviour
@@ -20,15 +21,15 @@ public class ClientSocket : MonoBehaviour
     /// <summary>
     /// Add or remove the event
     /// </summary>
-    public event Action<string> OnMessageReceived {
+    public event Action<byte[], int> OnMessageReceived {
         add => MessageReceived += value;
         remove => MessageReceived -= value;
     }
-    private event Action<string> MessageReceived;
+    private event Action<byte[], int> MessageReceived;
 
 
     private Socket tcpClient = null;
-    private readonly byte[] buffer = new byte[1024];
+    private byte[] buffer;
 
     /// <summary>
     /// Activate the Singleton
@@ -48,14 +49,20 @@ public class ClientSocket : MonoBehaviour
 
 
     /// <summary>
-    /// Try to connect with select ip address
+    /// Try to connect with a specific ip address
     /// </summary>
     /// <param name="ip">The ip address you want to connect to</param>
     /// <param name="port">The port you want to use</param>
     /// <param name="connectCallback">The callback for when it is connected</param>
-    public void StartConnect(IPAddress ip, ushort port, Action<bool> connectCallback)
+    /// <param name="socket">The socket you want to use</param>
+    /// <param name="bufferSize">The size of the buffer for this connection</param>
+    /// /// <exception cref="InvalidOperationException"/>
+    /// <exception cref="ArgumentNullException">Socket, connectCallback and ip can not be null</exception>
+    public void Connect(IPAddress ip, ushort port, [NotNull] Action<bool> connectCallback, Socket socket, uint bufferSize = 1024)
     {
         if (ip == null) throw new ArgumentNullException(nameof(ip));
+        if (connectCallback == null) throw new ArgumentNullException(nameof(connectCallback));
+        if (socket == null) throw new ArgumentNullException(nameof(socket));
         if (connectCallback == null) throw new ArgumentNullException(nameof(connectCallback));
 
         if (tcpClient != null)
@@ -63,10 +70,28 @@ public class ClientSocket : MonoBehaviour
             throw new InvalidOperationException("TCP client is already connected");
         }
 
-        Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-
+        buffer = new byte[bufferSize];
         _ = socket.BeginConnect(ip, port, EndConnect, new ConnectionData(socket, connectCallback));
+    }
+
+
+    /// <summary>
+    /// Try to connect with a specific ip address
+    /// </summary>
+    /// <param name="ip">The ip address you want to connect to</param>
+    /// <param name="port">The port you want to use</param>
+    /// <param name="connectCallback">The callback for when it is connected</param>
+    /// <param name="bufferSize">The size of the buffer for this connection</param>
+    /// <param name="addressFamily">The address family</param>
+    /// <param name="socketType">The type of socket</param>
+    /// <param name="protocolType">The protocol type</param>
+    /// <exception cref="InvalidOperationException"/>
+    /// <exception cref="ArgumentNullException"/>
+    public void Connect(IPAddress ip, ushort port, Action<bool> connectCallback, uint bufferSize = 1024,
+        AddressFamily addressFamily = AddressFamily.InterNetwork, SocketType socketType = SocketType.Stream,
+        ProtocolType protocolType = ProtocolType.Tcp)
+    {
+        Connect(ip, port, connectCallback, new Socket(addressFamily, socketType, protocolType), bufferSize);
     }
 
     /// <summary>
@@ -89,10 +114,19 @@ public class ClientSocket : MonoBehaviour
     }
 
     /// <summary>
+    /// Set a new buffer size
+    /// </summary>
+    /// <param name="bufferSize">The size of the new buffer</param>
+    public void ChangeBufferSize(uint bufferSize)
+    {
+        buffer = new byte[bufferSize];
+    }
+
+    /// <summary>
     /// Handle connection
     /// </summary>
     /// <param name="result">The result for the async result</param>
-    private void EndConnect( IAsyncResult result)
+    private void EndConnect(IAsyncResult result)
     {
         if (result == null) throw new ArgumentNullException(nameof(result));
 
@@ -148,8 +182,7 @@ public class ClientSocket : MonoBehaviour
         int bytesRead = tcpClient.EndReceive(ar);
         if (bytesRead > 0)
         {
-            string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            Dispatcher.Instance?.Invoke(() => MessageReceived?.Invoke(message));
+            Dispatcher.Instance?.Invoke(() => MessageReceived?.Invoke(buffer, bytesRead));
             BeginReceive();
         }
         else

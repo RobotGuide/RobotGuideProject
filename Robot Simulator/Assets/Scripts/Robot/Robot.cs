@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] private float speed = 0;
+    [SerializeField] private float rotateSpeed = 0;
     private readonly Queue<Instruction> instructions = new Queue<Instruction>();
 
 

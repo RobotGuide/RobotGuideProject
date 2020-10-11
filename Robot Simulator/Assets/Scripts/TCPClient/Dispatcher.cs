@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dispatcher : MonoBehaviour
 {
     public static Dispatcher Instance { get; private set; }
+
     private readonly object tasksLock = new object();
     private readonly Queue<Action> tasks = new Queue<Action>();
 
