@@ -12,7 +12,7 @@ public class Robot : MonoBehaviour
 
     private void Start()
     {
-        Instruction[] instructions = {new Instruction(InstructionType.Move, 10), 
+        Instruction[] instructions = {new Instruction(InstructionType.Move, 10),
                                       new Instruction(InstructionType.Rotate, 90),
                                       new Instruction(InstructionType.Move, 10),
                                       new Instruction(InstructionType.Rotate, -90),
@@ -39,13 +39,14 @@ public class Robot : MonoBehaviour
         Instruction currentInstruction = instructions.Dequeue();
         Vector3 target = CalculateTarget(currentInstruction);
         Debug.Log(target);
+        Debug.Log(Enum.GetName(typeof(InstructionType), currentInstruction.InstructionType));
         switch (currentInstruction.InstructionType)
         {
             case InstructionType.Rotate:
-                StartCoroutine(Rotate(target, currentInstruction.Value / rotateSpeed));
+                StartCoroutine(Rotate(target, Math.Abs(currentInstruction.Value) / rotateSpeed));
                 break;
             case InstructionType.Move:
-                StartCoroutine(Move(target, currentInstruction.Value / speed));
+                StartCoroutine(Move(target, Math.Abs(currentInstruction.Value) / speed));
                 break;
             default:
                 throw new ArgumentException(nameof(currentInstruction.InstructionType));
