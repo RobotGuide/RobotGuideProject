@@ -6,15 +6,15 @@ using UnityEngine;
 public class AutoConnect : MonoBehaviour
 {
     [SerializeField] private string ipAddress;
-    [SerializeField] private ushort port;
+    [SerializeField] private ushort port = 0;
     private IPAddress address;
-    
+
 
     // Start is called before the first frame update
     private void Start()
     {
         if (!IPAddress.TryParse(ipAddress, out address))
-        {  
+        {
             return;
         }
 

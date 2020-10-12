@@ -3,7 +3,6 @@ using System.Net.Sockets;
 using System.Net;
 using UnityEngine;
 using System.Text;
-using JetBrains.Annotations;
 
 [RequireComponent(typeof(Dispatcher))]
 public class ClientSocket : MonoBehaviour
@@ -21,14 +20,14 @@ public class ClientSocket : MonoBehaviour
     /// <summary>
     /// Add or remove the event
     /// </summary>
-    public event Action<byte[], int> OnMessageReceived {
-        add => MessageReceived += value;
-        remove => MessageReceived -= value;
+    public event Action<byte[], int> OnDataReceived {
+        add => DataReceived += value;
+        remove => DataReceived -= value;
     }
-    private event Action<byte[], int> MessageReceived;
+    private event Action<byte[], int> DataReceived;
 
 
-    private Socket tcpClient = null;
+    private Socket tcpClient;
     private byte[] buffer;
 
     /// <summary>
@@ -58,7 +57,7 @@ public class ClientSocket : MonoBehaviour
     /// <param name="bufferSize">The size of the buffer for this connection</param>
     /// /// <exception cref="InvalidOperationException"/>
     /// <exception cref="ArgumentNullException">Socket, connectCallback and ip can not be null</exception>
-    public void Connect(IPAddress ip, ushort port, [NotNull] Action<bool> connectCallback, Socket socket, uint bufferSize = 1024)
+    public void Connect(IPAddress ip, ushort port, Action<bool> connectCallback, Socket socket, uint bufferSize = 1024)
     {
         if (ip == null) throw new ArgumentNullException(nameof(ip));
         if (connectCallback == null) throw new ArgumentNullException(nameof(connectCallback));
@@ -100,7 +99,7 @@ public class ClientSocket : MonoBehaviour
     public void Disconnect()
     {
         tcpClient?.Close();
-        MessageReceived = null;
+        DataReceived = null;
         tcpClient = null;
     }
 
@@ -182,7 +181,7 @@ public class ClientSocket : MonoBehaviour
         int bytesRead = tcpClient.EndReceive(ar);
         if (bytesRead > 0)
         {
-            Dispatcher.Instance?.Invoke(() => MessageReceived?.Invoke(buffer, bytesRead));
+            Dispatcher.Instance?.Invoke(() => DataReceived?.Invoke(buffer, bytesRead));
             BeginReceive();
         }
         else
