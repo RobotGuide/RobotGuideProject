@@ -30,8 +30,8 @@
 #pragma once
 
 #include "Arduino.h"
-#include "inc/rptypes.h"
-#include "inc/rplidar_cmd.h"
+#include "rptypes.h"
+#include "rplidar_cmd.h"
 
 struct RPLidarMeasurement
 {
