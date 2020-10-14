@@ -21,8 +21,11 @@ void loop() {
     bool  startBit = lidar.getCurrentPoint().startBit; //whether this point is belong to a new scan
     byte  quality  = lidar.getCurrentPoint().quality; //quality of the current measurement
     
-    //perform data processing here... 
-    
+    serial.print("distance:");
+    serial.println(distance);
+    serial.print("angle: ");
+    serial.println(angle);
+    Serial.println();
     
   } else {
     analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
