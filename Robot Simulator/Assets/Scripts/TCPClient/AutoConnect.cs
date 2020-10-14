@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AutoConnect : MonoBehaviour
 {
-    [SerializeField] private string ipAddress;
+    [SerializeField] private string ipAddress = "127.0.0.1";
     [SerializeField] private ushort port = 0;
     private IPAddress address;
 
