@@ -25,15 +25,14 @@ void RotaryEncoderManager::clearCounts()
 
 void RotaryEncoderManager::setupInterrupts(int encoderPinL, int encoderPinR)
 {
-    void (* arr [1])();
-
-    arr[0] = &isr_renc_R;
+    // void (* arr [1])();
+    // arr[0] = &isr_renc_R;
 
     pinMode(encoderPinL, INPUT);
     pinMode(encoderPinR, INPUT);
 
     attachInterrupt(digitalPinToInterrupt(encoderPinL), &isr_renc_L, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(encoderPinR), arr[0], CHANGE);
+    attachInterrupt(digitalPinToInterrupt(encoderPinR), &isr_renc_R, CHANGE);
 }
 
 void RotaryEncoderManager::isr_renc_L()
