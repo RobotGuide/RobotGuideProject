@@ -9,16 +9,7 @@ public class Robot : MonoBehaviour
     [SerializeField] private float rotateSpeed = 0;
     private readonly Queue<Instruction> instructions = new Queue<Instruction>();
 
-
-    private void Start()
-    {
-        Instruction[] instructions = {new Instruction(InstructionType.Move, 10),
-                                      new Instruction(InstructionType.Rotate, 90),
-                                      new Instruction(InstructionType.Move, 10),
-                                      new Instruction(InstructionType.Rotate, -90),
-                                      new Instruction(InstructionType.Move, 10)};
-        AddInstructions(instructions);
-    }
+    private Instruction activeInstruction;
 
     public void AddInstruction(Instruction instructions)
     {
@@ -39,50 +30,52 @@ public class Robot : MonoBehaviour
         CheckForInstruction();
     }
 
-
-
     private void CheckForInstruction()
     {
-        if (instructions.Count <= 0) return;
+        if (instructions.Count <= 0 || activeInstruction != null) return;
 
-        Instruction currentInstruction = instructions.Dequeue();
-        Vector3 target = CalculateTarget(currentInstruction);
-        switch (currentInstruction.InstructionType)
+        activeInstruction = instructions.Dequeue();
+        Vector3 target = CalculateTarget(activeInstruction);
+        switch (activeInstruction.InstructionType)
         {
             case InstructionType.Rotate:
-                StartCoroutine(Rotate(target, Math.Abs(currentInstruction.Value) / rotateSpeed));
+                StartCoroutine(Rotate(target, Math.Abs(activeInstruction.Value) / rotateSpeed));
                 break;
             case InstructionType.Move:
-                StartCoroutine(Move(target, Math.Abs(currentInstruction.Value) / speed));
+                StartCoroutine(Move(target, Math.Abs(activeInstruction.Value) / speed));
                 break;
             default:
-                throw new ArgumentException(nameof(currentInstruction.InstructionType));
+                throw new ArgumentException(nameof(activeInstruction.InstructionType));
         }
     }
 
     private IEnumerator Rotate(Vector3 target, float time)
     {
+        Debug.Log($"Rotate x:{target.x}, y: {target.y}, z: {target.z}");
         WaitForEndOfFrame wait = new WaitForEndOfFrame();
         Quaternion fromAngle = transform.rotation;
         Quaternion toAngle = Quaternion.Euler(target);
-        for (float t = 0f; t <= 1; t += Time.deltaTime / time)
+        for (float t = 0f; t <= 1.1f; t += Time.deltaTime / time)
         {
             transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
             yield return wait;
         }
 
+        activeInstruction = null;
         CheckForInstruction();
     }
 
     private IEnumerator Move(Vector3 target, float time)
     {
+        Debug.Log($"Move x:{target.x}, y: {target.y}, z: {target.z}");
         WaitForEndOfFrame wait = new WaitForEndOfFrame();
         Vector3 position = transform.position;
-        for (float t = 0f; t <= 1; t += Time.deltaTime / time)
+        for (float t = 0f; t <= 1.1f; t += Time.deltaTime / time)
         {
             transform.position = Vector3.Lerp(position, target, t);
             yield return wait;
         }
+        activeInstruction = null;
         CheckForInstruction();
     }
 

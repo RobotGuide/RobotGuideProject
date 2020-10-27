@@ -5,8 +5,6 @@ using System.Text.RegularExpressions;
 
 public static class ProtocolParser
 {
-    private const int MaxLength = 4;
-
     public static ProtocolInstruction Parse(string message)
     {
         //Checks for strings with spaces
@@ -26,7 +24,7 @@ public static class ProtocolParser
 
         List<object> objects = new List<object>();
 
-        for (int i = 1; i < MaxLength; i++)
+        for (int i = 1; i < message.Count; i++)
         {
 
             if (message[i].StartsWith(stringCheck) && message[i].EndsWith(stringCheck))
