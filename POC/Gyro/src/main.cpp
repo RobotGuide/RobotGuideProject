@@ -2,11 +2,17 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 
+#define NUMBER_SAMPLES 500
+
 Adafruit_MPU6050 mpu;
 
 double x = 0;
 double y = 0;
 double z = 0;
+
+double xOffset = 0;
+double yOffset = 0;
+double zOffset = 0;
 
 unsigned long last = 0;
 
@@ -64,7 +70,7 @@ void setup(void)
         break;
     }
 
-    mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+    mpu.setFilterBandwidth(MPU6050_BAND_260_HZ);
     Serial.print("Filter bandwidth set to: ");
     switch (mpu.getFilterBandwidth())
     {
@@ -92,7 +98,40 @@ void setup(void)
     }
 
     Serial.println("");
-    delay(100);
+
+    float min_x, max_x, mid_x;
+    float min_y, max_y, mid_y;
+    float min_z, max_z, mid_z;
+
+    sensors_event_t a, g, temp;
+
+    for (uint16_t sample = 0; sample < NUMBER_SAMPLES; sample++)
+    {
+        mpu.getEvent(&a, &g, &temp);
+        x = g.gyro.x;
+        y = g.gyro.y;
+        z = g.gyro.z;
+
+        min_x = min(min_x, x);
+        min_y = min(min_y, y);
+        min_z = min(min_z, z);
+
+        max_x = max(max_x, x);
+        max_y = max(max_y, y);
+        max_z = max(max_z, z);
+
+        mid_x = (max_x + min_x) / 2;
+        mid_y = (max_y + min_y) / 2;
+        mid_z = (max_z + min_z) / 2;
+
+        delay(10);
+    }
+
+    xOffset = mid_x;
+    yOffset = mid_y;
+    zOffset = mid_z;
+
+    last = millis();
 }
 
 void loop()
@@ -113,13 +152,9 @@ void loop()
 
     double secondsLast = (millis() - last) / 1000.0;
 
-    double degX = (g.gyro.x + 0.1184) * 180 / PI;
-    double degY = (g.gyro.y + 0.0280) * 180 / PI;
-    double degZ = (g.gyro.z - 0.0095) * 180 / PI;
-
-    x += degX * secondsLast;
-    y += degY * secondsLast;
-    z += degZ * secondsLast;
+    x += ((g.gyro.x + 0.1184) * 180 / PI) * secondsLast;
+    y += ((g.gyro.y + 0.0280) * 180 / PI) * secondsLast;
+    z += ((g.gyro.z - 0.0095) * 180 / PI) * secondsLast;
 
     Serial.print("Rotation X: ");
     Serial.print(x);
