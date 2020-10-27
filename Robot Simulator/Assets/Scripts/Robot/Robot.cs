@@ -20,6 +20,13 @@ public class Robot : MonoBehaviour
         AddInstructions(instructions);
     }
 
+    public void AddInstruction(Instruction instructions)
+    {
+        this.instructions.Enqueue(instructions);
+        CheckForInstruction();
+    }
+
+
     public void AddInstructions(Instruction[] instructions)
     {
         for (int i = 0; i < instructions.Length; i++)
@@ -32,14 +39,14 @@ public class Robot : MonoBehaviour
         CheckForInstruction();
     }
 
+
+
     private void CheckForInstruction()
     {
         if (instructions.Count <= 0) return;
 
         Instruction currentInstruction = instructions.Dequeue();
         Vector3 target = CalculateTarget(currentInstruction);
-        Debug.Log(target);
-        Debug.Log(Enum.GetName(typeof(InstructionType), currentInstruction.InstructionType));
         switch (currentInstruction.InstructionType)
         {
             case InstructionType.Rotate:

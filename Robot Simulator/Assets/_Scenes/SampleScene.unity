@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 238662017}
   - component: {fileID: 238662021}
   - component: {fileID: 238662022}
+  - component: {fileID: 238662023}
   m_Layer: 0
   m_Name: Socket
   m_TagString: Untagged
@@ -221,6 +222,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   port: 3030
   startSearchOnStart: 1
+--- !u!114 &238662023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238662016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87f2746d4a427545b36ee840355ab11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &558904112
 GameObject:
   m_ObjectHideFlags: 0
