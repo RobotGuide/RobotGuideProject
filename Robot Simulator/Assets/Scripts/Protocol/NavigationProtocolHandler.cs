@@ -31,8 +31,11 @@ public class NavigationProtocolHandler : ProtocolHandler
                     Debug.LogWarning("Wrong permissions for type");
                     return;
                 }
+                double value = (double)instruction.ParameterValues[0];
+                if(instruction.Instruction == InstructionVariant.BACN)
+                    value = -value;
 
-                robotInstruction = new Instruction(InstructionType.Move, (float)((double)instruction.ParameterValues[0]));
+                robotInstruction = new Instruction(InstructionType.Move, (float)value);
                 break;
             case InstructionVariant.RIGN:
             case InstructionVariant.LEFN:
