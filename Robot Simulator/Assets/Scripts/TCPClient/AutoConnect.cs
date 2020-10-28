@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using UnityEngine;
 
 public class AutoConnect : MonoBehaviour
@@ -8,7 +6,6 @@ public class AutoConnect : MonoBehaviour
     [SerializeField] private string ipAddress = "127.0.0.1";
     [SerializeField] private ushort port = 0;
     private IPAddress address;
-
 
     // Start is called before the first frame update
     private void Start()

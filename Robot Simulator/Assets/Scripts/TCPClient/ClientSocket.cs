@@ -46,7 +46,6 @@ public class ClientSocket : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Try to connect with a specific ip address
     /// </summary>
