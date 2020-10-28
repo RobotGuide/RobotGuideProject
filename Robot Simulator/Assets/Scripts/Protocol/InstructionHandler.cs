@@ -7,7 +7,7 @@ public class InstructionHandler : MonoBehaviour
     [SerializeField] private ProtocolHandler[] handlers;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         ClientSocket.Instance.OnDataReceived += OnDataReceived;
     }
