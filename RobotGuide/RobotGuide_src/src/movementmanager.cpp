@@ -1,12 +1,12 @@
 #include "movementManager.h"
 //currently there is some innacuracy because of the momentum of the
 //robot at stop, this might be fixed in a couple of ways:
-//-play around with different gearboxes
 //-gently scale motor power down as rotary encoders approach target count
 //-calculate amount of rotary ticks that can be deducted by calculating drift
-//-get better motors
-//-reverse polarity of motors right before stopping (might be harmful): tried, but results are inconclusive
 //lets keep motor usage between 75 and 90/100 for now
+
+#define ROTATION_SPEED 75
+#define MOVEMENT_SPEED 90
 
 MotorManager::MotorManager(
     int wheelDiameter,
@@ -39,15 +39,23 @@ void MotorManager::move(float distance) //distance is in cm
 {
     done = false;
 
-    float revolutions = (distance * 10) / wheelCircumference;
+    float revolutions = (fabs(distance) * 10) / wheelCircumference;
 
     targetCount = revolutions * countsPerRev;
 
-    motorDriver->setLeftWheel(HIGH, LOW, 100);
-    motorDriver->setRightWheel(HIGH, LOW, 100);
+    if(distance > 0)
+    {
+        motorDriver->setLeftWheel(HIGH, LOW, MOVEMENT_SPEED);
+        motorDriver->setRightWheel(HIGH, LOW, MOVEMENT_SPEED);
+    }
+    else
+    {
+        motorDriver->setLeftWheel(LOW, HIGH, MOVEMENT_SPEED);
+        motorDriver->setRightWheel(LOW, HIGH, MOVEMENT_SPEED);
+    }
 
-    powerL = 100;
-    powerR = 100;
+    powerL = MOVEMENT_SPEED;
+    powerR = MOVEMENT_SPEED;
 
     rotaryEncoderManager->clearCounts();
     encLPrev = 0;
@@ -58,17 +66,25 @@ void MotorManager::rotate(float degrees)
 {
     done = false;
 
-    float distance = (degrees / 360.0) * platformCircumference;
+    float distance = (fabs(degrees) / 360.0) * platformCircumference;
     
     float revolutions = distance / wheelCircumference;
 
     targetCount = revolutions * countsPerRev;
-    
-    motorDriver->setLeftWheel(LOW, HIGH, 90);
-    motorDriver->setRightWheel(HIGH, LOW, 90);
 
-    powerL = 90;
-    powerR = 90;
+    if(degrees > 0)
+    {
+        motorDriver->setLeftWheel(LOW, HIGH, ROTATION_SPEED);
+        motorDriver->setRightWheel(HIGH, LOW, ROTATION_SPEED);
+    }
+    else
+    {
+        motorDriver->setLeftWheel(HIGH, LOW, ROTATION_SPEED);
+        motorDriver->setRightWheel(LOW, HIGH, ROTATION_SPEED);
+    }
+
+    powerL = ROTATION_SPEED;
+    powerR = ROTATION_SPEED;
 
     rotaryEncoderManager->clearCounts();
     encLPrev = 0;
@@ -82,7 +98,6 @@ void MotorManager::loopTick()
         return;
     }
 
-    //add a delay?
     unsigned long time = millis();
     if(time < prevTime)
     {
@@ -90,17 +105,12 @@ void MotorManager::loopTick()
     }
 
     prevTime = time + delayTime;
-    Serial.println(prevTime);
 
     uint32_t encoderL = rotaryEncoderManager->encoderCounterL;
     uint32_t encoderR = rotaryEncoderManager->encoderCounterR;
 
     if((encoderL > targetCount) && (encoderR > targetCount))
     {
-        // motorDriver->reverseLeftWheel();
-        // motorDriver->reverseRightWheel();
-        // delay(20);
-
         motorDriver->setLeftWheel(LOW, LOW, 255);
         motorDriver->setRightWheel(LOW, LOW, 255);
         done = true;

@@ -8,8 +8,14 @@
 //encoders
 //class for bare motor driver?
 
+//todo:
+//-reorganise using class/sequence diagrams
+//-make a base class for objects that need access to loop
+//-make uart communications class that sends instructions
+//-make header file for defines
+//-add a timeout of executing instructions?
+
 //TODO:
-//make function for setting left and right motors
 //measure motor voltage with 8 batteries
 
 //robot diameter:
@@ -33,9 +39,19 @@
 #define RENC_PIN_L 2
 #define RENC_PIN_R 3
 
+#define FORN "FORN"
+#define BACN "BACN"
+#define TULN "TULN"
+#define TURN "TURN"
+
+#define NAVS "NAVS"
+#define NAVF "NAVF"
+
 MotorDriver* motorDriver = NULL;
 RotaryEncoderManager* rencManager = NULL;
 MotorManager* motorManager = NULL;
+
+bool responseSend = false;
 
 void setup() {
   Serial.begin(9600);
@@ -59,17 +75,67 @@ void setup() {
     ENCODER_DISK_TICS,
     rencManager,
     motorDriver);
-
-  // motorManager->move(200.0f);
-  motorManager->rotate(90);
 };
 
 void loop() {
+
   motorManager->loopTick();
 
-  if(motorManager->destinationReached())
+  if(!motorManager->destinationReached())
   {
-    delay(2000);
-    motorManager->rotate(90);
+    return;
+  }
+
+  if(!responseSend)
+  {
+    Serial.println(NAVS);
+    responseSend = true;
+  }
+
+  else if (Serial.available())
+  {
+    char msg[20];
+    memset(msg, ' ', 20);
+
+    size_t msgLength = Serial.readBytesUntil('\n', msg, 20);
+
+    if(msgLength == 0)
+    {
+      Serial.println(NAVF);
+      return;
+    }
+
+    //todo: move tokenization of instructions to separate class
+    //also todo: actually tokenize instructions
+
+    char* cmd = strtok(msg, " ");
+    char* argc = strtok(NULL, " ");
+
+    float arg = atof(argc);
+
+    if(strcmp(cmd, FORN) == 0)
+    {
+      motorManager->move(arg);
+      responseSend = false;
+    }
+    else if(strcmp(cmd, BACN) == 0)
+    {
+      motorManager->move(-arg);
+      responseSend = false;
+    }
+    else if(strcmp(cmd, TURN) == 0)
+    {
+      motorManager->rotate(-arg);
+      responseSend = false;
+    }
+    else if(strcmp(cmd, TULN) == 0)
+    {
+      motorManager->rotate(arg);
+      responseSend = false;
+    }
+    else
+    {
+      Serial.println(NAVF);
+    }     
   }
 };

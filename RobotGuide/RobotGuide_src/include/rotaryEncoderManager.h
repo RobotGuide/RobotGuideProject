@@ -11,7 +11,6 @@ public:
     static RotaryEncoderManager* getInstance();
     void setupInterrupts(int encoderPinL, int encoderPinR);
     void clearCounts();
-    //~RotaryEncoderManager();
 
 private:
     RotaryEncoderManager();
