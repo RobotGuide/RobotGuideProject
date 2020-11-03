@@ -20,7 +20,8 @@ public class ClientSocket : MonoBehaviour
     /// <summary>
     /// Add or remove the event
     /// </summary>
-    public event Action<byte[], int> OnDataReceived {
+    public event Action<byte[], int> OnDataReceived
+    {
         add => DataReceived += value;
         remove => DataReceived -= value;
     }
@@ -63,7 +64,7 @@ public class ClientSocket : MonoBehaviour
         if (socket == null) throw new ArgumentNullException(nameof(socket));
         if (connectCallback == null) throw new ArgumentNullException(nameof(connectCallback));
 
-        if (tcpClient != null)
+        if (IsConnected)
         {
             throw new InvalidOperationException("TCP client is already connected");
         }
@@ -148,7 +149,8 @@ public class ClientSocket : MonoBehaviour
             Debug.LogError(e);
         }
 
-        Dispatcher.Instance?.Invoke(() => data.CallBack(IsConnected));
+        if (Dispatcher.Instance != null)
+            Dispatcher.Instance.Invoke(() => data.CallBack(IsConnected));
 
         if (IsConnected)
         {
@@ -180,7 +182,9 @@ public class ClientSocket : MonoBehaviour
         int bytesRead = tcpClient.EndReceive(ar);
         if (bytesRead > 0)
         {
-            Dispatcher.Instance?.Invoke(() => DataReceived?.Invoke(buffer, bytesRead));
+
+            if (Dispatcher.Instance != null)
+                Dispatcher.Instance.Invoke(() => DataReceived?.Invoke(buffer, bytesRead));
             BeginReceive();
         }
         else

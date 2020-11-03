@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class Robot : MonoBehaviour
@@ -10,6 +11,7 @@ public class Robot : MonoBehaviour
     private readonly Queue<Instruction> instructions = new Queue<Instruction>();
 
     private Instruction activeInstruction;
+
 
     public void AddInstruction(Instruction instructions)
     {
@@ -60,9 +62,7 @@ public class Robot : MonoBehaviour
             transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
             yield return wait;
         }
-
-        activeInstruction = null;
-        CheckForInstruction();
+        FinishTask();
     }
 
     private IEnumerator Move(Vector3 target, float time)
@@ -75,8 +75,7 @@ public class Robot : MonoBehaviour
             transform.position = Vector3.Lerp(position, target, t);
             yield return wait;
         }
-        activeInstruction = null;
-        CheckForInstruction();
+        FinishTask();
     }
 
 
@@ -90,6 +89,17 @@ public class Robot : MonoBehaviour
                 return transform.position + transform.forward * instruction.Value;
             default:
                 throw new ArgumentException(nameof(instruction.InstructionType));
+        }
+    }
+
+    private void FinishTask()
+    {
+        activeInstruction = null;
+        CheckForInstruction();
+        if (ClientSocket.Instance != null && ClientSocket.Instance.IsConnected)
+        {
+            ClientSocket.Instance.Send("NAVS");
+
         }
     }
 }
