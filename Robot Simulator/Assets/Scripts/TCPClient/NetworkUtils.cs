@@ -4,18 +4,17 @@ using System.Net;
 using System.Net.Sockets;
 using System.Linq;
 
-public class NetworkUtils 
+public class NetworkUtils
 {
     /// <summary>
-    /// Find your IP address
+    /// Find your local IP addresses
     /// </summary>
     /// <returns>The local ip address</returns>
-    public static IEnumerable<string> GetLocalIpAddress()
+    public static IEnumerable<string> GetLocalIpAddresses()
     {
         IPAddress[] ipAdresses = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
         return from ip in ipAdresses where ip.AddressFamily == AddressFamily.InterNetwork select ip.ToString();
     }
-
 
     /// <summary>
     /// Get router gateway
@@ -23,7 +22,7 @@ public class NetworkUtils
     /// <returns>The default gateway in string form</returns>
     public static IEnumerable<string> GetDefaultGateway()
     {
-        return from ip in GetLocalIpAddress() select ip.Substring(0, ip.LastIndexOf(".", StringComparison.Ordinal)).Insert(ip.LastIndexOf(".", StringComparison.Ordinal), ".1");
+        return from ip in GetLocalIpAddresses() select ip.Substring(0, ip.LastIndexOf(".", StringComparison.Ordinal)).Insert(ip.LastIndexOf(".", StringComparison.Ordinal), ".1");
     }
 
 
@@ -44,7 +43,7 @@ public class NetworkUtils
     /// <returns></returns>
     private static IEnumerable<string> GetLocalIpAddressWithoutLastDigit()
     {
-        return from ip in GetLocalIpAddress() select ip.Substring(0, ip.LastIndexOf(".", StringComparison.Ordinal));
+        return from ip in GetLocalIpAddresses() select ip.Substring(0, ip.LastIndexOf(".", StringComparison.Ordinal));
     }
 
 
@@ -58,7 +57,7 @@ public class NetworkUtils
     {
         if (rangeScan > 255)
         {
-            throw  new ArgumentException($"{nameof(rangeScan)} can not be above 255");
+            throw new ArgumentException($"{nameof(rangeScan)} can not be above 255");
         }
 
         List<IPAddress> result = new List<IPAddress>();
