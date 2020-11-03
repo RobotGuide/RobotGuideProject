@@ -64,7 +64,7 @@ public class ClientSocket : MonoBehaviour
         if (socket == null) throw new ArgumentNullException(nameof(socket));
         if (connectCallback == null) throw new ArgumentNullException(nameof(connectCallback));
 
-        if (tcpClient != null)
+        if (IsConnected)
         {
             throw new InvalidOperationException("TCP client is already connected");
         }
