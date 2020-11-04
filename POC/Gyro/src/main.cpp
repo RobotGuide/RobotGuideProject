@@ -3,16 +3,18 @@
 #include <Wire.h>
 
 #define NUMBER_SAMPLES 500
+#define LOW_PASS_FILTER 0.02f
+#define HIGH_PASS_FILTER 0.98f
 
 Adafruit_MPU6050 mpu;
 
-double x = 0;
-double y = 0;
-double z = 0;
+float x = 0;
+float y = 0;
+float z = 0;
 
-double xOffset = 0;
-double yOffset = 0;
-double zOffset = 0;
+float xOffset = 0;
+float yOffset = 0;
+float zOffset = 0;
 
 unsigned long last = 0;
 
@@ -36,101 +38,31 @@ void setup(void)
     Serial.println("MPU6050 Found!");
 
     mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
-    Serial.print("Accelerometer range set to: ");
-    switch (mpu.getAccelerometerRange())
-    {
-    case MPU6050_RANGE_2_G:
-        Serial.println("+-2G");
-        break;
-    case MPU6050_RANGE_4_G:
-        Serial.println("+-4G");
-        break;
-    case MPU6050_RANGE_8_G:
-        Serial.println("+-8G");
-        break;
-    case MPU6050_RANGE_16_G:
-        Serial.println("+-16G");
-        break;
-    }
     mpu.setGyroRange(MPU6050_RANGE_500_DEG);
-    Serial.print("Gyro range set to: ");
-    switch (mpu.getGyroRange())
-    {
-    case MPU6050_RANGE_250_DEG:
-        Serial.println("+- 250 deg/s");
-        break;
-    case MPU6050_RANGE_500_DEG:
-        Serial.println("+- 500 deg/s");
-        break;
-    case MPU6050_RANGE_1000_DEG:
-        Serial.println("+- 1000 deg/s");
-        break;
-    case MPU6050_RANGE_2000_DEG:
-        Serial.println("+- 2000 deg/s");
-        break;
-    }
-
     mpu.setFilterBandwidth(MPU6050_BAND_260_HZ);
-    Serial.print("Filter bandwidth set to: ");
-    switch (mpu.getFilterBandwidth())
-    {
-    case MPU6050_BAND_260_HZ:
-        Serial.println("260 Hz");
-        break;
-    case MPU6050_BAND_184_HZ:
-        Serial.println("184 Hz");
-        break;
-    case MPU6050_BAND_94_HZ:
-        Serial.println("94 Hz");
-        break;
-    case MPU6050_BAND_44_HZ:
-        Serial.println("44 Hz");
-        break;
-    case MPU6050_BAND_21_HZ:
-        Serial.println("21 Hz");
-        break;
-    case MPU6050_BAND_10_HZ:
-        Serial.println("10 Hz");
-        break;
-    case MPU6050_BAND_5_HZ:
-        Serial.println("5 Hz");
-        break;
-    }
 
     Serial.println("");
 
-    float min_x, max_x, mid_x;
-    float min_y, max_y, mid_y;
-    float min_z, max_z, mid_z;
+    const int repetitions = 1000;
 
-    sensors_event_t a, g, temp;
-
-    for (uint16_t sample = 0; sample < NUMBER_SAMPLES; sample++)
+    for (int cal_int = 0; cal_int < repetitions; cal_int++)
     {
+        sensors_event_t a, g, temp;
         mpu.getEvent(&a, &g, &temp);
-        x = g.gyro.x;
-        y = g.gyro.y;
-        z = g.gyro.z;
 
-        min_x = min(min_x, x);
-        min_y = min(min_y, y);
-        min_z = min(min_z, z);
-
-        max_x = max(max_x, x);
-        max_y = max(max_y, y);
-        max_z = max(max_z, z);
-
-        mid_x = (max_x + min_x) / 2;
-        mid_y = (max_y + min_y) / 2;
-        mid_z = (max_z + min_z) / 2;
-
-        delay(10);
+        //Add the gyro x offset to the gyro_x_cal variable
+        xOffset += g.gyro.x;
+        //Add the gyro y offset to the gyro_y_cal variable
+        yOffset += g.gyro.y;
+        //Add the gyro z offset to the gyro_z_cal variable
+        zOffset += g.gyro.z;
+        //Delay 3us to have 250Hz for-loop
+        delay(3);
     }
 
-    xOffset = mid_x;
-    yOffset = mid_y;
-    zOffset = mid_z;
-
+    xOffset /= repetitions;
+    yOffset /= repetitions;
+    zOffset /= repetitions;
     last = millis();
 }
 
@@ -141,32 +73,27 @@ void loop()
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
 
-    // /* Print out the values */
-    // Serial.print("Acceleration X: ");
-    // Serial.print(a.acceleration.x);
-    // Serial.print(", Y: ");
-    // Serial.print(a.acceleration.y);
-    // Serial.print(", Z: ");
-    // Serial.print(a.acceleration.z);
-    // Serial.println(" m/s^2");
+    double deltaTime = (millis() - last) / 1000.0;
 
-    double secondsLast = (millis() - last) / 1000.0;
+    double deltaX = ((g.gyro.x + xOffset)) * deltaTime;
+    double deltaY = ((g.gyro.y + yOffset)) * deltaTime;
+    double deltaZ = ((g.gyro.z + zOffset)) * deltaTime;
 
-    x += ((g.gyro.x + 0.1184) * 180 / PI) * secondsLast;
-    y += ((g.gyro.y + 0.0280) * 180 / PI) * secondsLast;
-    z += ((g.gyro.z - 0.0095) * 180 / PI) * secondsLast;
+    double accelerationX = atan(a.acceleration.x / sqrt(pow(a.acceleration.y, 2) + pow(a.acceleration.z, 2)));
+    double accelerationY = atan(a.acceleration.y / sqrt(pow(a.acceleration.x, 2) + pow(a.acceleration.z, 2)));
+    double accelerationZ = atan(sqrt(pow(a.acceleration.x, 2) + pow(a.acceleration.y, 2)) / a.acceleration.z);
 
-    Serial.print("Rotation X: ");
+    x = (HIGH_PASS_FILTER * (x * DEG_TO_RAD + deltaX) + LOW_PASS_FILTER * accelerationX) * RAD_TO_DEG;
+    y = (HIGH_PASS_FILTER * (y * DEG_TO_RAD + deltaY) + LOW_PASS_FILTER * accelerationY) * RAD_TO_DEG;
+    z = (HIGH_PASS_FILTER * (z * DEG_TO_RAD + deltaZ) + LOW_PASS_FILTER * accelerationZ) * RAD_TO_DEG;
+
+    Serial.print("X: ");
     Serial.print(x);
     Serial.print(", Y: ");
     Serial.print(y);
     Serial.print(", Z: ");
     Serial.print(z);
     Serial.println(" angle");
-
-    // Serial.print("Temperature: ");
-    // Serial.print(temp.temperature);
-    // Serial.println(" degC");
 
     last = millis();
 }
