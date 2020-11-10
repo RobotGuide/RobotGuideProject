@@ -5,17 +5,17 @@
 #include "rotaryEncoders.h"
 #include "motorDriver.h"
 
-class MotorManager
+class Movement
 {
 public:
-    MotorManager(
+    Movement(
         int wheelDiameter,
         int platformDiameter,
         int rencCountsPerRev,
         RotaryEncoders* rotaryEncoders,
         MotorDriver* motorDriver);
     bool destinationReached();
-    void move(float distance);
+    void move(float centimeters);
     void rotate(float degrees);
     void loopTick();
     void brake();
@@ -39,6 +39,8 @@ private:
 
     void adjustWheelPower(unsigned long encoderL, unsigned long encoderR);
     void setWheelPower();
+    bool rotaryEncodersReachedCount(unsigned long encoderL, unsigned long encoderR);
+    bool deltaTimeElapsed(unsigned long time);
 };
 
 #endif

@@ -1,4 +1,4 @@
-#include "movementManager.h"
+#include "movement.h"
 //currently there is some innacuracy because of the momentum of the
 //robot at stop, this might be fixed in a couple of ways:
 //-gently scale motor power down as rotary encoders approach target count
@@ -7,7 +7,7 @@
 
 //todo: think about dynamically deciding motor power
 
-MotorManager::MotorManager(
+Movement::Movement(
     int wheelDiameter,
     int platformDiameter,
     int rencCountsPerRev,
@@ -29,20 +29,20 @@ MotorManager::MotorManager(
     this->motorDriver = motorDriver;
 }
 
-bool MotorManager::destinationReached()
+bool Movement::destinationReached()
 {
     return done;
 }
 
-void MotorManager::move(float distance) //distance is in cm
+void Movement::move(float centimeters)
 {
     done = false;
 
-    float revolutions = (fabs(distance) * 10) / wheelCircumference;
+    float revolutions = (fabs(centimeters) * 10) / wheelCircumference;
 
     targetCount = revolutions * countsPerRev;
 
-    if(distance > 0)
+    if(centimeters > 0)
     {
         motorDriver->setLeftWheel(HIGH, LOW, baseMoveSpeed);
         motorDriver->setRightWheel(HIGH, LOW, baseMoveSpeed);
@@ -61,7 +61,7 @@ void MotorManager::move(float distance) //distance is in cm
     encRPrev = 0;
 }
 
-void MotorManager::rotate(float degrees)
+void Movement::rotate(float degrees)
 {
     done = false;
 
@@ -90,7 +90,7 @@ void MotorManager::rotate(float degrees)
     encRPrev = 0;
 }
 
-void MotorManager::loopTick()
+void Movement::loopTick()
 {
     if(done)
     {
@@ -98,7 +98,7 @@ void MotorManager::loopTick()
     }
 
     unsigned long time = millis();
-    if(time < prevTime)
+    if(deltaTimeElapsed(time))
     {
         return;
     }
@@ -108,7 +108,7 @@ void MotorManager::loopTick()
     unsigned long encoderL = rotaryEncoders->getEncoderCountL();
     unsigned long encoderR = rotaryEncoders->getEncoderCountR();
 
-    if((encoderL > targetCount) && (encoderR > targetCount))
+    if(rotaryEncodersReachedCount(encoderL, encoderR))
     {
         brake();
         return;
@@ -118,14 +118,14 @@ void MotorManager::loopTick()
     adjustWheelPower(encoderL, encoderR);
 }
 
-void MotorManager::brake()
+void Movement::brake()
 {
     motorDriver->setLeftWheel(LOW, LOW, 255);
     motorDriver->setRightWheel(LOW, LOW, 255);
     done = true;
 }
 
-void MotorManager::adjustWheelPower(unsigned long encoderL, unsigned long encoderR)
+void Movement::adjustWheelPower(unsigned long encoderL, unsigned long encoderR)
 {
     unsigned long encoderLDiv = encoderL - encLPrev;
     unsigned long encoderRDiv = encoderR - encRPrev;
@@ -148,8 +148,18 @@ void MotorManager::adjustWheelPower(unsigned long encoderL, unsigned long encode
     }
 }
 
-void MotorManager::setWheelPower()
+void Movement::setWheelPower()
 {
     motorDriver->setLeftWheel(powerL);
     motorDriver->setRightWheel(powerR);
+}
+
+bool Movement::rotaryEncodersReachedCount(unsigned long encoderL, unsigned long encoderR)
+{
+    return (encoderL > targetCount) && (encoderR > targetCount);
+}
+
+bool Movement::deltaTimeElapsed(unsigned long time)
+{
+    return time < prevTime;
 }

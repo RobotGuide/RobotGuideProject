@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "rotaryEncoders.h"
-#include "movementManager.h"
+#include "movement.h"
 #include "motorDriver.h"
 
 //todo: see if you can make a universal interrupt dispatcher
@@ -46,7 +46,7 @@
 
 MotorDriver* motorDriver = NULL;
 RotaryEncoders* rotaryEncoders = NULL;
-MotorManager* motorManager = NULL;
+Movement* motorManager = NULL;
 
 bool responseSend = false;
 
@@ -66,7 +66,7 @@ void setup() {
   rotaryEncoders = rotaryEncoders->getInstance();
   rotaryEncoders->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
 
-  motorManager = new MotorManager(
+  motorManager = new Movement(
     WHEEL_DIAMETER,
     PLATFORM_DIAMETER,
     ENCODER_DISK_TICS,
