@@ -2,7 +2,7 @@
 #define MOTOR_MANAGER
 
 #include <Arduino.h>
-#include "rotaryEncoderManager.h"
+#include "rotaryEncoders.h"
 #include "motorDriver.h"
 
 class MotorManager
@@ -12,14 +12,14 @@ public:
         int wheelDiameter,
         int platformDiameter,
         int rencCountsPerRev,
-        RotaryEncoderManager* rotaryEncoderManager,
+        RotaryEncoders* rotaryEncoders,
         MotorDriver* motorDriver);
     bool destinationReached();
     void move(float distance);
     void rotate(float degrees);
     void loopTick();
 private:
-    RotaryEncoderManager* rotaryEncoderManager;
+    RotaryEncoders* rotaryEncoders;
     MotorDriver* motorDriver;
     bool done;
     float wheelCircumference; //mm

@@ -5,14 +5,16 @@
 //-calculate amount of rotary ticks that can be deducted by calculating drift
 //lets keep motor usage between 75 and 90/100 for now
 
-#define ROTATION_SPEED 75
+//todo: think about dynamically deciding motor power
+
+#define ROTATION_SPEED 80
 #define MOVEMENT_SPEED 90
 
 MotorManager::MotorManager(
     int wheelDiameter,
     int platformDiameter,
     int rencCountsPerRev,
-    RotaryEncoderManager* rotaryEncoderManager,
+    RotaryEncoders* rotaryEncoders,
     MotorDriver* motorDriver)
 {
     this->done = true;
@@ -26,7 +28,7 @@ MotorManager::MotorManager(
     this->prevTime = 0;
 
     this->countsPerRev = rencCountsPerRev;
-    this->rotaryEncoderManager = rotaryEncoderManager;
+    this->rotaryEncoders = rotaryEncoders;
     this->motorDriver = motorDriver;
 }
 
@@ -57,7 +59,7 @@ void MotorManager::move(float distance) //distance is in cm
     powerL = MOVEMENT_SPEED;
     powerR = MOVEMENT_SPEED;
 
-    rotaryEncoderManager->clearCounts();
+    rotaryEncoders->clearCounts();
     encLPrev = 0;
     encRPrev = 0;
 }
@@ -86,7 +88,7 @@ void MotorManager::rotate(float degrees)
     powerL = ROTATION_SPEED;
     powerR = ROTATION_SPEED;
 
-    rotaryEncoderManager->clearCounts();
+    rotaryEncoders->clearCounts();
     encLPrev = 0;
     encRPrev = 0;
 }
@@ -106,8 +108,8 @@ void MotorManager::loopTick()
 
     prevTime = time + delayTime;
 
-    uint32_t encoderL = rotaryEncoderManager->encoderCounterL;
-    uint32_t encoderR = rotaryEncoderManager->encoderCounterR;
+    uint32_t encoderL = rotaryEncoders->encoderCounterL;
+    uint32_t encoderR = rotaryEncoders->encoderCounterR;
 
     if((encoderL > targetCount) && (encoderR > targetCount))
     {

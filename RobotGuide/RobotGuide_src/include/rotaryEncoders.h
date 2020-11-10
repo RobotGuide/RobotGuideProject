@@ -3,20 +3,20 @@
 
 #include <Arduino.h>
 
-class RotaryEncoderManager
+class RotaryEncoders
 {
 public:
     volatile uint32_t encoderCounterL;
     volatile uint32_t encoderCounterR;
-    static RotaryEncoderManager* getInstance();
+    static RotaryEncoders* getInstance();
     void setupInterrupts(int encoderPinL, int encoderPinR);
     void clearCounts();
 
 private:
-    RotaryEncoderManager();
+    RotaryEncoders();
     static void isr_renc_L();
     static void isr_renc_R();
-    static RotaryEncoderManager* instance;
+    static RotaryEncoders* instance;
 };
 
 #endif

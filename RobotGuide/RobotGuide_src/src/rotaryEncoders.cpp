@@ -1,29 +1,29 @@
-#include "rotaryEncoderManager.h"
+#include "rotaryEncoders.h"
 
-RotaryEncoderManager* RotaryEncoderManager::instance = NULL;
+RotaryEncoders* RotaryEncoders::instance = NULL;
 
-RotaryEncoderManager* RotaryEncoderManager::getInstance()
+RotaryEncoders* RotaryEncoders::getInstance()
 {
     if(instance == NULL)
     {
-      instance = new RotaryEncoderManager();
+      instance = new RotaryEncoders();
     }
 
     return instance;
 }
 
-RotaryEncoderManager::RotaryEncoderManager()
+RotaryEncoders::RotaryEncoders()
 {
     clearCounts();
 }
 
-void RotaryEncoderManager::clearCounts()
+void RotaryEncoders::clearCounts()
 {
     encoderCounterL = 0;
     encoderCounterR = 0;
 }
 
-void RotaryEncoderManager::setupInterrupts(int encoderPinL, int encoderPinR)
+void RotaryEncoders::setupInterrupts(int encoderPinL, int encoderPinR)
 {
     // void (* arr [1])();
     // arr[0] = &isr_renc_R;
@@ -35,12 +35,12 @@ void RotaryEncoderManager::setupInterrupts(int encoderPinL, int encoderPinR)
     attachInterrupt(digitalPinToInterrupt(encoderPinR), &isr_renc_R, CHANGE);
 }
 
-void RotaryEncoderManager::isr_renc_L()
+void RotaryEncoders::isr_renc_L()
 {
     instance->encoderCounterL++;
 }
 
-void RotaryEncoderManager::isr_renc_R()
+void RotaryEncoders::isr_renc_R()
 {
     instance->encoderCounterR++;
 }

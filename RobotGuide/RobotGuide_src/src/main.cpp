@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "rotaryEncoderManager.h"
+#include "rotaryEncoders.h"
 #include "movementManager.h"
 #include "motorDriver.h"
 
@@ -44,11 +44,11 @@
 #define TULN "TULN"
 #define TURN "TURN"
 
-#define NAVS "NAVS"
-#define NAVF "NAVF"
+#define NAVS "NAVS\n"
+#define NAVF "NAVF\n"
 
 MotorDriver* motorDriver = NULL;
-RotaryEncoderManager* rencManager = NULL;
+RotaryEncoders* rotaryEncoders = NULL;
 MotorManager* motorManager = NULL;
 
 bool responseSend = false;
@@ -66,14 +66,14 @@ void setup() {
 
   //ugly! but necessary to get global interrupts to work
   //to be changed later
-  rencManager = rencManager->getInstance();
-  rencManager->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
+  rotaryEncoders = rotaryEncoders->getInstance();
+  rotaryEncoders->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
 
   motorManager = new MotorManager(
     WHEEL_DIAMETER,
     PLATFORM_DIAMETER,
     ENCODER_DISK_TICS,
-    rencManager,
+    rotaryEncoders,
     motorDriver);
 };
 
@@ -88,7 +88,7 @@ void loop() {
 
   if(!responseSend)
   {
-    Serial.println(NAVS);
+    Serial.print(NAVS);
     responseSend = true;
   }
 
@@ -101,7 +101,7 @@ void loop() {
 
     if(msgLength == 0)
     {
-      Serial.println(NAVF);
+      Serial.print(NAVF);
       return;
     }
 
@@ -135,7 +135,7 @@ void loop() {
     }
     else
     {
-      Serial.println(NAVF);
+      Serial.print(NAVF);
     }     
   }
 };
