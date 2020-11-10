@@ -7,9 +7,6 @@
 
 //todo: think about dynamically deciding motor power
 
-#define ROTATION_SPEED 80
-#define MOVEMENT_SPEED 90
-
 MotorManager::MotorManager(
     int wheelDiameter,
     int platformDiameter,
@@ -47,17 +44,17 @@ void MotorManager::move(float distance) //distance is in cm
 
     if(distance > 0)
     {
-        motorDriver->setLeftWheel(HIGH, LOW, MOVEMENT_SPEED);
-        motorDriver->setRightWheel(HIGH, LOW, MOVEMENT_SPEED);
+        motorDriver->setLeftWheel(HIGH, LOW, baseMoveSpeed);
+        motorDriver->setRightWheel(HIGH, LOW, baseMoveSpeed);
     }
     else
     {
-        motorDriver->setLeftWheel(LOW, HIGH, MOVEMENT_SPEED);
-        motorDriver->setRightWheel(LOW, HIGH, MOVEMENT_SPEED);
+        motorDriver->setLeftWheel(LOW, HIGH, baseMoveSpeed);
+        motorDriver->setRightWheel(LOW, HIGH, baseMoveSpeed);
     }
 
-    powerL = MOVEMENT_SPEED;
-    powerR = MOVEMENT_SPEED;
+    powerL = baseMoveSpeed;
+    powerR = baseMoveSpeed;
 
     rotaryEncoders->clearCounts();
     encLPrev = 0;
@@ -76,17 +73,17 @@ void MotorManager::rotate(float degrees)
 
     if(degrees > 0)
     {
-        motorDriver->setLeftWheel(LOW, HIGH, ROTATION_SPEED);
-        motorDriver->setRightWheel(HIGH, LOW, ROTATION_SPEED);
+        motorDriver->setLeftWheel(LOW, HIGH, baseTurnSpeed);
+        motorDriver->setRightWheel(HIGH, LOW, baseTurnSpeed);
     }
     else
     {
-        motorDriver->setLeftWheel(HIGH, LOW, ROTATION_SPEED);
-        motorDriver->setRightWheel(LOW, HIGH, ROTATION_SPEED);
+        motorDriver->setLeftWheel(HIGH, LOW, baseTurnSpeed);
+        motorDriver->setRightWheel(LOW, HIGH, baseTurnSpeed);
     }
 
-    powerL = ROTATION_SPEED;
-    powerR = ROTATION_SPEED;
+    powerL = baseTurnSpeed;
+    powerR = baseTurnSpeed;
 
     rotaryEncoders->clearCounts();
     encLPrev = 0;
@@ -111,25 +108,33 @@ void MotorManager::loopTick()
     unsigned long encoderL = rotaryEncoders->getEncoderCountL();
     unsigned long encoderR = rotaryEncoders->getEncoderCountR();
 
-    //brake helper function, or could be public
     if((encoderL > targetCount) && (encoderR > targetCount))
     {
         brake();
         return;
     }
 
-    motorDriver->setLeftWheel(powerL);
-    motorDriver->setRightWheel(powerR);
+    setWheelPower();
+    adjustWheelPower(encoderL, encoderR);
+}
 
-    uint32_t encoderLDiv = encoderL - encLPrev;
-    uint32_t encoderRDiv = encoderR - encRPrev;
+void MotorManager::brake()
+{
+    motorDriver->setLeftWheel(LOW, LOW, 255);
+    motorDriver->setRightWheel(LOW, LOW, 255);
+    done = true;
+}
+
+void MotorManager::adjustWheelPower(unsigned long encoderL, unsigned long encoderR)
+{
+    unsigned long encoderLDiv = encoderL - encLPrev;
+    unsigned long encoderRDiv = encoderR - encRPrev;
 
     encLPrev = encoderL;
     encRPrev = encoderR;
 
     //todo: add linear interpolation to power variables?
 
-    //turn into adjustwheelpower helper function
     if(encoderLDiv > encoderRDiv)
     {
         powerL -= 5;
@@ -143,9 +148,8 @@ void MotorManager::loopTick()
     }
 }
 
-void MotorManager::brake()
+void MotorManager::setWheelPower()
 {
-    motorDriver->setLeftWheel(LOW, LOW, 255);
-    motorDriver->setRightWheel(LOW, LOW, 255);
-    done = true;
+    motorDriver->setLeftWheel(powerL);
+    motorDriver->setRightWheel(powerR);
 }

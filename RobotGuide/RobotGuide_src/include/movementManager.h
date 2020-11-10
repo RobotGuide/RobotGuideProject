@@ -36,6 +36,9 @@ private:
 
     const int baseMoveSpeed = 90;
     const int baseTurnSpeed = 80;
+
+    void adjustWheelPower(unsigned long encoderL, unsigned long encoderR);
+    void setWheelPower();
 };
 
 #endif

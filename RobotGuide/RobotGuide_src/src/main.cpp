@@ -15,9 +15,6 @@
 //-make header file for defines
 //-add a timeout of executing instructions?
 
-//TODO:
-//measure motor voltage with 8 batteries
-
 //robot diameter:
 //14.5cm -> 145mm
 //robot circumference:
