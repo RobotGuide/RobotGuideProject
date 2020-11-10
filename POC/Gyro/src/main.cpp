@@ -8,13 +8,16 @@
 
 Adafruit_MPU6050 mpu;
 
-float x = 0;
-float y = 0;
-float z = 0;
+float yaw = 0;
+float pitch = 0;
+float roll = 0;
 
 float xOffset = 0;
 float yOffset = 0;
 float zOffset = 0;
+
+double deltaX;
+double deltaY;
 
 unsigned long last = 0;
 
@@ -38,7 +41,7 @@ void setup(void)
     Serial.println("MPU6050 Found!");
 
     mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
-    mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+    mpu.setGyroRange(MPU6050_RANGE_250_DEG);
     mpu.setFilterBandwidth(MPU6050_BAND_260_HZ);
 
     Serial.println("");
@@ -66,6 +69,11 @@ void setup(void)
     last = millis();
 }
 
+double length(double valueA, double valueB)
+{
+    return sqrt(pow(valueA, 2) + pow(valueB, 2));
+}
+
 void loop()
 {
 
@@ -75,25 +83,22 @@ void loop()
 
     double deltaTime = (millis() - last) / 1000.0;
 
-    double deltaX = ((g.gyro.x + xOffset)) * deltaTime;
-    double deltaY = ((g.gyro.y + yOffset)) * deltaTime;
-    double deltaZ = ((g.gyro.z + zOffset)) * deltaTime;
+    deltaX += ((g.gyro.x - xOffset)) * deltaTime;
+    deltaY += ((g.gyro.y - yOffset)) * deltaTime;
 
-    double accelerationX = atan(a.acceleration.x / sqrt(pow(a.acceleration.y, 2) + pow(a.acceleration.z, 2)));
-    double accelerationY = atan(a.acceleration.y / sqrt(pow(a.acceleration.x, 2) + pow(a.acceleration.z, 2)));
-    double accelerationZ = atan(sqrt(pow(a.acceleration.x, 2) + pow(a.acceleration.y, 2)) / a.acceleration.z);
+    //Filter accelerometer
+    double accelerationX = atan(a.acceleration.y / length(a.acceleration.x, a.acceleration.z));
+    double accelerationY = atan(-1 * a.acceleration.x / length(a.acceleration.y, a.acceleration.z));
 
-    x = (HIGH_PASS_FILTER * (x * DEG_TO_RAD + deltaX) + LOW_PASS_FILTER * accelerationX) * RAD_TO_DEG;
-    y = (HIGH_PASS_FILTER * (y * DEG_TO_RAD + deltaY) + LOW_PASS_FILTER * accelerationY) * RAD_TO_DEG;
-    z = (HIGH_PASS_FILTER * (z * DEG_TO_RAD + deltaZ) + LOW_PASS_FILTER * accelerationZ) * RAD_TO_DEG;
+    roll = HIGH_PASS_FILTER * deltaX + LOW_PASS_FILTER * accelerationX;
+    pitch = HIGH_PASS_FILTER * deltaY + LOW_PASS_FILTER * accelerationY;
+    yaw += ((g.gyro.z - zOffset)) * deltaTime;
 
-    Serial.print("X: ");
-    Serial.print(x);
-    Serial.print(", Y: ");
-    Serial.print(y);
-    Serial.print(", Z: ");
-    Serial.print(z);
-    Serial.println(" angle");
+    Serial.print(roll * RAD_TO_DEG);
+    Serial.print(" ");
+    Serial.print(pitch * RAD_TO_DEG);
+    Serial.print(" ");
+    Serial.println(yaw * RAD_TO_DEG);
 
     last = millis();
 }
