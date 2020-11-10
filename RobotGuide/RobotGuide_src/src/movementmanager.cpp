@@ -108,14 +108,13 @@ void MotorManager::loopTick()
 
     prevTime = time + delayTime;
 
-    uint32_t encoderL = rotaryEncoders->encoderCounterL;
-    uint32_t encoderR = rotaryEncoders->encoderCounterR;
+    unsigned long encoderL = rotaryEncoders->getEncoderCountL();
+    unsigned long encoderR = rotaryEncoders->getEncoderCountR();
 
+    //brake helper function, or could be public
     if((encoderL > targetCount) && (encoderR > targetCount))
     {
-        motorDriver->setLeftWheel(LOW, LOW, 255);
-        motorDriver->setRightWheel(LOW, LOW, 255);
-        done = true;
+        brake();
         return;
     }
 
@@ -128,8 +127,9 @@ void MotorManager::loopTick()
     encLPrev = encoderL;
     encRPrev = encoderR;
 
-    //todo: add linear interpolation to power variables
+    //todo: add linear interpolation to power variables?
 
+    //turn into adjustwheelpower helper function
     if(encoderLDiv > encoderRDiv)
     {
         powerL -= 5;
@@ -141,4 +141,11 @@ void MotorManager::loopTick()
         powerL += 5;
         powerR -= 5;
     }
+}
+
+void MotorManager::brake()
+{
+    motorDriver->setLeftWheel(LOW, LOW, 255);
+    motorDriver->setRightWheel(LOW, LOW, 255);
+    done = true;
 }

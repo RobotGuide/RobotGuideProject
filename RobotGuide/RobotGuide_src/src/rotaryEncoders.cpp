@@ -23,11 +23,18 @@ void RotaryEncoders::clearCounts()
     encoderCounterR = 0;
 }
 
+unsigned long RotaryEncoders::getEncoderCountL() const
+{
+    return encoderCounterL;
+}
+
+unsigned long RotaryEncoders::getEncoderCountR() const
+{
+    return encoderCounterR;
+}
+
 void RotaryEncoders::setupInterrupts(int encoderPinL, int encoderPinR)
 {
-    // void (* arr [1])();
-    // arr[0] = &isr_renc_R;
-
     pinMode(encoderPinL, INPUT);
     pinMode(encoderPinR, INPUT);
 

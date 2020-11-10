@@ -18,20 +18,24 @@ public:
     void move(float distance);
     void rotate(float degrees);
     void loopTick();
+    void brake();
 private:
     RotaryEncoders* rotaryEncoders;
     MotorDriver* motorDriver;
     bool done;
-    float wheelCircumference; //mm
-    float platformCircumference; //mm
-    uint16_t countsPerRev;
-    uint32_t targetCount;
-    uint32_t encLPrev;
-    uint32_t encRPrev;
-    byte powerL;
-    byte powerR;
+    int wheelCircumference;
+    int platformCircumference;
+    unsigned long countsPerRev;
+    unsigned long targetCount;
+    unsigned long encLPrev;
+    unsigned long encRPrev;
+    uint8_t powerL;
+    uint8_t powerR;
     unsigned long delayTime;
     unsigned long prevTime;
+
+    const int baseMoveSpeed = 90;
+    const int baseTurnSpeed = 80;
 };
 
 #endif
