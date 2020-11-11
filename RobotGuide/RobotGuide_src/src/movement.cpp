@@ -4,95 +4,86 @@
 //-gently scale motor power down as rotary encoders approach target count
 //-calculate amount of rotary ticks that can be deducted by calculating drift
 //lets keep motor usage between 75 and 90/100 for now
+//todo: think about dynamically deciding motor power using the gyroscope
 
-//todo: think about dynamically deciding motor power
-
-Movement::Movement(
-    int wheelDiameter,
-    int platformDiameter,
-    int rencCountsPerRev,
-    RotaryEncoders* rotaryEncoders,
-    MotorDriver* motorDriver)
+Movement::Movement(int wheelDiameter, int platformDiameter, int rencCountsPerRev,
+    RotaryEncoders* rotaryEncoders, L298NWheel* leftWheel, L298NWheel* rightWheel)
+    :done_(true), targetCount_(0), encLPrev_(0), encRPrev_(0), prevTime_(0),
+    countsPerRev_(rencCountsPerRev), rotaryEncoders_(rotaryEncoders),
+    leftWheel_(leftWheel), rightWheel_(rightWheel),
+    wheelCircumference_((PI * wheelDiameter) + 0.5),
+    platformCircumference_((PI * platformDiameter) + 0.5)
 {
-    this->done = true;
-    this->wheelCircumference = PI * wheelDiameter;
-    this->platformCircumference = PI * platformDiameter;
-    this->targetCount = 0;
-    this->encLPrev = 0;
-    this->encRPrev = 0;
-
-    this->delayTime = 20;
-    this->prevTime = 0;
-
-    this->countsPerRev = rencCountsPerRev;
-    this->rotaryEncoders = rotaryEncoders;
-    this->motorDriver = motorDriver;
+    // Serial.println(wheelCircumference_);
+    // Serial.println(platformCircumference_);
 }
 
 bool Movement::destinationReached()
 {
-    return done;
+    return done_;
 }
 
-void Movement::move(float centimeters)
+void Movement::move(int millimeters)
 {
-    done = false;
+    done_ = false;
 
-    float revolutions = (fabs(centimeters) * 10) / wheelCircumference;
+    targetCount_ = calculateEncoderTicks(labs(millimeters));
+    // unsigned long revolutions = (abs(millimeters) * 1000L) / wheelCircumference_;
+    // targetCount_ = ((revolutions * countsPerRev_) + 500L) / 1000L; //helper function
 
-    targetCount = revolutions * countsPerRev;
+    // Serial.println(targetCount_);
 
-    if(centimeters > 0)
+    if(millimeters > 0)
     {
-        motorDriver->setLeftWheel(HIGH, LOW, baseMoveSpeed);
-        motorDriver->setRightWheel(HIGH, LOW, baseMoveSpeed);
+        leftWheel_->setWheel(Direction::FORWARD, baseMovePower_);
+        rightWheel_->setWheel(Direction::FORWARD, baseMovePower_);
     }
     else
     {
-        motorDriver->setLeftWheel(LOW, HIGH, baseMoveSpeed);
-        motorDriver->setRightWheel(LOW, HIGH, baseMoveSpeed);
+        leftWheel_->setWheel(Direction::BACKWARD, baseMovePower_);
+        rightWheel_->setWheel(Direction::BACKWARD, baseMovePower_);
     }
 
-    powerL = baseMoveSpeed;
-    powerR = baseMoveSpeed;
+    powerL_ = baseMovePower_;
+    powerR_ = baseMovePower_;
 
-    rotaryEncoders->clearCounts();
-    encLPrev = 0;
-    encRPrev = 0;
+    rotaryEncoders_->clearCounts();
+    encLPrev_ = 0;
+    encRPrev_ = 0;
 }
 
-void Movement::rotate(float degrees)
+void Movement::rotate(int degrees)
 {
-    done = false;
+    done_ = false;
 
-    float distance = (fabs(degrees) / 360.0) * platformCircumference;
+    unsigned long millimeters = (labs(degrees) * platformCircumference_) / 360;
     
-    float revolutions = distance / wheelCircumference;
-
-    targetCount = revolutions * countsPerRev;
+    targetCount_ = calculateEncoderTicks(millimeters);
+    // unsigned long revolutions = (millimeters * 1000L) / wheelCircumference_;
+    // targetCount_ = ((revolutions * countsPerRev_) + 500L) / 1000L;
 
     if(degrees > 0)
     {
-        motorDriver->setLeftWheel(LOW, HIGH, baseTurnSpeed);
-        motorDriver->setRightWheel(HIGH, LOW, baseTurnSpeed);
+        leftWheel_->setWheel(Direction::BACKWARD, baseTurnPower_);
+        rightWheel_->setWheel(Direction::FORWARD, baseTurnPower_);
     }
     else
     {
-        motorDriver->setLeftWheel(HIGH, LOW, baseTurnSpeed);
-        motorDriver->setRightWheel(LOW, HIGH, baseTurnSpeed);
+        leftWheel_->setWheel(Direction::FORWARD, baseTurnPower_);
+        rightWheel_->setWheel(Direction::BACKWARD, baseTurnPower_);
     }
 
-    powerL = baseTurnSpeed;
-    powerR = baseTurnSpeed;
+    powerL_ = baseTurnPower_;
+    powerR_ = baseTurnPower_;
 
-    rotaryEncoders->clearCounts();
-    encLPrev = 0;
-    encRPrev = 0;
+    rotaryEncoders_->clearCounts();
+    encLPrev_ = 0;
+    encRPrev_ = 0;
 }
 
 void Movement::loopTick()
 {
-    if(done)
+    if(done_)
     {
         return;
     }
@@ -103,10 +94,10 @@ void Movement::loopTick()
         return;
     }
 
-    prevTime = time + delayTime;
+    prevTime_ = time + delayTime_;
 
-    unsigned long encoderL = rotaryEncoders->getEncoderCountL();
-    unsigned long encoderR = rotaryEncoders->getEncoderCountR();
+    unsigned long encoderL = rotaryEncoders_->getEncoderCountL();
+    unsigned long encoderR = rotaryEncoders_->getEncoderCountR();
 
     if(rotaryEncodersReachedCount(encoderL, encoderR))
     {
@@ -120,46 +111,52 @@ void Movement::loopTick()
 
 void Movement::brake()
 {
-    motorDriver->setLeftWheel(LOW, LOW, 255);
-    motorDriver->setRightWheel(LOW, LOW, 255);
-    done = true;
+    leftWheel_->brake();
+    rightWheel_->brake();
+    done_ = true;
 }
 
 void Movement::adjustWheelPower(unsigned long encoderL, unsigned long encoderR)
 {
-    unsigned long encoderLDiv = encoderL - encLPrev;
-    unsigned long encoderRDiv = encoderR - encRPrev;
+    unsigned long encoderLDiv = encoderL - encLPrev_;
+    unsigned long encoderRDiv = encoderR - encRPrev_;
 
-    encLPrev = encoderL;
-    encRPrev = encoderR;
+    encLPrev_ = encoderL;
+    encRPrev_ = encoderR;
 
     //todo: add linear interpolation to power variables?
 
     if(encoderLDiv > encoderRDiv)
     {
-        powerL -= 5;
-        powerR += 5;
+        powerL_ -= 5;
+        powerR_ += 5;
     }
 
     if(encoderLDiv < encoderRDiv)
     {
-        powerL += 5;
-        powerR -= 5;
+        powerL_ += 5;
+        powerR_ -= 5;
     }
 }
 
 void Movement::setWheelPower()
 {
-    motorDriver->setLeftWheel(powerL);
-    motorDriver->setRightWheel(powerR);
+    leftWheel_->setWheelPower(powerL_);
+    rightWheel_->setWheelPower(powerR_);
 }
 
-bool Movement::rotaryEncodersReachedCount(unsigned long encoderL, unsigned long encoderR)
+bool Movement::rotaryEncodersReachedCount(unsigned long encoderL, unsigned long encoderR) const
 {
-    return (encoderL > targetCount) && (encoderR > targetCount);
+    return (encoderL > targetCount_) && (encoderR > targetCount_);
 }
 
-bool Movement::deltaTimeElapsed(unsigned long time)
+bool Movement::deltaTimeElapsed(unsigned long time) const
 {
-    return time < prevTime;
+    return time < prevTime_;
+}
+
+unsigned long Movement::calculateEncoderTicks(unsigned long millimeters)
+{
+    unsigned long revolutions = (millimeters * 1000L) / wheelCircumference_;
+    return ((revolutions * countsPerRev_) + 500L) / 1000L;
 }

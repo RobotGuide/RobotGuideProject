@@ -1,7 +1,7 @@
-#include <Arduino.h>
 #include "rotaryEncoders.h"
 #include "movement.h"
-#include "motorDriver.h"
+#include "L298NWheel.h"
+#include <Arduino.h>
 
 //todo: see if you can make a universal interrupt dispatcher
 //which would handle incoming interrupts, for example for rotary
@@ -14,11 +14,6 @@
 //-make uart communications class that sends instructions
 //-make header file for defines
 //-add a timeout of executing instructions?
-
-//robot diameter:
-//14.5cm -> 145mm
-//robot circumference:
-//455.53 ~> 456mm
 
 #define DRIVER_ENA_PIN 10
 #define DRIVER_ENB_PIN 11
@@ -44,41 +39,35 @@
 #define NAVS "NAVS\n"
 #define NAVF "NAVF\n"
 
-MotorDriver* motorDriver = NULL;
+L298NWheel* leftWheel = NULL;
+L298NWheel* rightWheel = NULL;
 RotaryEncoders* rotaryEncoders = NULL;
-Movement* motorManager = NULL;
+Movement* movement = NULL;
 
 bool responseSend = false;
 
 void setup() {
   Serial.begin(9600);
 
-  motorDriver = new MotorDriver(
-    DRIVER_IN1_PIN,
-    DRIVER_IN2_PIN,
-    DRIVER_IN3_PIN,
-    DRIVER_IN4_PIN,
-    DRIVER_ENA_PIN,
-    DRIVER_ENB_PIN);
+  leftWheel = new L298NWheel(DRIVER_IN3_PIN, DRIVER_IN4_PIN, DRIVER_ENB_PIN);
+  rightWheel = new L298NWheel(DRIVER_IN1_PIN, DRIVER_IN2_PIN, DRIVER_ENA_PIN);
 
   //ugly! but necessary to get global interrupts to work
   //to be changed later
   rotaryEncoders = rotaryEncoders->getInstance();
   rotaryEncoders->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
 
-  motorManager = new Movement(
-    WHEEL_DIAMETER,
-    PLATFORM_DIAMETER,
-    ENCODER_DISK_TICS,
-    rotaryEncoders,
-    motorDriver);
+  movement = new Movement(WHEEL_DIAMETER, PLATFORM_DIAMETER,
+    ENCODER_DISK_TICS, rotaryEncoders, leftWheel, rightWheel);
+
+  movement->move(1000);
 };
 
 void loop() {
 
-  motorManager->loopTick();
+  movement->loopTick();
 
-  if(!motorManager->destinationReached())
+  if(!movement->destinationReached())
   {
     return;
   }
@@ -112,22 +101,22 @@ void loop() {
 
     if(strcmp(cmd, FORN) == 0)
     {
-      motorManager->move(arg);
+      movement->move(arg);
       responseSend = false;
     }
     else if(strcmp(cmd, BACN) == 0)
     {
-      motorManager->move(-arg);
+      movement->move(-arg);
       responseSend = false;
     }
     else if(strcmp(cmd, TURN) == 0)
     {
-      motorManager->rotate(-arg);
+      movement->rotate(-arg);
       responseSend = false;
     }
     else if(strcmp(cmd, TULN) == 0)
     {
-      motorManager->rotate(arg);
+      movement->rotate(arg);
       responseSend = false;
     }
     else
