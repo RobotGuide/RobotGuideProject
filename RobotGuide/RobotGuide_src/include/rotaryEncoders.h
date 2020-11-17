@@ -1,8 +1,6 @@
 #ifndef ROBOTGUIDE_ROTARYENCODERS_H
 #define ROBOTGUIDE_ROTARYENCODERS_H
 
-#include <Arduino.h>
-
 class RotaryEncoders
 {
 public:

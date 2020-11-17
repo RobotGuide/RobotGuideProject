@@ -3,7 +3,7 @@
 
 #include "rotaryEncoders.h"
 #include "L298NWheel.h"
-#include <Arduino.h>
+#include <stdint.h>
 
 class Movement
 {
@@ -19,18 +19,18 @@ private:
     RotaryEncoders* rotaryEncoders_;
     L298NWheel* leftWheel_;
     L298NWheel* rightWheel_;
-    bool done_;
     const int wheelCircumference_;
     const int platformCircumference_;
     const unsigned long countsPerRev_;
-    unsigned long targetCount_;
-    unsigned long encLPrev_;
-    unsigned long encRPrev_;
-    uint8_t powerL_;
-    uint8_t powerR_;
-    const unsigned long delayTime_ = 20;
-    unsigned long prevTime_;
+    bool done_ = true;
+    unsigned long targetCount_ = 0;
+    unsigned long encLPrev_ = 0;
+    unsigned long encRPrev_ = 0;
+    uint8_t powerL_ = 0;
+    uint8_t powerR_ = 0;
+    unsigned long prevTime_ = 0;
 
+    const unsigned long delayTime_ = 20;
     const uint8_t baseMovePower_ = 90;
     const uint8_t baseTurnPower_ = 80;
 
@@ -38,7 +38,7 @@ private:
     void setWheelPower();
     bool rotaryEncodersReachedCount(unsigned long encoderL, unsigned long encoderR) const;
     bool deltaTimeElapsed(unsigned long time) const;
-    unsigned long calculateEncoderTicks(unsigned long millimeters);
+    unsigned long calculateEncoderTicks(unsigned long millimeters) const;
 };
 
 #endif

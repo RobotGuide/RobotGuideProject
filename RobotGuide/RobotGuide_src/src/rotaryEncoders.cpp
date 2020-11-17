@@ -1,10 +1,12 @@
 #include "rotaryEncoders.h"
 
-RotaryEncoders* RotaryEncoders::instance = NULL;
+#include <Arduino.h>
+
+RotaryEncoders* RotaryEncoders::instance = nullptr;
 
 RotaryEncoders* RotaryEncoders::getInstance()
 {
-    if(instance == NULL)
+    if(instance == nullptr)
     {
       instance = new RotaryEncoders();
     }

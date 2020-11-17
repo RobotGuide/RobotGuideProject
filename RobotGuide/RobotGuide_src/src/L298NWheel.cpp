@@ -1,5 +1,7 @@
 #include "L298NWheel.h"
 
+#include <Arduino.h>
+
 L298NWheel::L298NWheel(uint8_t directionPin1, uint8_t directionPin2, uint8_t pwmPin)
     :directionPin1_(directionPin1), directionPin2_(directionPin2), pwmPin_(pwmPin)
 {

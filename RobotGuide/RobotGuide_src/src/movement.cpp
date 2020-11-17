@@ -1,9 +1,10 @@
 #include "movement.h"
 
+#include <Arduino.h>
+
 Movement::Movement(int wheelDiameter, int platformDiameter, int rencCountsPerRev,
     RotaryEncoders* rotaryEncoders, L298NWheel* leftWheel, L298NWheel* rightWheel)
-    :done_(true), targetCount_(0), encLPrev_(0), encRPrev_(0), prevTime_(0),
-    countsPerRev_(rencCountsPerRev), rotaryEncoders_(rotaryEncoders),
+    :countsPerRev_(rencCountsPerRev), rotaryEncoders_(rotaryEncoders),
     leftWheel_(leftWheel), rightWheel_(rightWheel),
     wheelCircumference_((PI * wheelDiameter) + 0.5),
     platformCircumference_((PI * platformDiameter) + 0.5)
@@ -43,7 +44,7 @@ void Movement::rotate(int degrees)
 {
     done_ = false;
 
-    unsigned long millimeters = (labs(degrees) * platformCircumference_) / 360;
+    const unsigned long millimeters = (labs(degrees) * platformCircumference_) / 360;
     
     targetCount_ = calculateEncoderTicks(millimeters);
 
@@ -73,7 +74,7 @@ void Movement::loopTick()
         return;
     }
 
-    unsigned long time = millis();
+    const unsigned long time = millis();
     if(deltaTimeElapsed(time))
     {
         return;
@@ -81,8 +82,8 @@ void Movement::loopTick()
 
     prevTime_ = time + delayTime_;
 
-    unsigned long encoderL = rotaryEncoders_->getEncoderCountL();
-    unsigned long encoderR = rotaryEncoders_->getEncoderCountR();
+    const unsigned long encoderL = rotaryEncoders_->getEncoderCountL();
+    const unsigned long encoderR = rotaryEncoders_->getEncoderCountR();
 
     if(rotaryEncodersReachedCount(encoderL, encoderR))
     {
@@ -103,8 +104,8 @@ void Movement::brake()
 
 void Movement::adjustWheelPower(unsigned long encoderL, unsigned long encoderR)
 {
-    unsigned long encoderLDiv = encoderL - encLPrev_;
-    unsigned long encoderRDiv = encoderR - encRPrev_;
+    const unsigned long encoderLDiv = encoderL - encLPrev_;
+    const unsigned long encoderRDiv = encoderR - encRPrev_;
 
     encLPrev_ = encoderL;
     encRPrev_ = encoderR;
@@ -138,7 +139,7 @@ bool Movement::deltaTimeElapsed(unsigned long time) const
     return time < prevTime_;
 }
 
-unsigned long Movement::calculateEncoderTicks(unsigned long millimeters)
+unsigned long Movement::calculateEncoderTicks(unsigned long millimeters) const
 {
     unsigned long revolutions = (millimeters * 1000L) / wheelCircumference_;
     return ((revolutions * countsPerRev_) + 500L) / 1000L;

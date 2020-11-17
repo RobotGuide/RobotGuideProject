@@ -1,7 +1,7 @@
 #ifndef ROBOTGUIDE_L298NWHEEL_H
 #define ROBOTGUIDE_L298NWHEEL_H
 
-#include <Arduino.h>
+#include <stdint.h>
 
 enum class Direction
 {
