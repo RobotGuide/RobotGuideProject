@@ -9,7 +9,6 @@ enum class Direction
     BACKWARD
 };
 
-//put motor driver name in class
 class L298NWheel
 {
 public:

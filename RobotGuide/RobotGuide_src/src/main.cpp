@@ -3,18 +3,6 @@
 #include "L298NWheel.h"
 #include <Arduino.h>
 
-//todo: see if you can make a universal interrupt dispatcher
-//which would handle incoming interrupts, for example for rotary
-//encoders
-//class for bare motor driver?
-
-//todo:
-//-reorganise using class/sequence diagrams
-//-make a base class for objects that need access to loop
-//-make uart communications class that sends instructions
-//-make header file for defines
-//-add a timeout of executing instructions?
-
 #define DRIVER_ENA_PIN 10
 #define DRIVER_ENB_PIN 11
 #define DRIVER_IN1_PIN 9
@@ -24,7 +12,7 @@
 
 #define MOTOR_SPEED 90
 
-#define WHEEL_DIAMETER 70 //mm
+#define WHEEL_DIAMETER 70     //mm
 #define PLATFORM_DIAMETER 125 //mm
 #define ENCODER_DISK_TICS 40
 
@@ -52,8 +40,6 @@ void setup() {
   leftWheel = new L298NWheel(DRIVER_IN3_PIN, DRIVER_IN4_PIN, DRIVER_ENB_PIN);
   rightWheel = new L298NWheel(DRIVER_IN1_PIN, DRIVER_IN2_PIN, DRIVER_ENA_PIN);
 
-  //ugly! but necessary to get global interrupts to work
-  //to be changed later
   rotaryEncoders = rotaryEncoders->getInstance();
   rotaryEncoders->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
 
@@ -90,9 +76,6 @@ void loop() {
       Serial.print(NAVF);
       return;
     }
-
-    //todo: move tokenization of instructions to separate class
-    //also todo: actually tokenize instructions
 
     char* cmd = strtok(msg, " ");
     char* argc = strtok(NULL, " ");

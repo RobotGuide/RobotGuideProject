@@ -1,10 +1,4 @@
 #include "movement.h"
-//currently there is some innacuracy because of the momentum of the
-//robot at stop, this might be fixed in a couple of ways:
-//-gently scale motor power down as rotary encoders approach target count
-//-calculate amount of rotary ticks that can be deducted by calculating drift
-//lets keep motor usage between 75 and 90/100 for now
-//todo: think about dynamically deciding motor power using the gyroscope
 
 Movement::Movement(int wheelDiameter, int platformDiameter, int rencCountsPerRev,
     RotaryEncoders* rotaryEncoders, L298NWheel* leftWheel, L298NWheel* rightWheel)
@@ -13,10 +7,7 @@ Movement::Movement(int wheelDiameter, int platformDiameter, int rencCountsPerRev
     leftWheel_(leftWheel), rightWheel_(rightWheel),
     wheelCircumference_((PI * wheelDiameter) + 0.5),
     platformCircumference_((PI * platformDiameter) + 0.5)
-{
-    // Serial.println(wheelCircumference_);
-    // Serial.println(platformCircumference_);
-}
+{}
 
 bool Movement::destinationReached()
 {
@@ -28,10 +19,6 @@ void Movement::move(int millimeters)
     done_ = false;
 
     targetCount_ = calculateEncoderTicks(labs(millimeters));
-    // unsigned long revolutions = (abs(millimeters) * 1000L) / wheelCircumference_;
-    // targetCount_ = ((revolutions * countsPerRev_) + 500L) / 1000L; //helper function
-
-    // Serial.println(targetCount_);
 
     if(millimeters > 0)
     {
@@ -59,8 +46,6 @@ void Movement::rotate(int degrees)
     unsigned long millimeters = (labs(degrees) * platformCircumference_) / 360;
     
     targetCount_ = calculateEncoderTicks(millimeters);
-    // unsigned long revolutions = (millimeters * 1000L) / wheelCircumference_;
-    // targetCount_ = ((revolutions * countsPerRev_) + 500L) / 1000L;
 
     if(degrees > 0)
     {
@@ -123,8 +108,6 @@ void Movement::adjustWheelPower(unsigned long encoderL, unsigned long encoderR)
 
     encLPrev_ = encoderL;
     encRPrev_ = encoderR;
-
-    //todo: add linear interpolation to power variables?
 
     if(encoderLDiv > encoderRDiv)
     {
