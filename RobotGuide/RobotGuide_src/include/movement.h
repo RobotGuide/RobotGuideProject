@@ -1,5 +1,5 @@
-#ifndef MOTOR_MANAGER
-#define MOTOR_MANAGER
+#ifndef ROBOTGUIDE_MOVEMENT_H
+#define ROBOTGUIDE_MOVEMENT_H
 
 #include "rotaryEncoders.h"
 #include "L298NWheel.h"

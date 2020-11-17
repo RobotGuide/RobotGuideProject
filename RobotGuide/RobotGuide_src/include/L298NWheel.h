@@ -1,5 +1,5 @@
-#ifndef MOTOR_DRIVER_WHEEL_H
-#define MOTOR_DRIVER_WHEEL_H
+#ifndef ROBOTGUIDE_L298NWHEEL_H
+#define ROBOTGUIDE_L298NWHEEL_H
 
 #include <Arduino.h>
 
