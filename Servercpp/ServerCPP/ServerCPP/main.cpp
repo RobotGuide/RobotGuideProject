@@ -40,16 +40,25 @@ int main()
 			std::cout << e.what() << std::endl;
 		}
 
+		//Loop trough all active connections and send them the message. If it is not connected it will be removed from the list. (This is a temporary demo).
 		try
 		{
-			for (IConnection* connection : connections)
+			auto iterator = connections.begin();
+			while (iterator != connections.end())
 			{
-				if (connection->IsConnected())
+				if ((*iterator)->IsConnected())
 				{
-					connection->Send(str.c_str(), str.length());
-					std::cout << "sent" <<  str << std::endl;
+					(*iterator)->Send(str.c_str(), str.length());
+					std::cout << "Sent: " << str << std::endl;
+					++iterator;
+				}
+				else
+				{
+					iterator = connections.erase(iterator);
 				}
 			}
+			std::cout << "There are: " << connections.size() << " connections" << std::endl;
+			
 		}
 		catch (SocketException& e)
 		{

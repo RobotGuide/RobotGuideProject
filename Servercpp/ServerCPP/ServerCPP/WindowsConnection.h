@@ -15,11 +15,31 @@ private:
 	SOCKET socket;
 
 public:
+	/// <summary>
+	/// Initialize a connection
+	/// </summary>
+	/// <param name="socketHandler">The socket handler</param>
 	WindowsConnection(const SOCKET socketHandler);
+
 	~WindowsConnection() override;
 
+	/// <summary>
+	/// Get the socket handler for this windows connection
+	/// </summary>
+	/// <returns>The socket handle</returns>
 	int GetSocketHandle() const override;
+
+	/// <summary>
+	/// Send data to the connected application
+	/// </summary>
+	/// <param name="message">The message you want to send</param>
+	/// <param name="length">The length of the message</param>
 	void Send(const char* message, const int length) override;
+
+	/// <summary>
+	/// Returns if the connection is still connected
+	/// </summary>
+	/// <returns>If the connection is active</returns>
 	bool IsConnected() const override;
 
 };
