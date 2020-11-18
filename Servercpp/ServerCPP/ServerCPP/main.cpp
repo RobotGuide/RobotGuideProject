@@ -7,8 +7,8 @@ int main()
 	std::cout << "Boot Up" << std::endl;
 
 	WSADATA wsaData;
-	WSAStartup(MAKEWORD(2,2), &wsaData);
-	
+	WSAStartup(MAKEWORD(2, 2), &wsaData);
+
 	addrinfo hints{};
 	ZeroMemory(&hints, sizeof(hints));
 	hints.ai_family = AF_INET;
@@ -16,19 +16,22 @@ int main()
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_flags = AI_PASSIVE;
 
-	try
-	{
-		WindowsListener listener(nullptr, "3030", &hints);
-		listener.Listen(10);
-		std::cout << "Started" << std::endl;
-	}
-	catch (SocketException& exception)
-	{
-		std::cout << exception.what() << std::endl;
-	}
+	WindowsListener listener(nullptr, "3030", &hints);
+	listener.Listen(10);
+	std::cout << "Started" << std::endl;
 
 	while (true)
 	{
-
+		try
+		{
+			const int handle = listener.Accept();
+			std::cout << handle << "Connected" << std::endl;
+			break;
+		}
+		catch (SocketException& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 	}
+	std::cin.get();
 }

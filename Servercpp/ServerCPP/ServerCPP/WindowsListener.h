@@ -17,11 +17,14 @@ public:
 	~WindowsListener() override ;
 
 	void Listen(unsigned int maxConnections) override;
+	int Accept() override;
 	void Stop() override;
 
 private:
 	addrinfo* address;
 	SOCKET listenerSocket;
+
+	void HandleFailure(const char* message);
 };
 
 #endif

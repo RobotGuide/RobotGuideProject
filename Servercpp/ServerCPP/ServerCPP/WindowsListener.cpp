@@ -2,7 +2,6 @@
 #include "SocketException.h"
 #include <iostream>
 #include <stdexcept>
-#include <fcntl.h>
 
 WindowsListener::WindowsListener(const char* ipAddress, const char* port, addrinfo* type)
 {
@@ -16,7 +15,7 @@ WindowsListener::WindowsListener(const char* ipAddress, const char* port, addrin
 	}
 	address = nullptr;
 	listenerSocket = INVALID_SOCKET;
-	
+
 	const int outcome = getaddrinfo(ipAddress, port, type, &address);
 	if (outcome != 0) {
 		WSACleanup();
@@ -30,40 +29,47 @@ WindowsListener::~WindowsListener()
 	Stop();
 }
 
-void WindowsListener::Listen(unsigned int maxConnections)
+void WindowsListener::Listen(const unsigned int maxConnections)
 {
-	if(maxConnections > SOMAXCONN)
+	if (maxConnections > SOMAXCONN)
 	{
 		throw std::invalid_argument("You can not have more than the max amount of connections");
 	}
-	
+
 	listenerSocket = socket(address->ai_family, address->ai_socktype, address->ai_protocol);
-	if (listenerSocket == INVALID_SOCKET) {
-		WSACleanup();
-		freeaddrinfo(address);
-		
+	if (listenerSocket == INVALID_SOCKET)
+	{
+		HandleFailure("Initialization of the socket failed");
 	}
 
-	int result = bind( listenerSocket, address->ai_addr, static_cast<int>(address->ai_addrlen));
-    if (result == SOCKET_ERROR) {
-        freeaddrinfo(address);
-        closesocket(listenerSocket);
-        WSACleanup();
-
-    	throw SocketException("Bind failed");
-    }
+	int result = bind(listenerSocket, address->ai_addr, static_cast<int>(address->ai_addrlen));
+	if (result == SOCKET_ERROR)
+	{
+		HandleFailure("Bind failed");
+	}
 
 	result = listen(listenerSocket, static_cast<int>(maxConnections));
-    if (result == SOCKET_ERROR) {
-
-    	freeaddrinfo(address);
-        closesocket(listenerSocket);
-        WSACleanup();
-
-    	throw SocketException("Could not listen for connections");
-    }
+	if (result == SOCKET_ERROR)
+	{
+		HandleFailure("Could not listen for connections");
+	}
+	u_long mode = 1;
+	ioctlsocket(listenerSocket, FIONBIO, &mode);
 }
 
+int WindowsListener::Accept()
+{
+	if (listenerSocket == INVALID_SOCKET)
+	{
+		throw std::logic_error("You can not accept calls when you are not listening for connections");
+	}
+	const SOCKET handle = accept(listenerSocket, nullptr, nullptr);
+	if (handle == WSAEWOULDBLOCK || handle == INVALID_SOCKET)
+	{
+		throw SocketException("No connection available");
+	}
+	return  handle;
+}
 
 void WindowsListener::Stop()
 {
@@ -72,5 +78,13 @@ void WindowsListener::Stop()
 		closesocket(listenerSocket);
 		listenerSocket = INVALID_SOCKET;
 	}
+}
+
+void WindowsListener::HandleFailure(const char* message)
+{
+	freeaddrinfo(address);
+	Stop();
+	WSACleanup();
+	throw SocketException(message);
 }
 

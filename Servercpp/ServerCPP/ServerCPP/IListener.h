@@ -13,10 +13,8 @@ public:
 	virtual  void  Listen(unsigned int maxConnections) = 0;
 
 	//Check if there is a pending connection
-	//virtual  bool  HasPendingConnection(const int maxLength) = 0;
-
 	//Accept a pending connection
-	//virtual  int  AcceptConnection() = 0;
+	virtual  int  Accept() = 0;
 
 	//Stop listening for connections
 	virtual  void Stop() = 0;
