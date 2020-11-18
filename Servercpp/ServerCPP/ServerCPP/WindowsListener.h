@@ -14,7 +14,7 @@ class WindowsListener final : public IListener
 {
 public:
 	WindowsListener(const char* ipAddress, const char* port, addrinfo* type);
-	~WindowsListener() override ;
+	~WindowsListener() override;
 
 	void Listen(unsigned int maxConnections) override;
 	int Accept() override;

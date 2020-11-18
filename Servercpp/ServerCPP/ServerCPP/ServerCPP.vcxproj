@@ -29,13 +29,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SocketException.cpp" />
+    <ClCompile Include="WindowsConnection.cpp" />
     <ClCompile Include="WindowsListener.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IConnection.h" />
     <ClInclude Include="IListener.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
     <ClInclude Include="SocketException.h" />
+    <ClInclude Include="WindowsConnection.h" />
     <ClInclude Include="WindowsListener.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

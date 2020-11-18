@@ -1,6 +1,10 @@
 #include <iostream>
-#include  "WindowsListener.h"
+#include <string>
+
 #include "SocketException.h"
+#include "WindowsListener.h"
+#include "WindowsConnection.h"
+#include <vector>
 
 int main()
 {
@@ -20,18 +24,39 @@ int main()
 	listener.Listen(10);
 	std::cout << "Started" << std::endl;
 
+	std::string str;
+	std::vector<IConnection*> connections;
+
 	while (true)
 	{
 		try
 		{
 			const int handle = listener.Accept();
-			std::cout << handle << "Connected" << std::endl;
-			break;
+			connections.push_back(new WindowsConnection(handle));
+			std::cout << handle << std::endl;
 		}
 		catch (SocketException& e)
 		{
 			std::cout << e.what() << std::endl;
 		}
+
+		try
+		{
+			for (IConnection* connection : connections)
+			{
+				if (connection->IsConnected())
+				{
+					connection->Send(str.c_str(), str.length());
+					std::cout << "sent" <<  str << std::endl;
+				}
+			}
+		}
+		catch (SocketException& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+
+		std::getline(std::cin, str);
+		std::cout << str << std::endl;
 	}
-	std::cin.get();
 }
