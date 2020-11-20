@@ -2,7 +2,7 @@
 #define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_TOKENTYPE_H
 
 /*
- * Defines the different input datatypes, used by the lexer.
+ * Defines the different input data types, used by the lexer.
  */
 
 namespace robotguide::com::applicationlayer

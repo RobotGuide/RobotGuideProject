@@ -1,14 +1,18 @@
-//Required for winsocket
+#include "include/robotguide/Communication/TransportLayer/WindowsConnection.h"
+#include "include/robotguide/Communication/TransportLayer/WindowsListener.h"
+#include "include/robotguide/Communication/TransportLayer/SocketException.h"
+#include <string>
+#include <vector>
+#include <iostream>
+
+
+//Required for windows socket
 #pragma comment(lib, "Ws2_32.lib")
 #undef  UNICODE
 
-#include <iostream>
-#include <string>
+using namespace robotguide::com::transportlayer;
 
-#include "SocketException.h"
-#include "WindowsListener.h"
-#include "WindowsConnection.h"
-#include <vector>
+void LoopThroughAllConnections(std::vector<IConnection*>& connections, const std::string& message);
 
 int main()
 {
@@ -24,7 +28,7 @@ int main()
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_flags = AI_PASSIVE;
 
-	WindowsListener listener(nullptr, "3030", &hints);
+	WindowsListener listener("127.0.0.1", "3030", hints);
 	listener.Listen(10);
 	std::cout << "Started" << std::endl;
 
@@ -43,33 +47,38 @@ int main()
 		{
 			std::cout << e.what() << std::endl;
 		}
-
-		//Loop trough all active connections and send them the message. If it is not connected it will be removed from the list. (This is a temporary demo).
-		try
-		{
-			auto iterator = connections.begin();
-			while (iterator != connections.end())
-			{
-				if ((*iterator)->IsConnected())
-				{
-					(*iterator)->Send(str.c_str(), str.length());
-					std::cout << "Sent: " << str << std::endl;
-					++iterator;
-				}
-				else
-				{
-					iterator = connections.erase(iterator);
-				}
-			}
-			std::cout << "There are: " << connections.size() << " connections" << std::endl;
-			
-		}
-		catch (SocketException& e)
-		{
-			std::cout << e.what() << std::endl;
-		}
+		LoopThroughAllConnections(connections, str);
 
 		std::getline(std::cin, str);
 		std::cout << str << std::endl;
+	}
+}
+
+void LoopThroughAllConnections(std::vector<IConnection*>& connections, const std::string& message)
+{
+	try
+	{
+		auto iterator = connections.begin();
+		while (iterator != connections.end())
+		{
+			if ((*iterator)->IsConnected())
+			{
+				(*iterator)->Send(message);
+				std::cout << "Sent: " << message << std::endl;
+				++iterator;
+			}
+			else
+			{
+				auto* const iteratorValue = *iterator;
+				iterator = connections.erase(iterator);
+				delete iteratorValue;
+			}
+		}
+		std::cout << "There are: " << connections.size() << " connections" << std::endl;
+
+	}
+	catch (SocketException& e)
+	{
+		std::cout << e.what() << std::endl;
 	}
 }

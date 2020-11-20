@@ -27,19 +27,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SocketException.cpp" />
-    <ClCompile Include="WindowsConnection.cpp" />
-    <ClCompile Include="WindowsListener.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IConnection.h" />
-    <ClInclude Include="IListener.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
-    <ClInclude Include="SocketException.h" />
-    <ClInclude Include="WindowsConnection.h" />
-    <ClInclude Include="WindowsListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -155,6 +155,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
