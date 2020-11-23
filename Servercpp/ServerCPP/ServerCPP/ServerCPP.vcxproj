@@ -35,9 +35,13 @@
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
   </ItemGroup>

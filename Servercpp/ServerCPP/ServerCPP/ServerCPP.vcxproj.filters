@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Transport Layer">
       <UniqueIdentifier>{aa9c008b-58c8-47c8-9fd8-6d4938560390}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Transport Layer\Exceptions">
+      <UniqueIdentifier>{b3ce6242-bf13-4068-8d62-a8b639dfffd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,14 +50,26 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h">
       <Filter>Header Files\Transport Layer</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h">
-      <Filter>Header Files\Transport Layer</Filter>
-    </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h">
       <Filter>Header Files\Transport Layer</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h">
       <Filter>Header Files\Transport Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h">
+      <Filter>Header Files\Transport Layer\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h">
+      <Filter>Header Files\Transport Layer\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
