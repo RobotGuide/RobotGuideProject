@@ -27,11 +27,46 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.h" />
+    <ClCompile Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.h" />
+    <ClCompile Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.h" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Parser\Parser.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\DecimalToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\InstructionToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\IntegerToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\TextToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\Token.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TextToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\Token.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenStream.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\ApplicationLayerException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\LexerException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\ApplicationLayerException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Lexer\LexerException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
+    <ClInclude Include="lib\Communication\Exception\CommunicationException.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

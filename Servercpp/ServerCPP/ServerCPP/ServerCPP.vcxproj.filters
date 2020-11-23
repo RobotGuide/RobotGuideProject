@@ -18,12 +18,117 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Parser\Parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\Token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\DecimalToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\IntegerToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\TextToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\InstructionToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\LexerException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\ApplicationLayerException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Lexer\LexerException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\ApplicationLayer\ApplicationLayerException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Communication\Exception\CommunicationException.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\Token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TextToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
