@@ -1,5 +1,5 @@
-#include "../../../include/robotguide/Communication/TransportLayer/WindowsListener.h"
-#include "../../../include/robotguide/Communication/TransportLayer/SocketException.h"
+#include "robotguide/Communication/TransportLayer/WindowsListener.h"
+#include "robotguide/Communication/TransportLayer/SocketException.h"
 #include <iostream>
 #include <stdexcept>
 #include <WS2tcpip.h>
