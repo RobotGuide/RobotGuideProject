@@ -8,7 +8,7 @@ namespace robotguide::com::transportlayer
 	class SocketTimeOutException : public SocketException
 	{
 	public:
-		explicit SocketTimeOutException(const std::string& errorMessage)
+		SocketTimeOutException(const std::string& errorMessage)
 			: SocketException(errorMessage)
 		{
 		}

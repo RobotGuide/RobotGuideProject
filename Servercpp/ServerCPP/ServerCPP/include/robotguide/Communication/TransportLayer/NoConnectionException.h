@@ -8,7 +8,7 @@ namespace robotguide::com::transportlayer
 	class SocketNoConnectionException : public SocketException
 	{
 	public:
-		explicit SocketNoConnectionException(const std::string& errorMessage)
+		SocketNoConnectionException(const std::string& errorMessage)
 			: SocketException(errorMessage)
 		{
 		}

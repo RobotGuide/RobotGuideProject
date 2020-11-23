@@ -8,7 +8,7 @@ namespace robotguide::com::transportlayer
 	class SocketDisconnectException : public SocketException
 	{
 	public:
-		explicit SocketDisconnectException(const std::string& errorMessage)
+		SocketDisconnectException(const std::string& errorMessage)
 			: SocketException(errorMessage)
 		{
 		}

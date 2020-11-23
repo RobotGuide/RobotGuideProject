@@ -8,7 +8,7 @@ namespace robotguide::com::transportlayer
 	class SocketInitializationException : public SocketException
 	{
 	public:
-		explicit SocketInitializationException(const std::string& errorMessage)
+		SocketInitializationException(const std::string& errorMessage)
 			: SocketException(errorMessage)
 		{
 		}
