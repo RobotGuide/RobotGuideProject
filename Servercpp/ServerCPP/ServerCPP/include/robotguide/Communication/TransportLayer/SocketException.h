@@ -19,7 +19,7 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Throw this exception when socket detects errors
 		/// </summary>
-		SocketException(const std::string& errorMessage);
+		explicit SocketException(const std::string& errorMessage);
 		~SocketException() = default;
 
 		/// <summary>
