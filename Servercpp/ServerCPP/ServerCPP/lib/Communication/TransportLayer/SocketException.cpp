@@ -1,4 +1,4 @@
-#include "../../../include/robotguide/Communication/TransportLayer/SocketException.h"
+#include "robotguide/Communication/TransportLayer/SocketException.h"
 
 using namespace robotguide::com::transportlayer;
 

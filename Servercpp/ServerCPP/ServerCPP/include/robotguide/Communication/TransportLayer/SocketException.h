@@ -13,7 +13,7 @@ namespace robotguide::com::transportlayer
 	class SocketException : public std::exception
 	{
 	private:
-		const std::string& error;
+		std::string error;
 
 	public:
 		/// <summary>

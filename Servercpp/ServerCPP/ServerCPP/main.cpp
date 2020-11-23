@@ -1,6 +1,6 @@
-#include "include/robotguide/Communication/TransportLayer/WindowsConnection.h"
-#include "include/robotguide/Communication/TransportLayer/WindowsListener.h"
-#include "include/robotguide/Communication/TransportLayer/SocketException.h"
+#include "robotguide/Communication/TransportLayer/WindowsConnection.h"
+#include "robotguide/Communication/TransportLayer/WindowsListener.h"
+#include "robotguide/Communication/TransportLayer/SocketException.h"
 #include <string>
 #include <vector>
 #include <iostream>

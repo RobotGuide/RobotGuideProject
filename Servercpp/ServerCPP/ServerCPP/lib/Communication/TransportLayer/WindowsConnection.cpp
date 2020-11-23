@@ -1,5 +1,5 @@
-#include "../../../include/robotguide/Communication/TransportLayer/WindowsConnection.h"
-#include "../../../include/robotguide/Communication/TransportLayer/SocketException.h"
+#include "robotguide/Communication/TransportLayer/WindowsConnection.h"
+#include "robotguide/Communication/TransportLayer/SocketException.h"
 #include <stdexcept>
 
 using namespace robotguide::com::transportlayer;
