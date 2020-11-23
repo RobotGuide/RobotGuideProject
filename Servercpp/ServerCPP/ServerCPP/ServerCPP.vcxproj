@@ -27,11 +27,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -116,6 +128,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>LinkVerbose</ShowProgress>
+      <LinkStatus>true</LinkStatus>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,6 +149,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>LinkVerbose</ShowProgress>
+      <LinkStatus>true</LinkStatus>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +159,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -172,6 +189,12 @@
       <AdditionalIncludeDirectories>./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>EnableAllWarnings</WarningLevel>
     </ClCompile>
+    <Link>
+      <ShowProgress>LinkVerbose</ShowProgress>
+    </Link>
+    <Link>
+      <LinkStatus>true</LinkStatus>
+    </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
