@@ -1,5 +1,6 @@
 #include "robotguide/Communication/TransportLayer/WindowsConnection.h"
-#include "robotguide/Communication/TransportLayer/SocketException.h"
+#include "robotguide/Communication/TransportLayer/SocketDisconnectException.h"
+#include "robotguide/Communication/TransportLayer/SocketTimeOutException.h"
 #include <stdexcept>
 
 using namespace robotguide::com::transportlayer;
@@ -25,11 +26,11 @@ void WindowsConnection::Send(const std::string& message)
 	if (result == SOCKET_ERROR)
 	{
 		socket = INVALID_SOCKET;
-		throw SocketException("Socket disconnected");
+		throw SocketDisconnectException("Socket disconnected");
 	}
 	if (result == WSAEWOULDBLOCK)
 	{
-		throw SocketException("Sent timed out");
+		throw SocketTimeOutException("Sent timed out");
 	}
 }
 

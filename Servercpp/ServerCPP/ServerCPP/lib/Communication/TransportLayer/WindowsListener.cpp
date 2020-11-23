@@ -1,5 +1,5 @@
 #include "robotguide/Communication/TransportLayer/WindowsListener.h"
-#include "robotguide/Communication/TransportLayer/SocketException.h"
+#include "robotguide/Communication/TransportLayer/SocketIntializationException.h"
 #include <iostream>
 #include <stdexcept>
 #include <WS2tcpip.h>
@@ -14,7 +14,7 @@ WindowsListener::WindowsListener(const std::string& ipAddress, const std::string
 	const int outcome = getaddrinfo(ipAddress.c_str(), port.c_str(), &type, &address);
 	if (outcome != 0) {
 		WSACleanup();
-		throw SocketException("Could not get address for these specific parameter");
+		throw SocketInitializationException("Could not get address for these specific parameter");
 	}
 }
 
@@ -56,7 +56,7 @@ int WindowsListener::Accept()
 	const SOCKET handle = accept(listenerSocket, nullptr, nullptr);
 	if (handle == WSAEWOULDBLOCK || handle == INVALID_SOCKET)
 	{
-		throw SocketException("No connection available");
+		throw SocketInitializationException("No connection available");
 	}
 	return handle;
 }
@@ -76,7 +76,7 @@ void WindowsListener::InitializeListenerSocket()
 	listenerSocket = socket(address->ai_family, address->ai_socktype, address->ai_protocol);
 	if (listenerSocket == INVALID_SOCKET)
 	{
-		throw SocketException("Initialization of the socket failed");
+		throw SocketInitializationException("Initialization of the socket failed");
 	}
 }
 
@@ -85,7 +85,7 @@ void WindowsListener::BindListenerSocket() const
 	const int result = bind(listenerSocket, address->ai_addr, address->ai_addrlen);
 	if (result == SOCKET_ERROR)
 	{
-		throw SocketException("Bind address on socket failed");
+		throw SocketInitializationException("Bind address on socket failed");
 	}
 }
 
@@ -94,7 +94,7 @@ void WindowsListener::ListenOnSocket(const unsigned maxConnections) const
 	const int result = listen(listenerSocket, maxConnections);
 	if (result == SOCKET_ERROR)
 	{
-		throw SocketException("Could not listen for connections");
+		throw SocketInitializationException("Could not listen for connections");
 	}
 }
 
