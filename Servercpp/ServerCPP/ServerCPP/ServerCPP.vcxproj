@@ -48,6 +48,9 @@
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp" />
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
     <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h" />
@@ -76,6 +79,15 @@
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
