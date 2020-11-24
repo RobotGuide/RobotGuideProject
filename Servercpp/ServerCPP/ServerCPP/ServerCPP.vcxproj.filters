@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -86,9 +80,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -107,7 +98,16 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h">
@@ -156,12 +156,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

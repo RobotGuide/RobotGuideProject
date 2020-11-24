@@ -48,8 +48,6 @@
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp" />
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
     <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h" />
@@ -61,6 +59,7 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h" />
@@ -77,7 +76,6 @@
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h" />
-    <ClInclude Include="pch.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -88,13 +86,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -115,6 +113,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
     <PlatformToolset>v142</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|x64'">
     <PlatformToolset>v142</PlatformToolset>
@@ -168,7 +167,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ShowProgress>LinkVerbose</ShowProgress>
+      <ShowProgress>NotSet</ShowProgress>
       <LinkStatus>true</LinkStatus>
       <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -190,7 +189,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ShowProgress>LinkVerbose</ShowProgress>
+      <ShowProgress>NotSet</ShowProgress>
       <LinkStatus>true</LinkStatus>
       <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -231,7 +230,7 @@
       <WarningLevel>EnableAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
-      <ShowProgress>LinkVerbose</ShowProgress>
+      <ShowProgress>NotSet</ShowProgress>
     </Link>
     <Link>
       <LinkStatus>true</LinkStatus>
