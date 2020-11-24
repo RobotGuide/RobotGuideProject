@@ -51,6 +51,12 @@
     <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
+    <ClCompile Include="lib\Pathfinding\Grid\Coordinate.cpp" />
+    <ClCompile Include="lib\Pathfinding\Grid\Grid.cpp" />
+    <ClCompile Include="lib\Pathfinding\Grid\Vertex.cpp" />
+    <ClCompile Include="lib\Pathfinding\Path\Path.cpp" />
+    <ClCompile Include="lib\Pathfinding\Path\PathFinder.cpp" />
+    <ClCompile Include="lib\Pathfinding\Path\PathToProtocolInstructions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h" />
@@ -88,6 +94,13 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Coordinate.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Grid.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Vertex.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexType.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Path\Path.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Path\PathFinder.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Path\PathToProtocolInstructions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
