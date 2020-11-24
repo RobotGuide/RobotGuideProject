@@ -1,8 +1,8 @@
-#include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
-#include <iostream>
 #include "pch.h"
+#include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
+#include <iostream>
 
 int main()
 {
