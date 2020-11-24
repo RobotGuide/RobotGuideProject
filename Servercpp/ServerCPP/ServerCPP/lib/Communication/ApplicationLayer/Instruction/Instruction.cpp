@@ -1,5 +1,8 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/Instruction.h"
 
+#include <memory>
+
+
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 
 robotguide::com::al::Instruction::Instruction(const InstructionType type_, const std::vector<InstructionData>& data_)
