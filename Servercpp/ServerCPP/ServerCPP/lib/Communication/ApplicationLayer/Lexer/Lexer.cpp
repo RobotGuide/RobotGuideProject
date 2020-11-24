@@ -50,7 +50,7 @@ robotguide::com::al::TokenStream robotguide::com::al::Lexer::GetTokenStream(cons
 	{
 		AddCharacterToBufferAndRetrieveToken(stream, character);
 	}
-	AddCharacterToBufferAndRetrieveToken(stream, ' ');
+	AddCharacterToBufferAndRetrieveToken(stream, ' '); // Is needed to fully clear the buffer, not forgetting some final text.
 	ResetLexer();
 	
 	return stream;

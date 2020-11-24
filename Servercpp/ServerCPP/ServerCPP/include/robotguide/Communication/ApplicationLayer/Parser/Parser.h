@@ -18,7 +18,7 @@ namespace robotguide::com::al
 		bool CurrentStateIsNone() const;
 		bool CurrentStateIsError() const;
 
-		Instruction* CreateInstruction(const std::shared_ptr<Token>& token, const std::vector<std::shared_ptr<Token>>& vector) const;
+		[[nodiscard]] Instruction* CreateInstruction(const std::shared_ptr<Token>& token, const std::vector<std::shared_ptr<Token>>& vector) const;
 	public:
 		Parser() = default;
 
