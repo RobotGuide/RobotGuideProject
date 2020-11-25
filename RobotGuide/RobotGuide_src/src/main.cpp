@@ -46,7 +46,6 @@ void setup() {
   movement = new Movement(WHEEL_DIAMETER, PLATFORM_DIAMETER,
     ENCODER_DISK_TICS, rotaryEncoders, leftWheel, rightWheel);
 
-  movement->move(1000);
 };
 
 void loop() {
