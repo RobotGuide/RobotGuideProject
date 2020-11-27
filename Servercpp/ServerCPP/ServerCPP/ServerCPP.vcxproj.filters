@@ -114,6 +114,9 @@
     <ClCompile Include="lib\Pathfinding\Path\PathToProtocolInstructions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Grid\VertexVextor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h">
@@ -240,6 +243,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Pathfinding\Path\PathFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
