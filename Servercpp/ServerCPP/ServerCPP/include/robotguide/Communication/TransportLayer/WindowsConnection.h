@@ -12,13 +12,16 @@ namespace robotguide::com::transportlayer
 	{
 	private:
 		SOCKET socket;
+		char* receiveBuffer;
+		const int receiveBufferLength;
 
 	public:
 		/// <summary>
 		/// Initialize a connection
 		/// </summary>
 		/// <param name="socketHandler">The socket handler</param>
-		WindowsConnection(const SOCKET& socketHandler);
+		/// <param name="receiveBufferSize">The size of the receive buffer</param>
+		WindowsConnection(const SOCKET& socketHandler, int receiveBufferSize);
 
 		~WindowsConnection() override;
 
@@ -39,6 +42,11 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>If the connection is active</returns>
 		bool IsConnected() const override;
+
+
+		int GetReceiveBufferSize() const override;
+
+		char* GetReceiveBuffer() const override;
 
 	};
 }

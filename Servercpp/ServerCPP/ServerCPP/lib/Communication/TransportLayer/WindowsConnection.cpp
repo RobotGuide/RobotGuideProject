@@ -5,14 +5,16 @@
 
 using namespace robotguide::com::transportlayer;
 
-WindowsConnection::WindowsConnection(const SOCKET& socketHandler)
+WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const int receiveBufferSize)
+	: socket(socketHandler), receiveBufferLength(receiveBufferSize)
 {
-	socket = socketHandler;
+	receiveBuffer = new char[receiveBufferSize];
 }
 
 WindowsConnection::~WindowsConnection()
 {
 	closesocket(socket);
+	delete receiveBuffer;
 };
 
 int WindowsConnection::GetSocketHandle() const
@@ -39,3 +41,12 @@ bool WindowsConnection::IsConnected() const
 	return socket != INVALID_SOCKET;
 }
 
+int WindowsConnection::GetReceiveBufferSize() const
+{
+	return receiveBufferLength;
+}
+
+char* WindowsConnection::GetReceiveBuffer() const
+{
+	return receiveBuffer;
+}

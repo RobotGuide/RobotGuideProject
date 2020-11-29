@@ -31,6 +31,19 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>If the connection is active</returns>
 		virtual bool IsConnected() const = 0;
+
+
+		/// <summary>
+		/// Get the buffer length
+		/// </summary>
+		/// <returns>The length of the buffer</returns>
+		virtual int GetReceiveBufferSize() const = 0;
+
+		/// <summary>
+		/// Get a pointer to the buffer
+		/// </summary>
+		/// <returns>The buffer for this connection</returns>
+		virtual char* GetReceiveBuffer() const = 0;
 	};
 }
 
