@@ -1,6 +1,7 @@
 #ifndef  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_CONNECTION_H
 #define  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_CONNECTION_H
 
+#include "Buffer.h"
 #include <string>
 
 namespace robotguide::com::transportlayer
@@ -37,25 +38,11 @@ namespace robotguide::com::transportlayer
 		/// <returns>If the connection is active</returns>
 		virtual bool IsConnected() const = 0;
 
-
 		/// <summary>
-		/// Get the buffer length
-		/// </summary>
-		/// <returns>The length of the buffer</returns>
-		virtual int GetReceiveBufferSize() const = 0;
-
-		/// <summary>
-		/// Get a pointer to the buffer
+		/// Get a reference to the buffer
 		/// </summary>
 		/// <returns>The buffer for this connection</returns>
-		virtual char* GetReceiveBuffer() const = 0;
-
-
-		/// <summary>
-		/// Set the last package received bytes;
-		/// </summary>
-		virtual void SetBytesReceived(const int bytesReceived) = 0;
-
+		virtual Buffer& GetReceiveBuffer() = 0;
 	};
 }
 

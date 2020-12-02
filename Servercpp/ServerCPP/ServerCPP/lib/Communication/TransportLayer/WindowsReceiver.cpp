@@ -50,8 +50,11 @@ void WindowsReceiver::ReceiveDataFromConnection(const std::shared_ptr<IConnectio
 	DWORD bytesReceived;
 	DWORD Flags = 0;
 
-	buffer.buf = connection->GetReceiveBuffer();
-	buffer.len = connection->GetReceiveBufferSize();
+	Buffer& receiveBuffer = connection->GetReceiveBuffer();
+	receiveBuffer.Clear();
+
+	buffer.buf = receiveBuffer.GetBuffer();
+	buffer.len = receiveBuffer.GetMaxLength();
 
 	const int value = WSARecv(connection->GetSocketHandle(), &buffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
 	if (value == SOCKET_ERROR || bytesReceived <= 0)
@@ -59,7 +62,8 @@ void WindowsReceiver::ReceiveDataFromConnection(const std::shared_ptr<IConnectio
 		connection->Disconnect();
 		return;
 	}
-	std::cout.write(connection->GetReceiveBuffer(), bytesReceived);
+	receiveBuffer.SetLength(bytesReceived);
+	std::cout.write(receiveBuffer.GetBuffer(), receiveBuffer.GetLength());
 	std::cout << std::endl;
 
 }

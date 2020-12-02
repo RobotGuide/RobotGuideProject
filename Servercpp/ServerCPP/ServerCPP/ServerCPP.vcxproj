@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
