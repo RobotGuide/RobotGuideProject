@@ -4,7 +4,7 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionData.h"
 #include <vector>
 
-namespace robotguide { namespace com { namespace al 
+namespace robotguide::com::al
 {
 	struct Instruction
 	{
@@ -16,6 +16,6 @@ namespace robotguide { namespace com { namespace al
 
 		std::string ToString() const;
 	};
-}}}
+}
 
 #endif //ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_INSTRUCTION_INSTRUCTION_H
