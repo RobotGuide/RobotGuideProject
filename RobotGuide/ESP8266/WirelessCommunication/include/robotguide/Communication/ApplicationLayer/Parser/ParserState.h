@@ -1,0 +1,15 @@
+#ifndef ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_PARSER_PARSERSTATE_H
+#define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_PARSER_PARSERSTATE_H
+
+namespace robotguide { namespace com { namespace al 
+{
+	enum class ParserState
+	{
+		InstructionType,
+		InputType,
+		None,
+		Error,
+	};
+}}}
+
+#endif //ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_PARSER_PARSERSTATE_H
