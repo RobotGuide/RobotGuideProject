@@ -27,6 +27,11 @@ namespace robotguide::com::transportlayer
 		virtual void Send(const std::string& message) = 0;
 
 		/// <summary>
+		/// Disconnect from this connection
+		/// </summary>
+		virtual void Disconnect() = 0;
+
+		/// <summary>
 		/// Returns if the connection is still connected
 		/// </summary>
 		/// <returns>If the connection is active</returns>
@@ -44,6 +49,13 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>The buffer for this connection</returns>
 		virtual char* GetReceiveBuffer() const = 0;
+
+
+		/// <summary>
+		/// Set the last package received bytes;
+		/// </summary>
+		virtual void SetBytesReceived(const int bytesReceived) = 0;
+
 	};
 }
 

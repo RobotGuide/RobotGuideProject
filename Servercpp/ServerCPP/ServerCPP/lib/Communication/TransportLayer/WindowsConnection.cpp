@@ -9,17 +9,25 @@ WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const int rece
 	: socket(socketHandler), receiveBufferLength(receiveBufferSize)
 {
 	receiveBuffer = new char[receiveBufferSize];
+	bytesReceived = 0;
+	u_long mode = 1;
+	ioctlsocket(socketHandler, FIONBIO, &mode);
 }
 
 WindowsConnection::~WindowsConnection()
 {
-	closesocket(socket);
+	Disconnect();
 	delete receiveBuffer;
 };
 
 int WindowsConnection::GetSocketHandle() const
 {
 	return socket;
+}
+
+void WindowsConnection::Disconnect()
+{
+	closesocket(socket);
 }
 
 void WindowsConnection::Send(const std::string& message)
@@ -49,4 +57,9 @@ int WindowsConnection::GetReceiveBufferSize() const
 char* WindowsConnection::GetReceiveBuffer() const
 {
 	return receiveBuffer;
+}
+
+void WindowsConnection::SetBytesReceived(const int bytesReceived)
+{
+	this->bytesReceived = bytesReceived;
 }

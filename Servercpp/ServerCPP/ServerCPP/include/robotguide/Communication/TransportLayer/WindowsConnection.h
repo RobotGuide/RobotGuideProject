@@ -14,6 +14,7 @@ namespace robotguide::com::transportlayer
 		SOCKET socket;
 		char* receiveBuffer;
 		const int receiveBufferLength;
+		int bytesReceived;
 
 	public:
 		/// <summary>
@@ -32,6 +33,11 @@ namespace robotguide::com::transportlayer
 		int GetSocketHandle() const override;
 
 		/// <summary>
+		/// Disconnect from this connection
+		/// </summary>
+		void Disconnect() override;
+
+		/// <summary>
 		/// Send data to the connected application
 		/// </summary>
 		/// <param name="message">The message you want to send</param>
@@ -43,10 +49,22 @@ namespace robotguide::com::transportlayer
 		/// <returns>If the connection is active</returns>
 		bool IsConnected() const override;
 
-
+		/// <summary>
+		/// Get the buffer length
+		/// </summary>
+		/// <returns>The length of the buffer</returns>
 		int GetReceiveBufferSize() const override;
 
+		/// <summary>
+		/// Get a pointer to the buffer
+		/// </summary>
+		/// <returns>The buffer for this connection</returns>
 		char* GetReceiveBuffer() const override;
+
+		/// <summary>
+		/// Set the last package received bytes;
+		/// </summary>
+		void SetBytesReceived(const int bytesReceived) override;
 
 	};
 }
