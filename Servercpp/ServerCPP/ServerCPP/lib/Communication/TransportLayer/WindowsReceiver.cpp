@@ -1,9 +1,8 @@
 #include "robotguide/Communication/TransportLayer/WindowsReceiver.h"
-#include "robotguide/Communication/TransportLayer/SocketException.h"
-#include <vector>
 #include <iostream>
-#include <winsock2.h>
-#include <windows.h>
+#include <vector>
+#include <Windows.h>
+#include <WinSock2.h>
 
 using namespace  robotguide::com::transportlayer;
 
@@ -63,8 +62,5 @@ void WindowsReceiver::ReceiveDataFromConnection(const std::shared_ptr<IConnectio
 		return;
 	}
 	receiveBuffer.SetLength(bytesReceived);
-	std::cout.write(receiveBuffer.GetBuffer(), receiveBuffer.GetLength());
-	std::cout << std::endl;
-
 }
 

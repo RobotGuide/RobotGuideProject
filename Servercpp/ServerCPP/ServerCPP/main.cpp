@@ -7,8 +7,6 @@
 #include <vector>
 #include <iostream>
 
-
-
 //Required for windows socket
 #pragma comment(lib, "Ws2_32.lib")
 #undef  UNICODE
@@ -58,7 +56,6 @@ int main()
 		}
 		catch (SocketException& e)
 		{
-			std::cout << "connection failed" << std::endl;
 			std::cout << e.what() << std::endl;
 		}
 
@@ -68,7 +65,6 @@ int main()
 		}
 		catch (SocketException& e)
 		{
-			std::cout << "Receive failed" << std::endl;
 			std::cout << e.what() << std::endl;
 		}
 
