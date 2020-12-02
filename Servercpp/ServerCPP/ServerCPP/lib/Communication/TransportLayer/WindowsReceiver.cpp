@@ -17,55 +17,50 @@ WindowsReceiver::~WindowsReceiver()
 
 void WindowsReceiver::ReceiveData(const std::vector<std::shared_ptr<IConnection>>& connections)
 {
+	int activeSockets = GetAvailableSocketsCount(connections);
+	for (int i = 0; activeSockets > 0 && i < connections.size(); i++)
+	{
+		if (FD_ISSET(connections[i]->GetSocketHandle(), &ReadSet))
+		{
+			activeSockets--;
+			ReceiveDataFromConnection(connections[i]);
+		}
+	}
+}
+
+int WindowsReceiver::GetAvailableSocketsCount(const std::vector<std::shared_ptr<IConnection>>& connections)
+{
 	FD_ZERO(&ReadSet);
 	struct timeval tv
 	{
-		5, 0
+		0, 50
 	};
 
-	//Initialize sockets
-	for (const std::shared_ptr<IConnection> connection : connections)
+	for (const std::shared_ptr<IConnection>& connection : connections)
 	{
 		FD_SET(connection->GetSocketHandle(), &ReadSet);
 	}
 
-	int activeSockets = connections.size();/*select(0, &ReadSet, nullptr, nullptr, nullptr);
-	if (activeSockets == SOCKET_ERROR)
-	{
-		throw SocketException("Select failed to execute");
-	}*/
+	return select(0, &ReadSet, nullptr, nullptr, &tv);
+}
 
+void WindowsReceiver::ReceiveDataFromConnection(const std::shared_ptr<IConnection>& connection)
+{
 	WSABUF buffer;
 	DWORD bytesReceived;
 	DWORD Flags = 0;
 
+	buffer.buf = connection->GetReceiveBuffer();
+	buffer.len = connection->GetReceiveBufferSize();
 
-	for (int i = 0; activeSockets > 0 && i < connections.size(); i++)
+	const int value = WSARecv(connection->GetSocketHandle(), &buffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
+	if (value == SOCKET_ERROR || bytesReceived <= 0)
 	{
-		/*if (FD_ISSET(connections[i]->GetSocketHandle(), &ReadSet))
-		{*/
-		buffer.buf = connections[i]->GetReceiveBuffer();
-		buffer.len = connections[i]->GetReceiveBufferSize();
-		activeSockets--;
-
-		const int value = WSARecv(connections[i]->GetSocketHandle(), &buffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
-		if (value == SOCKET_ERROR)
-		{
-			//connections[i]->Disconnect();
-		}
-		else if (value != WSAEWOULDBLOCK)
-		{
-			connections[i]->SetBytesReceived(bytesReceived);
-			if (bytesReceived <= 0)
-			{
-				connections[i]->Disconnect();
-			}
-			else
-			{
-				std::cout.write(connections[i]->GetReceiveBuffer(), bytesReceived);
-				std::cout << std::endl;
-			}
-		}
-		//}
+		connection->Disconnect();
+		return;
 	}
+	std::cout.write(connection->GetReceiveBuffer(), bytesReceived);
+	std::cout << std::endl;
+
 }
+

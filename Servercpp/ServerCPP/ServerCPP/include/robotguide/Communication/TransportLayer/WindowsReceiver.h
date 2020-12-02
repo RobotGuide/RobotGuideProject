@@ -17,9 +17,15 @@ namespace robotguide::com::transportlayer
 	public:
 		WindowsReceiver();
 		~WindowsReceiver() override;
+
+		/// <summary>
+		/// Receive data for all available sockets
+		/// </summary>
+		/// <param name="connections">The connections you want to check for available data</param>
 		void ReceiveData(const std::vector<std::shared_ptr<IConnection>>& connections) override;
+	private:
+		int GetAvailableSocketsCount(const std::vector<std::shared_ptr<IConnection>>& connections);
+		static void ReceiveDataFromConnection(const std::shared_ptr<IConnection>&);
 	};
 }
-
-
 #endif
