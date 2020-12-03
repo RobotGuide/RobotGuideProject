@@ -11,8 +11,8 @@ namespace robotguide::com::transportlayer
 	{
 	public:
 		/// <summary>
-			/// Destruct a connection
-			/// </summary>
+		/// Destruct a connection
+		/// </summary>
 		virtual ~IReceiver() = default;
 
 		/// <summary>

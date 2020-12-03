@@ -15,8 +15,8 @@ namespace robotguide::com::transportlayer
 		FD_SET ReadSet = {};
 
 	public:
-		WindowsReceiver();
-		~WindowsReceiver() override;
+		WindowsReceiver() = default;
+		~WindowsReceiver() override = default;
 
 		/// <summary>
 		/// Receive data for all available sockets

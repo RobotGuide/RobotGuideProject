@@ -6,14 +6,6 @@
 
 using namespace  robotguide::com::transportlayer;
 
-WindowsReceiver::WindowsReceiver()
-{
-}
-
-WindowsReceiver::~WindowsReceiver()
-{
-}
-
 void WindowsReceiver::ReceiveData(const std::vector<std::shared_ptr<IConnection>>& connections)
 {
 	int activeSockets = GetAvailableSocketsCount(connections);
