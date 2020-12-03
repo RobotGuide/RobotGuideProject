@@ -27,6 +27,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
@@ -35,6 +37,8 @@
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
@@ -44,6 +48,7 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

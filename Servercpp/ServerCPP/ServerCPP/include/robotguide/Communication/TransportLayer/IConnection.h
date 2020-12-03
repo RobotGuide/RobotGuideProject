@@ -1,6 +1,7 @@
 #ifndef  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_CONNECTION_H
 #define  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_CONNECTION_H
 
+#include "Buffer.h"
 #include <string>
 
 namespace robotguide::com::transportlayer
@@ -27,10 +28,21 @@ namespace robotguide::com::transportlayer
 		virtual void Send(const std::string& message) = 0;
 
 		/// <summary>
+		/// Disconnect from this connection
+		/// </summary>
+		virtual void Disconnect() = 0;
+
+		/// <summary>
 		/// Returns if the connection is still connected
 		/// </summary>
 		/// <returns>If the connection is active</returns>
 		virtual bool IsConnected() const = 0;
+
+		/// <summary>
+		/// Get a reference to the buffer
+		/// </summary>
+		/// <returns>The buffer for this connection</returns>
+		virtual Buffer& GetReceiveBuffer() = 0;
 	};
 }
 

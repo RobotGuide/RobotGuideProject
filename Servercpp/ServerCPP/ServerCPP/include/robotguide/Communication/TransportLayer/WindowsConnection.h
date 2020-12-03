@@ -12,13 +12,15 @@ namespace robotguide::com::transportlayer
 	{
 	private:
 		SOCKET socket;
+		Buffer receiveBuffer;
 
 	public:
 		/// <summary>
 		/// Initialize a connection
 		/// </summary>
 		/// <param name="socketHandler">The socket handler</param>
-		WindowsConnection(const SOCKET& socketHandler);
+		/// <param name="receiveBufferSize">The size of the receive buffer</param>
+		WindowsConnection(const SOCKET& socketHandler, int receiveBufferSize);
 
 		~WindowsConnection() override;
 
@@ -27,6 +29,11 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>The socket handle</returns>
 		int GetSocketHandle() const override;
+
+		/// <summary>
+		/// Disconnect from this connection
+		/// </summary>
+		void Disconnect() override;
 
 		/// <summary>
 		/// Send data to the connected application
@@ -40,6 +47,11 @@ namespace robotguide::com::transportlayer
 		/// <returns>If the connection is active</returns>
 		bool IsConnected() const override;
 
+		/// <summary>
+		/// Get a reference to the buffer
+		/// </summary>
+		/// <returns>The buffer for this connection</returns>
+		Buffer& GetReceiveBuffer() override;
 	};
 }
 #endif

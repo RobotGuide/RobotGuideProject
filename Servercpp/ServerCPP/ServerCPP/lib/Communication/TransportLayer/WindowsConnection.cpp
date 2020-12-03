@@ -5,19 +5,26 @@
 
 using namespace robotguide::com::transportlayer;
 
-WindowsConnection::WindowsConnection(const SOCKET& socketHandler)
+WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const int receiveBufferSize)
+	: socket(socketHandler), receiveBuffer(receiveBufferSize)
 {
-	socket = socketHandler;
+	u_long mode = 1;
+	ioctlsocket(socketHandler, FIONBIO, &mode);
 }
 
 WindowsConnection::~WindowsConnection()
 {
-	closesocket(socket);
+	Disconnect();
 };
 
 int WindowsConnection::GetSocketHandle() const
 {
 	return socket;
+}
+
+void WindowsConnection::Disconnect()
+{
+	closesocket(socket);
 }
 
 void WindowsConnection::Send(const std::string& message)
@@ -37,5 +44,10 @@ void WindowsConnection::Send(const std::string& message)
 bool WindowsConnection::IsConnected() const
 {
 	return socket != INVALID_SOCKET;
+}
+
+Buffer& WindowsConnection::GetReceiveBuffer()
+{
+	return receiveBuffer;
 }
 
