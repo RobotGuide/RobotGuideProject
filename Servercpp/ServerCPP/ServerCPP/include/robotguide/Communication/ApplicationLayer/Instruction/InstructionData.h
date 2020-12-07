@@ -9,7 +9,7 @@ namespace robotguide::com::al
 {
 	struct InstructionData final
 	{
-	public:
+	private:
 		std::variant<std::string, int, double, InstructionType> Data;
 	public:
 		InstructionData(const char* text);

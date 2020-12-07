@@ -8,13 +8,15 @@ namespace robotguide::com::al
 {
 	struct Instruction
 	{
-	public:
+	private:
 		const InstructionType type;
 		const std::vector<InstructionData> data;
 	public:
 		Instruction(const InstructionType type_, const std::vector<InstructionData>& data_);
 
 		std::string ToString() const;
+		InstructionType GetType() const;
+		std::vector<InstructionData> GetData() const;
 	};
 }
 
