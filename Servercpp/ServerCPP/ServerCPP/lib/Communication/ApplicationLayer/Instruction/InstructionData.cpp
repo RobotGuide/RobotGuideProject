@@ -1,46 +1,46 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionData.h"
 
-robotguide::com::al::InstructionData::InstructionData(const char* text)
+robotguide::com::applicationlayer::InstructionData::InstructionData(const char* text)
 {
 	Data = text;
 }
 
-robotguide::com::al::InstructionData::InstructionData(const std::string& text)
+robotguide::com::applicationlayer::InstructionData::InstructionData(const std::string& text)
 {
 	Data = text;
 }
 
-robotguide::com::al::InstructionData::InstructionData(const int integer)
+robotguide::com::applicationlayer::InstructionData::InstructionData(const int integer)
 {
 	Data = integer;
 }
 
-robotguide::com::al::InstructionData::InstructionData(const double decimal)
+robotguide::com::applicationlayer::InstructionData::InstructionData(const double decimal)
 {
 	Data = decimal;
 }
 
-robotguide::com::al::InstructionData::InstructionData(const InstructionType instructionType)
+robotguide::com::applicationlayer::InstructionData::InstructionData(const InstructionType instructionType)
 {
 	Data = instructionType;
 }
 
-std::string robotguide::com::al::InstructionData::GetString() const
+std::string robotguide::com::applicationlayer::InstructionData::GetString() const
 {
 	return std::get<std::string>(Data);
 }
 
-int robotguide::com::al::InstructionData::GetInteger() const
+int robotguide::com::applicationlayer::InstructionData::GetInteger() const
 {
 	return std::get<int>(Data);
 }
 
-double robotguide::com::al::InstructionData::GetDecimal() const
+double robotguide::com::applicationlayer::InstructionData::GetDecimal() const
 {
 	return std::get<double>(Data);
 }
 
-robotguide::com::al::InstructionType robotguide::com::al::InstructionData::GetInstructionType() const
+robotguide::com::applicationlayer::InstructionType robotguide::com::applicationlayer::InstructionData::GetInstructionType() const
 {
 	return std::get<InstructionType>(Data);
 }

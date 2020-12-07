@@ -6,8 +6,8 @@
 
 int main()
 {
-	auto lexer = robotguide::com::al::Lexer();
-	auto parser = robotguide::com::al::Parser();
+	auto lexer = robotguide::com::applicationlayer::Lexer();
+	auto parser = robotguide::com::applicationlayer::Parser();
 
 	while(true)
 	{

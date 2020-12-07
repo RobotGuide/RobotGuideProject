@@ -4,7 +4,7 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionData.h"
 #include <vector>
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	struct Instruction
 	{

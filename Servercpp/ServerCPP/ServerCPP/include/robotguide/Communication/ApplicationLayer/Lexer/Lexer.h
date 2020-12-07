@@ -6,7 +6,7 @@
 #include "robotguide/Communication/ApplicationLayer/Lexer/LexerCharacterType.h"
 #include <string>
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class Lexer
 	{

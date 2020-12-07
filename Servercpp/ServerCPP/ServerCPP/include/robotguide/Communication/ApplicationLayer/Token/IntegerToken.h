@@ -3,7 +3,7 @@
 
 #include "robotguide/Communication/ApplicationLayer/Token/Token.h"
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class IntegerToken final : public Token
 	{

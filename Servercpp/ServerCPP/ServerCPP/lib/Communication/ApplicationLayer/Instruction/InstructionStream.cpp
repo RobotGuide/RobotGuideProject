@@ -2,12 +2,12 @@
 
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 
-void robotguide::com::al::InstructionStream::AddInstruction(Instruction* instruction)
+void robotguide::com::applicationlayer::InstructionStream::AddInstruction(Instruction* instruction)
 {
 	instructions.push_back(std::shared_ptr<Instruction>(instruction));
 }
 
-std::string robotguide::com::al::InstructionStream::ToString() const
+std::string robotguide::com::applicationlayer::InstructionStream::ToString() const
 {
 	std::string completeString;
 
@@ -19,7 +19,7 @@ std::string robotguide::com::al::InstructionStream::ToString() const
 	return completeString;
 }
 
-unsigned robotguide::com::al::InstructionStream::size() const
+unsigned robotguide::com::applicationlayer::InstructionStream::size() const
 {
 	return instructions.size();
 }

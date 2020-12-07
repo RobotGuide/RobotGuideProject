@@ -2,7 +2,7 @@
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
 #include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
 
-using namespace robotguide::com::al;
+using namespace robotguide::com::applicationlayer;
 
 class TestParser : public testing::Test
 {

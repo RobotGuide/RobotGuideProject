@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class TokenStream
 	{

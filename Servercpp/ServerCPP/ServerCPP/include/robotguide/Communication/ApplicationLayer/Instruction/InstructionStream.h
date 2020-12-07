@@ -5,7 +5,7 @@
 
 #include "robotguide/Communication/ApplicationLayer/Instruction/Instruction.h"
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class InstructionStream
 	{

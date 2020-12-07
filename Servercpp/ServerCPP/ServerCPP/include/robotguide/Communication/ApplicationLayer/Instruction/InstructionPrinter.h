@@ -4,7 +4,7 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionType.h"
 #include <string>
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	struct InstructionPrinter
 	{

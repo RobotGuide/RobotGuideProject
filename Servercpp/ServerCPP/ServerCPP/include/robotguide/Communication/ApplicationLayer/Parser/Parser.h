@@ -5,7 +5,7 @@
 #include "robotguide/Communication/ApplicationLayer/Token/TokenStream.h"
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionStream.h"
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class Parser
 	{

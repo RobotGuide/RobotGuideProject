@@ -1,7 +1,7 @@
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Parser/InvalidTokenSequenceException.h"
 
-robotguide::com::al::InstructionStream robotguide::com::al::Parser::GetInstructionStream(
+robotguide::com::applicationlayer::InstructionStream robotguide::com::applicationlayer::Parser::GetInstructionStream(
 	TokenStream tokenStream)
 {
 	std::shared_ptr<Token> instructionHead;
@@ -77,32 +77,32 @@ robotguide::com::al::InstructionStream robotguide::com::al::Parser::GetInstructi
 	return stream;
 }
 
-void robotguide::com::al::Parser::UpdateState(const ParserState parserState)
+void robotguide::com::applicationlayer::Parser::UpdateState(const ParserState parserState)
 {
 	currentState = parserState;
 }
 
-bool robotguide::com::al::Parser::CurrentStateIsInstructionType() const
+bool robotguide::com::applicationlayer::Parser::CurrentStateIsInstructionType() const
 {
 	return currentState == ParserState::InstructionType;
 }
 
-bool robotguide::com::al::Parser::CurrentStateIsInput() const
+bool robotguide::com::applicationlayer::Parser::CurrentStateIsInput() const
 {
 	return currentState == ParserState::InputType;
 }
 
-bool robotguide::com::al::Parser::CurrentStateIsNone() const
+bool robotguide::com::applicationlayer::Parser::CurrentStateIsNone() const
 {
 	return currentState == ParserState::None;
 }
 
-bool robotguide::com::al::Parser::CurrentStateIsError() const
+bool robotguide::com::applicationlayer::Parser::CurrentStateIsError() const
 {
 	return currentState == ParserState::Error;
 }
 
-robotguide::com::al::Instruction* robotguide::com::al::Parser::CreateInstruction(const std::shared_ptr<Token>& token,
+robotguide::com::applicationlayer::Instruction* robotguide::com::applicationlayer::Parser::CreateInstruction(const std::shared_ptr<Token>& token,
 	const std::vector<std::shared_ptr<Token>>& vector) const
 {
 	const InstructionType type = token->Data.GetInstructionType();
