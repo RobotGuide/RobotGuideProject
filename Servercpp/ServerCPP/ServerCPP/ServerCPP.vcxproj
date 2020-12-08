@@ -53,6 +53,7 @@
     <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
     <ClCompile Include="lib\Pathfinding\Grid\Coordinate.cpp" />
     <ClCompile Include="lib\Pathfinding\Grid\Grid.cpp" />
+    <ClCompile Include="lib\Pathfinding\Grid\TestGridBuilder.cpp" />
     <ClCompile Include="lib\Pathfinding\Grid\Vertex.cpp" />
     <ClCompile Include="lib\Pathfinding\Grid\VertexVextor.cpp" />
     <ClCompile Include="lib\Pathfinding\Path\Path.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Coordinate.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Grid.h" />
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\TestGridBuilder.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Vertex.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexType.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexVector.h" />
