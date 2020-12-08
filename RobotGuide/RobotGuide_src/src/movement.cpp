@@ -48,6 +48,8 @@ void Movement::rotate(int degrees)
     
     targetCount_ = calculateEncoderTicks(millimeters);
 
+    targetCount_ -= 4;
+
     if(degrees > 0)
     {
         leftWheel_->setWheel(Direction::BACKWARD, baseTurnPower_);
