@@ -7,28 +7,36 @@
 
 namespace robotguide::com::applicationlayer
 {
+	/*
+	 * TokenStreams take ownership of the content they receive.
+	 */
 	class TokenStream
 	{
 	private:
-		std::vector<std::shared_ptr<Token>> tokens;
+		std::vector<Token*> tokens;
 	public:
 		TokenStream() = default;
-		TokenStream(const std::vector<std::shared_ptr<Token>>& tokens);
+		TokenStream(const TokenStream& tokenStream) = delete;
+		TokenStream(const std::vector<Token*>& tokens);
+
+		~TokenStream();
 
 		void AddToken(Token* token);
 		std::string ToString() const;
 
-		std::shared_ptr<Token>& operator[](const unsigned index)
+		Token* operator[](const unsigned index)
 		{
 			return tokens[index];
 		}
 
-		const std::shared_ptr<Token>& operator[](const unsigned index) const
+		const Token* operator[](const unsigned index) const
 		{
 			return tokens[index];
 		}
 
 		unsigned size() const;
+
+		TokenStream& operator=(const TokenStream& tokenStream) = delete;
 	};
 }
 

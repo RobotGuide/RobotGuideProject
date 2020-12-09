@@ -1,16 +1,27 @@
 #include "robotguide/Communication/ApplicationLayer/Token/TokenStream.h"
 
-robotguide::com::applicationlayer::TokenStream::TokenStream(const std::vector<std::shared_ptr<Token>>& tokens_)
+using namespace robotguide::com::applicationlayer;
+
+TokenStream::TokenStream(const std::vector<Token*>& tokens_)
 {
 	tokens = tokens_;
 }
 
-void robotguide::com::applicationlayer::TokenStream::AddToken(Token* token)
+TokenStream::~TokenStream()
 {
-	tokens.push_back(std::shared_ptr<Token>(token));
+	for (auto* token : tokens)
+	{
+		delete token;
+		token = nullptr;
+	}
 }
 
-std::string robotguide::com::applicationlayer::TokenStream::ToString() const
+void TokenStream::AddToken(Token* token)
+{
+	tokens.push_back(token);
+}
+
+std::string TokenStream::ToString() const
 {
 	std::string completeString;
 	for (const auto& token : tokens)
@@ -20,7 +31,7 @@ std::string robotguide::com::applicationlayer::TokenStream::ToString() const
 	return completeString;
 }
 
-unsigned robotguide::com::applicationlayer::TokenStream::size() const
+unsigned TokenStream::size() const
 {
 	return tokens.size();
 }
