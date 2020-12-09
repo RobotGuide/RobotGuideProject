@@ -10,43 +10,43 @@ namespace robotguide::com::applicationlayer
 	enum class InstructionType
 	{
 		// Navigational instructions
-		move,
-		movb,
-		movt,
-		movp,
-		movd,
-		forn,
-		bacn,
-		rign,
-		lefn,
-		turn,
-		tuln,
-		reqn,
+		Move,
+		Movb,
+		Movt,
+		Movp,
+		Movd,
+		Forn,
+		Bacn,
+		Rign,
+		Lefn,
+		Turn,
+		Tuln,
+		Reqn,
 
 		// Error/success instructions
-		navs,
-		navf,
-		timr,
-		comr,
-		hear,
+		Navs,
+		Navf,
+		Timr,
+		Comr,
+		Hear,
 
 		// Heartbeat instructions
-		heat,
-		heas,
-		heai,
+		Heat,
+		Heas,
+		Heai,
 
 		// Location instructions
-		loca,
-		locb,
-		locc,
-		locd,
+		Loca,
+		Locb,
+		Locc,
+		Locd,
 
 		// Verification instructions
-		veri,
-		aski,
-		seni,
-		seti,
-		vers,
+		Veri,
+		Aski,
+		Seni,
+		Seti,
+		Vers,
 	};
 }
 
