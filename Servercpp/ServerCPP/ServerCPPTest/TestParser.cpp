@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
 #include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
+#include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
+#include "robotguide/Communication/ApplicationLayer/Token/IntegerToken.h"
+#include "robotguide/Communication/ApplicationLayer/Token/InstructionToken.h"
 
 using namespace robotguide::com::applicationlayer;
 
@@ -9,11 +12,26 @@ class TestParser : public testing::Test
 protected:
 	TestParser() = default;
 
-	virtual ~TestParser() = default;
+	virtual ~TestParser()
+	{
+		if (ValidInstructionToken != nullptr)
+		{
+			delete ValidInstructionToken;
+			ValidInstructionToken = nullptr;
+		}
+		if (ValidIntegerToken != nullptr)
+		{
+			delete ValidIntegerToken;
+			ValidIntegerToken = nullptr;
+		}
+	}
 
 public:
 	Instruction CorrectMoveInstruction = Instruction(InstructionType::Move, { 1,2,3 });
 	Instruction CorrectMoveInstruction2 = Instruction(InstructionType::Loca, { 84823 });
+
+	Token* ValidIntegerToken     = new IntegerToken(92);
+	Token* ValidInstructionToken = new InstructionToken(InstructionType::Heat);
 };
 
 // Only checks integer instruction data objects
@@ -56,7 +74,63 @@ TEST_F(TestParser, InputValidTokenStreamContainingMultipleInstructions_ShouldRet
 	ASSERT_ARE_SAME(CorrectMoveInstruction2, actualInstruction2);
 }
 
-TEST_F(TestParser, InputInvalidStream_ShouldThrowInvalidTokenSequenceException)
+TEST_F(TestParser, InputInvalidStreamInvalidInstruction_ShouldThrowInvalidTokenSequenceException)
 {
+	TokenStream incorrectInstruction;
+	try
+	{
+		Lexer().GetTokenStream("IDONTEXIST 1 2 3", incorrectInstruction);
+		FAIL();
+	}
+	catch(robotguide::com::exception::al::ApplicationLayerException& ex)
+	{
+		SUCCEED();
+	}
+	catch (std::exception& ex)
+	{
+		FAIL();
+	}
+}
 
+TEST_F(TestParser, InputInvalidStreamIncorrectInput_ShouldThrowInvalidTokenSequenceException)
+{
+	TokenStream incorrectInput;
+	try
+	{
+		Lexer().GetTokenStream("MOVE 1THISDOESNTEXIST 2 3", incorrectInput);
+		FAIL();
+	}
+	catch (robotguide::com::exception::al::ApplicationLayerException& ex)
+	{
+		SUCCEED();
+	}
+	catch (std::exception& ex)
+	{
+		FAIL();
+	}
+}
+
+TEST_F(TestParser, InvalidInputTokenOrder_ParserWillThrowException)
+{
+	TokenStream incorrectOrder;
+	incorrectOrder.AddToken(ValidIntegerToken);
+	incorrectOrder.AddToken(ValidInstructionToken);
+	InstructionStream instructionStream;
+	try
+	{
+		Parser().GetInstructionStream(incorrectOrder, instructionStream);
+		ValidInstructionToken = nullptr;
+		ValidIntegerToken = nullptr;
+		FAIL();
+	}
+	catch (robotguide::com::exception::al::ApplicationLayerException& ex)
+	{
+		ValidInstructionToken = nullptr;
+		ValidIntegerToken = nullptr;
+		SUCCEED();
+	}
+	catch(std::exception& ex)
+	{
+		FAIL();
+	}
 }
