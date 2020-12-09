@@ -1,7 +1,9 @@
 #include "robotguide/Communication/ApplicationLayer/Token/Token.h"
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 
-using namespace robotguide::com::applicationlayer;
+using namespace robotguide;
+using namespace com;
+using namespace applicationlayer;
 
 Token::Token(const TokenType type, const InstructionData data) : Type(type), Data(data)
 {

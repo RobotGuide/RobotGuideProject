@@ -6,13 +6,19 @@
 
 namespace robotguide::com::applicationlayer
 {
-	struct InstructionPrinter
+	struct Instruction;
+	class InstructionStream;
+
+	class InstructionPrinter
 	{
 	public:
 		InstructionPrinter() = default;
 
 		InstructionType GetInstructionType(const std::string& text) const;
 		std::string InstructionTypeToString(const InstructionType type) const;
+
+		std::string ConvertInstructionToASCII(const Instruction& instruction) const;
+		std::string ConvertInstructionStreamToASCII(const InstructionStream& stream) const;
 	};
 }
 

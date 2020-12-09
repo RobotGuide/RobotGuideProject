@@ -7,7 +7,8 @@
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/InvalidCharacterException.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/InvalidSequenceException.h"
 
-using namespace robotguide::com::applicationlayer;
+using namespace robotguide::com;
+using namespace applicationlayer;
 
 void Lexer::GetTokenStream(const char& text, TokenStream& stream) const
 {
