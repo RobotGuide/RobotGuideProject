@@ -10,8 +10,14 @@ namespace robotguide::com::transportlayer
 		const unsigned int maxLength;
 		int length;
 	public:
-		Buffer(const unsigned int length);
+		Buffer(const unsigned int maxLength);
 		~Buffer();
+
+		/// <summary>
+		/// Returns if this buffer contains data
+		/// </summary>
+		/// <returns>True if the buffer has data</returns>
+		bool HasData() const;
 
 		/// <summary>
 		/// Get the character buffer
