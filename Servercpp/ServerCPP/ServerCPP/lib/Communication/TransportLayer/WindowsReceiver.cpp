@@ -6,20 +6,20 @@
 
 using namespace  robotguide::com::transportlayer;
 
-void WindowsReceiver::ReceiveData(const std::vector<std::shared_ptr<IConnection>>& connections)
+void WindowsReceiver::ReceiveData(const std::vector<IConnection*>& connections)
 {
 	int activeSockets = GetAvailableSocketsCount(connections);
-	for (int i = 0; activeSockets > 0 && i < connections.size(); i++)
+	for (IConnection* connection : connections)
 	{
-		if (FD_ISSET(connections[i]->GetSocketHandle(), &ReadSet))
+		if (FD_ISSET(connection->GetSocketHandle(), &ReadSet))
 		{
 			activeSockets--;
-			ReceiveDataFromConnection(connections[i]);
+			ReceiveDataFromConnection(*connection);
 		}
 	}
 }
 
-int WindowsReceiver::GetAvailableSocketsCount(const std::vector<std::shared_ptr<IConnection>>& connections)
+int WindowsReceiver::GetAvailableSocketsCount(const std::vector<IConnection*>& connections)
 {
 	FD_ZERO(&ReadSet);
 	struct timeval tv
@@ -27,32 +27,38 @@ int WindowsReceiver::GetAvailableSocketsCount(const std::vector<std::shared_ptr<
 		0, 50
 	};
 
-	for (const std::shared_ptr<IConnection>& connection : connections)
+	for (IConnection* connection : connections)
 	{
+		if (connection == nullptr)
+		{
+			throw std::invalid_argument("Connections can not be nullptr");
+		}
 		FD_SET(connection->GetSocketHandle(), &ReadSet);
 	}
 
 	return select(0, &ReadSet, nullptr, nullptr, &tv);
 }
 
-void WindowsReceiver::ReceiveDataFromConnection(const std::shared_ptr<IConnection>& connection)
+void WindowsReceiver::ReceiveDataFromConnection(IConnection& connection)
 {
 	WSABUF buffer;
 	DWORD bytesReceived;
 	DWORD Flags = 0;
 
-	Buffer& receiveBuffer = connection->GetReceiveBuffer();
+	Buffer& receiveBuffer = connection.GetReceiveBuffer();
 	receiveBuffer.Clear();
 
 	buffer.buf = receiveBuffer.GetBuffer();
 	buffer.len = receiveBuffer.GetMaxLength();
 
-	const int value = WSARecv(connection->GetSocketHandle(), &buffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
+	const int value = WSARecv(connection.GetSocketHandle(), &buffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
 	if (value == SOCKET_ERROR || bytesReceived <= 0)
 	{
-		connection->Disconnect();
+		connection.Disconnect();
 		return;
 	}
 	receiveBuffer.SetLength(bytesReceived);
+	std::cout.write(receiveBuffer.GetBuffer(), receiveBuffer.GetLength());
+	std::cout << std::endl;
 }
 
