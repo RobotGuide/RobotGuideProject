@@ -18,11 +18,11 @@ namespace robotguide::com::applicationlayer
 		bool CurrentStateIsNone() const;
 		bool CurrentStateIsError() const;
 
-		[[nodiscard]] Instruction* CreateInstruction(const std::shared_ptr<Token>& token, const std::vector<std::shared_ptr<Token>>& vector) const;
+		[[nodiscard]] Instruction* CreateInstruction(const Token* token, const std::vector<Token*>& vector) const;
 	public:
 		Parser() = default;
 
-		InstructionStream GetInstructionStream(TokenStream tokenStream);
+		void GetInstructionStream(TokenStream& tokenStream, InstructionStream& instructionStream);
 	};
 }
 

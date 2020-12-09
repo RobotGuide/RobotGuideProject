@@ -1,12 +1,13 @@
 #include "robotguide/Communication/ApplicationLayer/Token/Token.h"
-
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 
-robotguide::com::applicationlayer::Token::Token(const TokenType type, const InstructionData data) : Type(type), Data(data)
+using namespace robotguide::com::applicationlayer;
+
+Token::Token(const TokenType type, const InstructionData data) : Type(type), Data(data)
 {
 }
 
-std::string robotguide::com::applicationlayer::Token::ToString() const
+std::string Token::ToString() const
 {
 	switch (Type)
 	{
@@ -21,7 +22,7 @@ std::string robotguide::com::applicationlayer::Token::ToString() const
 	}
 }
 
-std::string robotguide::com::applicationlayer::Token::DataToString() const
+std::string Token::DataToString() const
 {
 	switch(Type)
 	{

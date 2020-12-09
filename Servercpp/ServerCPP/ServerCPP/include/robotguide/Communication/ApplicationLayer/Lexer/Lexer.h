@@ -16,8 +16,8 @@ namespace robotguide::com::applicationlayer
 	public:
 		Lexer() = default;
 
-		TokenStream GetTokenStream(const char& text);
-		TokenStream GetTokenStream(const std::string& text);
+		void GetTokenStream(const char& text, TokenStream& stream) const;
+		void GetTokenStream(const std::string& text, TokenStream& stream);
 
 		LexerState CurrentState() const;
 	private:

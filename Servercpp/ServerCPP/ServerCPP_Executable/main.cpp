@@ -4,10 +4,12 @@
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
 #include <iostream>
 
+using namespace robotguide::com::applicationlayer;
+
 int main()
 {
-	auto lexer = robotguide::com::applicationlayer::Lexer();
-	auto parser = robotguide::com::applicationlayer::Parser();
+	auto lexer = Lexer();
+	auto parser = Parser();
 
 	while(true)
 	{
@@ -15,10 +17,12 @@ int main()
 		std::getline(std::cin, input);
 		try
 		{
-			auto tokenStream = lexer.GetTokenStream(input);
+			TokenStream tokenStream;
+			lexer.GetTokenStream(input, tokenStream);
 			std::cout << tokenStream.ToString() << std::endl;
 
-			auto instructionStream = parser.GetInstructionStream(tokenStream);
+			InstructionStream instructionStream;
+			parser.GetInstructionStream(tokenStream, instructionStream);
 			std::cout << instructionStream.ToString() << std::endl;
 		}
 		catch(robotguide::com::exception::al::LexerException& ex)

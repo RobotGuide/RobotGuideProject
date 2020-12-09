@@ -1,9 +1,10 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
+#include "robotguide/Communication/Exception/ApplicationLayer/Instruction/InvalidConversionToInstructionType.h"
 #include <exception>
 
-#include "robotguide/Communication/Exception/ApplicationLayer/Instruction/InvalidConversionToInstructionType.h"
+using namespace robotguide::com::applicationlayer;
 
-robotguide::com::applicationlayer::InstructionType robotguide::com::applicationlayer::InstructionPrinter::GetInstructionType(
+InstructionType InstructionPrinter::GetInstructionType(
 	const std::string& text) const
 {
 	if (text.size() != 4)
@@ -159,7 +160,7 @@ robotguide::com::applicationlayer::InstructionType robotguide::com::applicationl
 	throw exception::al::InvalidConversionToInstructionType("Couldn't convert text to instruction type");
 }
 
-std::string robotguide::com::applicationlayer::InstructionPrinter::InstructionTypeToString(const InstructionType type) const
+std::string InstructionPrinter::InstructionTypeToString(const InstructionType type) const
 {
 	return "not implemented!";
 }

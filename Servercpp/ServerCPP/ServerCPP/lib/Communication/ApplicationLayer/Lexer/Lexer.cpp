@@ -7,18 +7,20 @@
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/InvalidCharacterException.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/InvalidSequenceException.h"
 
-robotguide::com::applicationlayer::TokenStream robotguide::com::applicationlayer::Lexer::GetTokenStream(const char& text)
+using namespace robotguide::com::applicationlayer;
+
+void Lexer::GetTokenStream(const char& text, TokenStream& stream) const
 {
-	return GetTokenStream(text);
+	GetTokenStream(text, stream);
 }
 
-void robotguide::com::applicationlayer::Lexer::ResetLexer()
+void Lexer::ResetLexer()
 {
 	UpdateCurrentState(LexerState::None);
 	buffer.clear();
 }
 
-void robotguide::com::applicationlayer::Lexer::AddCharacterToBufferAndRetrieveToken(TokenStream& stream, const char character)
+void Lexer::AddCharacterToBufferAndRetrieveToken(TokenStream& stream, const char character)
 {
 	const LexerState newState = LexCharacter(character);
 	if (newState == LexerState::EndToken && !buffer.empty())
@@ -43,25 +45,22 @@ void robotguide::com::applicationlayer::Lexer::AddCharacterToBufferAndRetrieveTo
 	}
 }
 
-robotguide::com::applicationlayer::TokenStream robotguide::com::applicationlayer::Lexer::GetTokenStream(const std::string& text)
+void Lexer::GetTokenStream(const std::string& text, TokenStream& stream)
 {
-	TokenStream stream;
 	for (auto character : text)
 	{
 		AddCharacterToBufferAndRetrieveToken(stream, character);
 	}
 	AddCharacterToBufferAndRetrieveToken(stream, ' '); // Is needed to fully clear the buffer, not forgetting some final text.
 	ResetLexer();
-	
-	return stream;
 }
 
-robotguide::com::applicationlayer::LexerState robotguide::com::applicationlayer::Lexer::CurrentState() const
+LexerState Lexer::CurrentState() const
 {
 	return currentState;
 }
 
-robotguide::com::applicationlayer::LexerState robotguide::com::applicationlayer::Lexer::LexCharacter(const char character) const
+LexerState Lexer::LexCharacter(const char character) const
 {
 	const LexerCharacterType type = GetCharacterType(character);
 	if (type == LexerCharacterType::Unknown)
@@ -161,7 +160,7 @@ robotguide::com::applicationlayer::LexerState robotguide::com::applicationlayer:
 	}
 }
 
-robotguide::com::applicationlayer::Token* robotguide::com::applicationlayer::Lexer::GetToken() const
+Token* Lexer::GetToken() const
 {
 	Token* token = nullptr;
 	switch(currentState)
@@ -190,58 +189,58 @@ robotguide::com::applicationlayer::Token* robotguide::com::applicationlayer::Lex
 	return token;
 }
 
-robotguide::com::applicationlayer::Token* robotguide::com::applicationlayer::Lexer::GetTextToken() const
+Token* Lexer::GetTextToken() const
 {
 	return new TextToken(buffer);
 }
 
-robotguide::com::applicationlayer::Token* robotguide::com::applicationlayer::Lexer::GetDecimalToken() const
+Token* Lexer::GetDecimalToken() const
 {
 	return new DecimalToken(std::stod(buffer));
 }
 
-robotguide::com::applicationlayer::Token* robotguide::com::applicationlayer::Lexer::GetIntToken() const
+Token* Lexer::GetIntToken() const
 {
 	return new IntegerToken(std::stoi(buffer));
 }
 
-robotguide::com::applicationlayer::Token* robotguide::com::applicationlayer::Lexer::GetInstructionToken() const
+Token* Lexer::GetInstructionToken() const
 {
 	const InstructionType type = InstructionPrinter().GetInstructionType(buffer);
 	return new InstructionToken(type);
 }
 
-bool robotguide::com::applicationlayer::Lexer::CurrentStateIsStringDeclaration() const
+bool Lexer::CurrentStateIsStringDeclaration() const
 {
 	return currentState == LexerState::Stringdeclaration;
 }
 
-bool robotguide::com::applicationlayer::Lexer::CurrentStateIsHead() const
+bool Lexer::CurrentStateIsHead() const
 {
 	return currentState == LexerState::Head;
 }
 
-bool robotguide::com::applicationlayer::Lexer::CurrentStateIsInteger() const
+bool Lexer::CurrentStateIsInteger() const
 {
 	return currentState == LexerState::Int;
 }
 
-bool robotguide::com::applicationlayer::Lexer::CurrentStateIsDecimal() const
+bool Lexer::CurrentStateIsDecimal() const
 {
 	return currentState == LexerState::Decimal;
 }
 
-bool robotguide::com::applicationlayer::Lexer::CurrentStateIsText() const
+bool Lexer::CurrentStateIsText() const
 {
 	return currentState == LexerState::Text;
 }
 
-bool robotguide::com::applicationlayer::Lexer::CurrentStateIsNone() const
+bool Lexer::CurrentStateIsNone() const
 {
 	return currentState == LexerState::None;
 }
 
-robotguide::com::applicationlayer::LexerCharacterType robotguide::com::applicationlayer::Lexer::GetCharacterType(const char character) const
+LexerCharacterType Lexer::GetCharacterType(const char character) const
 {
 	if (isdigit(character))
 	{
@@ -274,7 +273,7 @@ robotguide::com::applicationlayer::LexerCharacterType robotguide::com::applicati
 	}
 }
 
-void robotguide::com::applicationlayer::Lexer::UpdateCurrentState(const LexerState newState)
+void Lexer::UpdateCurrentState(const LexerState newState)
 {
 	if (newState == LexerState::EndToken)
 	{

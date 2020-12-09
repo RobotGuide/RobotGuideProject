@@ -1,20 +1,21 @@
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Parser/InvalidTokenSequenceException.h"
+#include <exception>
 
-robotguide::com::applicationlayer::InstructionStream robotguide::com::applicationlayer::Parser::GetInstructionStream(
-	TokenStream tokenStream)
+using namespace robotguide::com::applicationlayer;
+
+void Parser::GetInstructionStream(
+	TokenStream& tokenStream, InstructionStream& instructionStream)
 {
-	std::shared_ptr<Token> instructionHead;
-	std::vector<std::shared_ptr<Token>> instructionData;
+	Token* instructionHead = nullptr;
+	std::vector<Token*> instructionData;
 	instructionData.reserve(3);
-
-	InstructionStream stream;
 
 	bool instructionHeadSet = false;
 	
 	for (auto i = 0; i < tokenStream.size(); i++)
 	{
-		const std::shared_ptr<Token> currentToken = tokenStream[i];
+		Token* currentToken = tokenStream[i];
 		switch (currentToken->Type)
 		{
 		case TokenType::Head:
@@ -25,7 +26,7 @@ robotguide::com::applicationlayer::InstructionStream robotguide::com::applicatio
 			}
 			else if (CurrentStateIsInstructionType())
 			{
-				stream.AddInstruction(CreateInstruction(instructionHead, instructionData));
+				instructionStream.AddInstruction(CreateInstruction(instructionHead, instructionData));
 				instructionData.clear();
 				instructionHeadSet = false;
 				UpdateState(ParserState::InstructionType);
@@ -69,41 +70,39 @@ robotguide::com::applicationlayer::InstructionStream robotguide::com::applicatio
 
 	if (!instructionData.empty())
 	{
-		stream.AddInstruction(CreateInstruction(instructionHead, instructionData));
+		instructionStream.AddInstruction(CreateInstruction(instructionHead, instructionData));
 	}
 
 	UpdateState(ParserState::None);
-	
-	return stream;
 }
 
-void robotguide::com::applicationlayer::Parser::UpdateState(const ParserState parserState)
+void Parser::UpdateState(const ParserState parserState)
 {
 	currentState = parserState;
 }
 
-bool robotguide::com::applicationlayer::Parser::CurrentStateIsInstructionType() const
+bool Parser::CurrentStateIsInstructionType() const
 {
 	return currentState == ParserState::InstructionType;
 }
 
-bool robotguide::com::applicationlayer::Parser::CurrentStateIsInput() const
+bool Parser::CurrentStateIsInput() const
 {
 	return currentState == ParserState::InputType;
 }
 
-bool robotguide::com::applicationlayer::Parser::CurrentStateIsNone() const
+bool Parser::CurrentStateIsNone() const
 {
 	return currentState == ParserState::None;
 }
 
-bool robotguide::com::applicationlayer::Parser::CurrentStateIsError() const
+bool Parser::CurrentStateIsError() const
 {
 	return currentState == ParserState::Error;
 }
 
-robotguide::com::applicationlayer::Instruction* robotguide::com::applicationlayer::Parser::CreateInstruction(const std::shared_ptr<Token>& token,
-	const std::vector<std::shared_ptr<Token>>& vector) const
+Instruction* Parser::CreateInstruction(const Token* token,
+                                       const std::vector<Token*>& vector) const
 {
 	const InstructionType type = token->Data.GetInstructionType();
 	std::vector<InstructionData> data;
