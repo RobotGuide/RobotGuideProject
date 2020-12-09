@@ -7,8 +7,8 @@ typedef enum {
   RETURN_STATUS
 } Instruction;
 
-const char* ssid = "Samsung Galaxy S10 Plus Hotspot"; //"insert wifi name here";
-const char* pass = "hei28!&3ja9"; //"insert wifi password here";
+const char* ssid = "insert wifi name here";
+const char* pass = "insert wifi password here";
 
 const char* ip = "insert server ip here";
 const int port = 3030;
