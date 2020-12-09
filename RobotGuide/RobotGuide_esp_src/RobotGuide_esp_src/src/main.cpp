@@ -35,7 +35,7 @@ void setup() {
   }
 
   Serial.println("connected with Wifi"); // remove later 
-  digitalWrite(LED_BUILTIN, HIGH);; // turn led off
+  digitalWrite(LED_BUILTIN, HIGH); // turn led off
 
   client.setDefaultNoDelay(true);
 
