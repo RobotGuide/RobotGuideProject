@@ -2,50 +2,87 @@
 #include <ESP8266WiFi.h>
 #include <SPI.h>
 
+typedef enum {
+  RECEIVE_INSTRUCTION,
+  RETURN_STATUS
+} Instruction;
 
-const char* ssid = "insert wifi name here";
-const char* pass = "insert wifi password here";
+const char* ssid = "Samsung Galaxy S10 Plus Hotspot"; //"insert wifi name here";
+const char* pass = "hei28!&3ja9"; //"insert wifi password here";
+
 const char* ip = "insert server ip here";
 const int port = 3030;
+
+WiFiClient client;
+
+Instruction current = RECEIVE_INSTRUCTION;
 
 void setup() {
 
   Serial.flush();
   Serial.begin(9600);
 
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  bool led = false;
+
   WiFi.begin(ssid, pass);
   while (WiFi.status() != WL_CONNECTED)
   {
+    led = !led;
+    digitalWrite(LED_BUILTIN, led); // blink led
     delay(500);
   }
-  pinMode(LED_BUILTIN, OUTPUT);
 
+  Serial.println("connected with Wifi"); // remove later 
+  digitalWrite(LED_BUILTIN, HIGH);; // turn led off
+
+  client.setDefaultNoDelay(true);
+
+  // Todo: check connection  
+  client.connect(ip, port);
+  
+  
+  digitalWrite(LED_BUILTIN, LOW); // turn led on
+
+  Serial.println("connected with server"); // remove later 
 }
 
+// connection fucntion 
+
 void loop() {
-  // use for testing communication
-  WiFiClient client;
-  client.setDefaultNoDelay(true);
-  if (client.connect(ip, port))
+
+  if (!client.connected())
   {
-    digitalWrite(LED_BUILTIN, LOW);
-    while (client.connected() || client.available())
-    {
-      if (client.available())
-      {
-       
-        String line = client.readStringUntil('\n');
-
-        line += '\n';
-
-        Serial.print(line);
-        
-      }
-    }
     client.stop();
+    client.connect(ip, port);
+    // Todo: do reconnect stuff 
   }
-  else
+
+  switch (current)
   {
-    client.stop();
+  case RECEIVE_INSTRUCTION:
+    if (client.available())
+    {
+      String line = client.readStringUntil('\n');
+      Serial.print(line);
+      Serial.print('\n');
+    }
+
+    current = RETURN_STATUS;
+    break;
+
+  case RETURN_STATUS:
+    if (Serial.available())
+    {
+      String line =  Serial.readStringUntil('\n');
+      client.print(line);
+    }
+
+    current = RECEIVE_INSTRUCTION;
+    break;
+  
+  default:
+    break;
   }
 }
