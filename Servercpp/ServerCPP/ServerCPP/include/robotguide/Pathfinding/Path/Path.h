@@ -10,14 +10,14 @@ namespace robotguide::path
 	struct Path
 	{
 	public:
-		std::vector<std::shared_ptr<robotguide::grid::Vertex>> vertexPath;
+		std::vector<std::shared_ptr<robotguide::path::Vertex>> vertexPath;
 
 	public:
 		Path() = default;
 		virtual ~Path() = default;
 
-		void Add(std::shared_ptr<robotguide::grid::Vertex> newVertex);
-		void RemoveLast(std::shared_ptr<robotguide::grid::Vertex> vertex);
+		void Add(std::shared_ptr<robotguide::path::Vertex> newVertex);
+		void RemoveLast(std::shared_ptr<robotguide::path::Vertex> vertex);
 
 		const int GetLength();
 	};

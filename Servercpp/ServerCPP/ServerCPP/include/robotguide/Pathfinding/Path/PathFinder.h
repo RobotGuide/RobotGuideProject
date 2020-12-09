@@ -10,11 +10,11 @@ namespace robotguide::path
 	class PathFinder
 	{
 	public:
-		PathFinder(std::shared_ptr<robotguide::grid::Grid> grid);
+		PathFinder(std::shared_ptr<robotguide::path::Grid> grid);
 		virtual ~PathFinder() = default;
 
-		virtual Path FindPath(std::shared_ptr<robotguide::grid::Vertex> startPoint, 
-								std::shared_ptr<robotguide::grid::Vertex> endPoint);
+		virtual Path FindPath(std::shared_ptr<robotguide::path::Vertex> startPoint, 
+								std::shared_ptr<robotguide::path::Vertex> endPoint);
 	};
 }
 
