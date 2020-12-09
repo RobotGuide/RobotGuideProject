@@ -32,7 +32,7 @@ void Lexer::AddCharacterToBufferAndRetrieveToken(TokenStream& stream, const char
 	}
 	else if (newState == LexerState::Error)
 	{
-		throw exception::al::InvalidSequenceException("Invalid sequence encountered!");
+		throw exception::applicationlayer::InvalidSequenceException("Invalid sequence encountered!");
 	}
 	else if (newState != LexerState::Stringdeclaration)
 	{
@@ -66,7 +66,7 @@ LexerState Lexer::LexCharacter(const char character) const
 	const LexerCharacterType type = GetCharacterType(character);
 	if (type == LexerCharacterType::Unknown)
 	{
-		throw exception::al::InvalidCharacterException("Unknown character encountered");
+		throw exception::applicationlayer::InvalidCharacterException("Unknown character encountered");
 	}
 
 	if (type == LexerCharacterType::Ignore)
@@ -184,7 +184,7 @@ Token* Lexer::GetToken() const
 
 	if (token == nullptr)
 	{
-		throw exception::al::InvalidSequenceException("Token couldn't be retrieved");
+		throw exception::applicationlayer::InvalidSequenceException("Token couldn't be retrieved");
 	}
 	
 	return token;

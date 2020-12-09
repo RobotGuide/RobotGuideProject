@@ -9,7 +9,7 @@ InstructionType InstructionPrinter::GetInstructionType(
 {
 	if (text.size() != 4)
 	{
-		throw exception::al::InvalidConversionToInstructionType("Text cannot be converted to instruction type");
+		throw exception::applicationlayer::InvalidConversionToInstructionType("Text cannot be converted to instruction type");
 	}
 
 	if (text == "MOVE")
@@ -157,7 +157,7 @@ InstructionType InstructionPrinter::GetInstructionType(
 		return InstructionType::Vers;
 	}
 
-	throw exception::al::InvalidConversionToInstructionType("Couldn't convert text to instruction type");
+	throw exception::applicationlayer::InvalidConversionToInstructionType("Couldn't convert text to instruction type");
 }
 
 std::string InstructionPrinter::InstructionTypeToString(const InstructionType type) const

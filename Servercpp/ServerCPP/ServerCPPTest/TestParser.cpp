@@ -82,7 +82,7 @@ TEST_F(TestParser, InputInvalidStreamInvalidInstruction_ShouldThrowInvalidTokenS
 		Lexer().GetTokenStream("IDONTEXIST 1 2 3", incorrectInstruction);
 		FAIL();
 	}
-	catch(robotguide::com::exception::al::ApplicationLayerException& ex)
+	catch(robotguide::com::exception::applicationlayer::ApplicationLayerException& ex)
 	{
 		SUCCEED();
 	}
@@ -100,7 +100,7 @@ TEST_F(TestParser, InputInvalidStreamIncorrectInput_ShouldThrowInvalidTokenSeque
 		Lexer().GetTokenStream("MOVE 1THISDOESNTEXIST 2 3", incorrectInput);
 		FAIL();
 	}
-	catch (robotguide::com::exception::al::ApplicationLayerException& ex)
+	catch (robotguide::com::exception::applicationlayer::ApplicationLayerException& ex)
 	{
 		SUCCEED();
 	}
@@ -123,7 +123,7 @@ TEST_F(TestParser, InvalidInputTokenOrder_ParserWillThrowException)
 		ValidIntegerToken = nullptr;
 		FAIL();
 	}
-	catch (robotguide::com::exception::al::ApplicationLayerException& ex)
+	catch (robotguide::com::exception::applicationlayer::ApplicationLayerException& ex)
 	{
 		ValidInstructionToken = nullptr;
 		ValidIntegerToken = nullptr;

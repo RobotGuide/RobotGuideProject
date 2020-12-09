@@ -61,7 +61,7 @@ void Parser::GetInstructionStream(
 			instructionHeadSet = true;
 			break;
 		case ParserState::Error:
-			throw exception::al::InvalidTokenSequenceException("Incorrect sequence encountered!");
+			throw exception::applicationlayer::InvalidTokenSequenceException("Incorrect sequence encountered!");
 			break;
 		case ParserState::None:
 			break;
