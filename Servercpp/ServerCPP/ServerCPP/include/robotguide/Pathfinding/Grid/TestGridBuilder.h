@@ -15,8 +15,7 @@ namespace robotguide::path
 		const int maxX = 7;
 		std::vector<Coordinate> walls;
 
-		bool IsCoordinateWall(int x, int z);
-		bool AreNeighBours(std::shared_ptr<Vertex> v1, std::shared_ptr<Vertex> v2);
+		bool IsCoordinateWall(int x, int z);		
 
 	public:
 		TestGridBuilder();

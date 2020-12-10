@@ -8,13 +8,17 @@ namespace robotguide::path
 	struct Coordinate
 	{
 	public:
-		Coordinate(int x_, int z_, int y_ = 0);
-		Coordinate(const Coordinate& coordinate_);
-		virtual ~Coordinate() = default;
-		
 		int x;
 		int y;
 		int z;
+
+	public:
+		Coordinate(int x_, int z_, int y_ = 0);
+		Coordinate(const Coordinate& coordinate_);
+		virtual ~Coordinate() = default;
+
+		bool IsNeighbour(const Coordinate& coordinate) const;
+		static bool IsNeighbour(const Coordinate& c1, const Coordinate& c2);
 	};
 }
 

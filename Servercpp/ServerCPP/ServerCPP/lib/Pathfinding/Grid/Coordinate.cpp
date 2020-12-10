@@ -1,5 +1,8 @@
 #include "robotguide/Pathfinding/Grid/Coordinate.h"
 
+#include <memory>
+#include <iostream>
+
 using namespace robotguide::path;
 
 Coordinate::Coordinate(int x_, int z_, int y_)
@@ -14,4 +17,14 @@ Coordinate::Coordinate(const Coordinate& coordinate_)
 	x = coordinate_.x;
 	z = coordinate_.z;
 	y = coordinate_.y;
+}
+
+bool Coordinate::IsNeighbour(const Coordinate& coordinate) const
+{
+	return (abs(x - coordinate.x) + abs(z - coordinate.z)) == 1;
+}
+
+bool Coordinate::IsNeighbour(const Coordinate& c1, const Coordinate& c2) 
+{	
+	return ((abs(c1.x - c2.x) + abs(c1.z - c2.z)) == 1);
 }

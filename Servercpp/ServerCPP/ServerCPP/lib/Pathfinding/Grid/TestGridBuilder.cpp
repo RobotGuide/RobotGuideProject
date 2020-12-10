@@ -1,7 +1,9 @@
 #include "robotguide/Pathfinding/Grid/TestGridBuilder.h"
 #include "robotguide/Pathfinding/Grid/Vertex.h"
+#include "robotguide/Pathfinding/Grid/Coordinate.h"
 #include <stdexcept>
 #include <memory>
+#include <iostream>
 
 //    Z ->
 // X .......
@@ -82,10 +84,10 @@ void robotguide::path::TestGridBuilder::PopulateGrid(Grid* grid)
 				continue;
 			}
 
-			if (AreNeighBours(vertex, neighbourVertex))
+			if (Coordinate::IsNeighbour(vertex->coordinate, neighbourVertex->coordinate))
 			{
 				vertex->AddConnectedVertex(neighbourVertex);
-			}
+			}			
 		}
 	}
 }
@@ -101,10 +103,5 @@ bool robotguide::path::TestGridBuilder::IsCoordinateWall(int x, int z)
 	}
 
 	return false;
-}
-
-bool robotguide::path::TestGridBuilder::AreNeighBours(std::shared_ptr<Vertex> v1, std::shared_ptr<Vertex> v2)
-{
-	return (abs(v1->coordinate.x - v2->coordinate.x) + abs(v1->coordinate.z - v2->coordinate.z)) == 1;
 }
 
