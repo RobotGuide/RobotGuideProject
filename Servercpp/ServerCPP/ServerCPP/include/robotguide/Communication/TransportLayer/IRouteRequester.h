@@ -1,0 +1,12 @@
+#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_IROUTEREQUESTER_H
+#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_IROUTEREQUESTER_H
+
+class IRouteRequester
+{
+public:
+
+	virtual ~IRouteRequester() = default;
+};
+
+
+#endif
