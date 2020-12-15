@@ -7,57 +7,38 @@ typedef enum {
   RETURN_STATUS
 } Instruction;
 
-const char* ssid = "insert wifi name here";
-const char* pass = "insert wifi password here";
+const char* ssid = "Samsung Galaxy S10 Plus Hotspot"; //insert wifi name here
+const char* pass = ""; //insert wifi password here
 
-const char* ip = "insert server ip here";
+const char* ip = ""; //insert server ip here
 const int port = 3030;
 
 WiFiClient client;
 
 Instruction current = RECEIVE_INSTRUCTION;
 
-void setup() {
+void ConnectWifi();
+void ConnectServer();
 
+
+// Connecting to Wi-Fi: LED Blink fast
+// Conneting to Server: LED Blink slower
+// Connected to server and wifi: LED On
+void setup() {
   Serial.flush();
   Serial.begin(9600);
-
   pinMode(LED_BUILTIN, OUTPUT);
 
-  bool led = false;
-
   WiFi.begin(ssid, pass);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    led = !led;
-    digitalWrite(LED_BUILTIN, led); // blink led
-    delay(500);
-  }
-
-  Serial.println("connected with Wifi"); // remove later 
-  digitalWrite(LED_BUILTIN, HIGH);; // turn led off
-
+  digitalWrite(LED_BUILTIN, HIGH); // turn led off
   client.setDefaultNoDelay(true);
-
-  // Todo: check connection  
-  client.connect(ip, port);
-  
-  
-  digitalWrite(LED_BUILTIN, LOW); // turn led on
-
-  Serial.println("connected with server"); // remove later 
 }
 
-// connection fucntion 
-
 void loop() {
+  ConnectWifi();
+  ConnectServer();
 
-  if (!client.connected())
-  {
-    client.stop();
-    client.connect(ip, port);
-    // Todo: do reconnect stuff 
-  }
+  digitalWrite(LED_BUILTIN, LOW); // turn led on
 
   switch (current)
   {
@@ -84,5 +65,37 @@ void loop() {
   
   default:
     break;
+  }
+}
+
+void ConnectWifi()
+{
+  bool led = false;
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    led = !led;
+    digitalWrite(LED_BUILTIN, led); // blink led
+    delay(100);
+  }
+}
+
+void ConnectServer()
+{
+  bool led = false;
+  if (!client.connected())
+  {
+    client.stop();
+    client.connect(ip, port); // CLOSED -> ESTABLISHED
+    unsigned long long time = millis() + 5000;
+    while (client.status() != ESTABLISHED)
+    {
+      led = !led;
+      digitalWrite(LED_BUILTIN, led);
+      delay(300);
+      if (millis() >= time)
+      {
+        break;
+      }
+    }
   }
 }
