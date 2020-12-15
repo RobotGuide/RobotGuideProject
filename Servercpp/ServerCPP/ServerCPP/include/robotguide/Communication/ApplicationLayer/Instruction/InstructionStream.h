@@ -1,21 +1,27 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_INSTRUCTION_INSTRUCTIONSTREAM_H
 #define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_INSTRUCTION_INSTRUCTIONSTREAM_H
-#include <memory>
-#include <vector>
 
 #include "robotguide/Communication/ApplicationLayer/Instruction/Instruction.h"
+#include <vector>
+#include <memory>
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
+	/*
+	 * InstructionStreams take ownership of the content they receive.
+	 */
 	class InstructionStream
 	{
 	private:
-		using const_iterator = std::vector<std::shared_ptr<Instruction>>::const_iterator;
-		using iterator = std::vector<std::shared_ptr<Instruction>>::iterator;
+		std::vector<Instruction*> instructions;
+		using const_iterator = std::vector<Instruction*>::const_iterator;
+		using iterator = std::vector<Instruction*>::iterator;
 		
-		std::vector<std::shared_ptr<Instruction>> instructions;
 	public:
 		InstructionStream() = default;
+		InstructionStream(const InstructionStream& instructionStream) = delete;
+
+		~InstructionStream();
 
 		void AddInstruction(Instruction* instruction);
 
@@ -33,6 +39,8 @@ namespace robotguide::com::al
 
 		unsigned size() const;
 
+		InstructionStream& operator=(const InstructionStream& instructionStream) = delete;
+		
 		const_iterator begin() const noexcept
 		{
 			return instructions.begin();

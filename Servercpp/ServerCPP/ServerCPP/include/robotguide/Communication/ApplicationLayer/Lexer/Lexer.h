@@ -6,7 +6,7 @@
 #include "robotguide/Communication/ApplicationLayer/Lexer/LexerCharacterType.h"
 #include <string>
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class Lexer
 	{
@@ -16,8 +16,8 @@ namespace robotguide::com::al
 	public:
 		Lexer() = default;
 
-		TokenStream GetTokenStream(const char& text);
-		TokenStream GetTokenStream(const std::string& text);
+		void GetTokenStream(const char& text, TokenStream& stream) const;
+		void GetTokenStream(const std::string& text, TokenStream& stream);
 
 		LexerState CurrentState() const;
 	private:

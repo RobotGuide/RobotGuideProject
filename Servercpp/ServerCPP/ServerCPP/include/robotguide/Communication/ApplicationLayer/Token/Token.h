@@ -4,7 +4,7 @@
 #include "robotguide/Communication/ApplicationLayer/Token/TokenType.h"
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionData.h"
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	class Token
 	{

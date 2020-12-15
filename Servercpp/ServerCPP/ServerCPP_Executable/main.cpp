@@ -2,12 +2,17 @@
 #include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
+#include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 #include <iostream>
+
+
+using namespace robotguide::com::applicationlayer;
 
 int main()
 {
-	auto lexer = robotguide::com::al::Lexer();
-	auto parser = robotguide::com::al::Parser();
+	auto lexer = Lexer();
+	auto parser = Parser();
+	auto instructionPrinter = InstructionPrinter();
 
 	while(true)
 	{
@@ -15,11 +20,14 @@ int main()
 		std::getline(std::cin, input);
 		try
 		{
-			auto tokenStream = lexer.GetTokenStream(input);
+			TokenStream tokenStream;
+			lexer.GetTokenStream(input, tokenStream);
 			std::cout << tokenStream.ToString() << std::endl;
 
-			auto instructionStream = parser.GetInstructionStream(tokenStream);
+			InstructionStream instructionStream;
+			parser.GetInstructionStream(tokenStream, instructionStream);
 			std::cout << instructionStream.ToString() << std::endl;
+			std::cout << instructionPrinter.ConvertInstructionStreamToASCII(instructionStream);
 		}
 		catch(robotguide::com::exception::al::LexerException& ex)
 		{

@@ -1,13 +1,23 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionStream.h"
-
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 
-void robotguide::com::al::InstructionStream::AddInstruction(Instruction* instruction)
+using namespace robotguide::com::applicationlayer;
+
+InstructionStream::~InstructionStream()
 {
-	instructions.push_back(std::shared_ptr<Instruction>(instruction));
+	for (auto* instruction : instructions)
+	{
+		delete instruction;
+		instruction = nullptr;
+	}
 }
 
-std::string robotguide::com::al::InstructionStream::ToString() const
+void InstructionStream::AddInstruction(Instruction* instruction)
+{
+	instructions.push_back(instruction);
+}
+
+std::string InstructionStream::ToString() const
 {
 	std::string completeString;
 
@@ -19,7 +29,7 @@ std::string robotguide::com::al::InstructionStream::ToString() const
 	return completeString;
 }
 
-unsigned robotguide::com::al::InstructionStream::size() const
+unsigned InstructionStream::size() const
 {
 	return instructions.size();
 }

@@ -29,6 +29,8 @@
   <ItemGroup>
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionPrinter.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp" />
@@ -65,6 +67,8 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionPrinter.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h" />
@@ -96,6 +100,7 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Coordinate.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Grid.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\TestGridBuilder.h" />
@@ -229,6 +234,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

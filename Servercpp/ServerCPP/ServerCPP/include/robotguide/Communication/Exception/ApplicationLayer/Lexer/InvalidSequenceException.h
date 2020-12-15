@@ -3,7 +3,7 @@
 
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
 
-namespace robotguide::com::exception::al
+namespace robotguide::com::exception::applicationlayer
 {
 	class InvalidSequenceException final : public LexerException
 	{

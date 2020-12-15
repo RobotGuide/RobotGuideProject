@@ -5,7 +5,7 @@
  * Defines the different input data types, used by the lexer.
  */
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	enum class TokenType
 	{

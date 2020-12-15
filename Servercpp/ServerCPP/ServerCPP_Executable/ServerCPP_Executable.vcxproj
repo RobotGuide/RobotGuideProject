@@ -24,6 +24,7 @@
     <ProjectGuid>{6b54ee5a-1d1d-45ff-a084-e9a375f7fb8d}</ProjectGuid>
     <RootNamespace>ServerCPPExecutable</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ServerCPP_Executable</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

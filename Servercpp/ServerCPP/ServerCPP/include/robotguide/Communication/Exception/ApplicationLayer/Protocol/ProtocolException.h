@@ -3,7 +3,7 @@
 
 #include "robotguide/Communication/Exception/ApplicationLayer/ApplicationLayerException.h"
 
-namespace robotguide::com::exception::al
+namespace robotguide::com::exception::applicationlayer
 {
 	class ProtocolException : public ApplicationLayerException
 	{

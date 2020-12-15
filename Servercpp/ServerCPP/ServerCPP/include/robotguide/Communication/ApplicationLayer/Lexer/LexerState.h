@@ -1,7 +1,7 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_LEXER_LEXERSTATE_H
 #define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_LEXER_LEXERSTATE_H
 
-namespace robotguide::com::al
+namespace robotguide::com::applicationlayer
 {
 	enum class LexerState
 	{
