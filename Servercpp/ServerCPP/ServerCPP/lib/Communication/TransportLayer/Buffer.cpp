@@ -13,6 +13,7 @@ Buffer::Buffer(const unsigned int maxLength) : maxLength(maxLength)
 Buffer::~Buffer()
 {
 	delete[] buffer;
+	buffer = nullptr;
 }
 
 bool Buffer::HasData() const
