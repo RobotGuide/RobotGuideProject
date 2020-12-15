@@ -1,7 +1,6 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_ILISTENER_H
 #define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_ILISTENER_H
 
-
 namespace robotguide::com::transportlayer
 {
 	/// <summary>

@@ -21,10 +21,10 @@ namespace robotguide::com::transportlayer
 		/// Receive data for all available sockets
 		/// </summary>
 		/// <param name="connections">The connections you want to check for available data</param>
-		void ReceiveData(const std::vector<IConnection*>& connections) override;
+		void ReceiveData(const std::vector<Connection*>& connections) override;
 	private:
-		int GetAvailableSocketsCount(const std::vector<IConnection*>& connections);
-		static void ReceiveDataFromConnection(IConnection& connection);
+		int GetAvailableSocketsCount(const std::vector<Connection*>& connections);
+		static void ReceiveDataFromConnection(Connection& connection);
 	};
 }
 #endif
