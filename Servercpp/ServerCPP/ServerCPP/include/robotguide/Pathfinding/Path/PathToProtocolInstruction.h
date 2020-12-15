@@ -16,21 +16,21 @@ namespace robotguide::path
 		int GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2) const;
 		int GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2) const;
 		int CalculateNeededAngle(const double verticalDistance, const double horizontalDistance) const;
-		std::vector<com::al::Instruction*> DetermineInstructionToMoveToDesiredPlace(
+		std::vector<com::applicationlayer::Instruction*> DetermineInstructionToMoveToDesiredPlace(
 			int distanceToMove, int angleToMove) const;
 
 		int GetDistanceViaVerticalAndHorizontalDistance(const double verticalDistance,
 		                                                const double horizontalDistance) const;
 
-		std::vector<com::al::Instruction*> GetInstruction(const Vertex& currentVertex, const Vertex& nextVertex) const;
-		std::vector<com::al::Instruction*> GetLastInstruction(const Vertex& vertex) const;
-		std::vector<com::al::Instruction*> CreateInstruction(const std::vector<std::shared_ptr<Vertex>>& vertexes, const int index) const;
+		std::vector<com::applicationlayer::Instruction*> GetInstruction(const Vertex& currentVertex, const Vertex& nextVertex) const;
+		std::vector<com::applicationlayer::Instruction*> GetLastInstruction(const Vertex& vertex) const;
+		std::vector<com::applicationlayer::Instruction*> CreateInstruction(const std::vector<std::shared_ptr<Vertex>>& vertexes, const int index) const;
 	public:
 		PathToProtocolInstruction();
 		PathToProtocolInstruction(const int curentAngle);
 		~PathToProtocolInstruction() = default;
 
-		com::al::InstructionStream ConvertPathToInstructionStream(const Path& path) const;
+		void ConvertPathToInstructionStream(const Path& path, com::applicationlayer::InstructionStream& instructions) const;
 	};
 }
 

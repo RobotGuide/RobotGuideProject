@@ -230,10 +230,9 @@ std::string InstructionPrinter::InstructionTypeToString(const InstructionType ty
 std::string InstructionPrinter::ConvertInstructionStreamToASCII(const InstructionStream& stream) const
 {
 	std::string ASCII_Variant;
-	for(auto i = 0; i < stream.size(); i++)
+	for (const auto* instruction : stream)
 	{
-		const auto instruction = *stream[i];
-		ASCII_Variant += ConvertInstructionToASCII(instruction) + '\n';
+		ASCII_Variant += ConvertInstructionToASCII(*instruction) + '\n';
 	}
 	return ASCII_Variant;
 }

@@ -55,7 +55,7 @@ TEST_F(TestParser, InputValidTokenStream_ShouldReturnCorrectInstruction)
 	Parser().GetInstructionStream(tokenStream, instructionStream);
 
 	EXPECT_EQ(1u, instructionStream.size());
-	const auto actualInstruction = *instructionStream[0];
+	const auto actualInstruction = instructionStream[0];
 	ASSERT_ARE_SAME(CorrectMoveInstruction, actualInstruction);
 }
 
@@ -67,8 +67,8 @@ TEST_F(TestParser, InputValidTokenStreamContainingMultipleInstructions_ShouldRet
 	Parser().GetInstructionStream(tokenStream, instructionStream);
 
 	EXPECT_EQ(2u, instructionStream.size());
-	const auto actualInstruction1 = *instructionStream[0];
-	const auto actualInstruction2 = *instructionStream[1];
+	const auto actualInstruction1 = instructionStream[0];
+	const auto actualInstruction2 = instructionStream[1];
 
 	ASSERT_ARE_SAME(CorrectMoveInstruction, actualInstruction1);
 	ASSERT_ARE_SAME(CorrectMoveInstruction2, actualInstruction2);

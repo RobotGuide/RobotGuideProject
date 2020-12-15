@@ -39,18 +39,11 @@ int main()
 	}
 
 	auto* const pathToInstruction = new robotguide::path::PathToProtocolInstruction();
-	const auto instructions = pathToInstruction->ConvertPathToInstructionStream(generatePath);
+	robotguide::com::applicationlayer::InstructionStream instructions;
+	pathToInstruction->ConvertPathToInstructionStream(generatePath, instructions);
 	for (const auto& instruction : instructions)
 	{
-		if (instruction->type == robotguide::com::al::InstructionType::Forn)
-		{
-			std::cout << "FORN ";
-		}
-		else if (instruction->type == robotguide::com::al::InstructionType::Turn)
-		{
-			std::cout << "TURN ";
-		}
-		std::cout << instruction->data[0].GetInteger() << std::endl;
+		std::cout << instruction->ToString();
 	}
 
 	while (true);
