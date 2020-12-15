@@ -7,14 +7,22 @@
 
 namespace robotguide::com::transportlayer
 {
-	class IConnection : public ISocket
+	class Connection : public ISocket
 	{
+	private:
+		Buffer receiveBuffer;
 	public:
+
+		/// <summary>
+		/// Initialize the connection
+		/// </summary>
+		/// <param name="receiveBufferSize"></param>
+		Connection(unsigned int receiveBufferSize);
 
 		/// <summary>
 		/// Destruct a connection
 		/// </summary>
-		virtual ~IConnection() = default;
+		virtual ~Connection() = default;
 
 		/// <summary>
 		/// Returns the socket handler for this connection
@@ -43,7 +51,7 @@ namespace robotguide::com::transportlayer
 		/// Get a reference to the buffer
 		/// </summary>
 		/// <returns>The buffer for this connection</returns>
-		virtual Buffer& GetReceiveBuffer() = 0;
+		Buffer& GetReceiveBuffer();
 	};
 }
 
