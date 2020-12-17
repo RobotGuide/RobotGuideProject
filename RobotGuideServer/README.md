@@ -9,7 +9,9 @@
 
 ## Product
 
-The RobotGuideServer project was the first version of the Server application. But has been deprecated and finally abandoned, as C++ become a better choice. Because C++ offered the right features which C# didn't gave. We moved to the now called "servercpp" project.
+The RobotGuideServer project was the first version of the Server application. But has been deprecated and finally abandoned, as C++ has become a better choice. This is because C++ offered the right features which C# didn't have. We moved to the now called "servercpp" project.
+
+Note: The current state of this project is corrupted and thus not runnable.
 
 ## Functionality
 
