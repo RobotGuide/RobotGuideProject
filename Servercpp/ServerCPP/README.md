@@ -23,7 +23,7 @@ The server application has the following functionality:
 
 ## Limitations
 
-The server has currently some limitations such as:
+Currently the server has the following limitations:
 
 - Doesn't support full robotguide application protocol
 - Limited set of path finding algorithms
@@ -31,7 +31,7 @@ The server has currently some limitations such as:
 
 ## Building Servercpp
 
-In order to compile any project in Servercpp solution, you should use the x86 Debug configuration. This configuration is pre-set for correctly compiling the source code and tests.
+In order to compile any project in the ServerCpp solution, you should use the x86 Debug configuration. This configuration is pre-set for correctly compiling the source code and tests.
 
 ### Release build
 
