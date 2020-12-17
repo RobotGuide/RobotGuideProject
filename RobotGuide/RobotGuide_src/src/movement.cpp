@@ -48,7 +48,7 @@ void Movement::rotate(int degrees)
     
     targetCount_ = calculateEncoderTicks(millimeters);
 
-    targetCount_ -= 4;
+    targetCount_ -= 4; //explicit calibration.
 
     if(degrees > 0)
     {
@@ -143,6 +143,6 @@ bool Movement::deltaTimeElapsed(unsigned long time) const
 
 unsigned long Movement::calculateEncoderTicks(unsigned long millimeters) const
 {
-    unsigned long revolutions = (millimeters * 1000L) / wheelCircumference_;
-    return ((revolutions * countsPerRev_) + 500L) / 1000L;
+    unsigned long milliRevolutions = (millimeters * 1000L) / wheelCircumference_;
+    return ((milliRevolutions * countsPerRev_) + 500L) / 1000L;
 }

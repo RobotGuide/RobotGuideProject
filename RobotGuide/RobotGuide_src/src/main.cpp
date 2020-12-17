@@ -40,7 +40,7 @@ void setup() {
   leftWheel = new L298NWheel(DRIVER_IN3_PIN, DRIVER_IN4_PIN, DRIVER_ENB_PIN);
   rightWheel = new L298NWheel(DRIVER_IN1_PIN, DRIVER_IN2_PIN, DRIVER_ENA_PIN);
 
-  rotaryEncoders = rotaryEncoders->getInstance();
+  rotaryEncoders = RotaryEncoders::getInstance();
   rotaryEncoders->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
 
   movement = new Movement(WHEEL_DIAMETER, PLATFORM_DIAMETER,
