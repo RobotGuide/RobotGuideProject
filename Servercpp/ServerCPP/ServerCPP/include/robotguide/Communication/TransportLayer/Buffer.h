@@ -8,10 +8,13 @@ namespace robotguide::com::transportlayer
 	private:
 		char* buffer;
 		const unsigned int maxLength;
-		int length;
+		unsigned int length;
 	public:
 		Buffer(const unsigned int maxLength);
 		~Buffer();
+
+		Buffer(const Buffer& buffer) = delete;
+		Buffer& operator=(const Buffer&) = delete;
 
 		/// <summary>
 		/// Returns if this buffer contains data

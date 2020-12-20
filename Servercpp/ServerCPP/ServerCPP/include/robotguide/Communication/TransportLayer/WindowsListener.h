@@ -19,6 +19,8 @@ namespace robotguide::com::transportlayer
 		WindowsListener(const std::string& ipAddress, const std::string& port, const addrinfo& type);
 
 		~WindowsListener() override;
+		WindowsListener(const WindowsListener& buffer) = delete;
+		WindowsListener& operator=(const WindowsListener&) = delete;
 
 		/// <summary>
 		/// Start listening for connections

@@ -191,9 +191,10 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h">
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -207,15 +208,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+=======
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h">
+>>>>>>> Implement  Sioux code review feedback
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketNoConnectionException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectedException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketInitializationException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\ISocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

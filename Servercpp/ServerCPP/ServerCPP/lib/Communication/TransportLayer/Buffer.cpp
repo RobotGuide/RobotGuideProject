@@ -7,12 +7,12 @@ using namespace robotguide::com::transportlayer;
 Buffer::Buffer(const unsigned int maxLength) : maxLength(maxLength)
 {
 	buffer = new char[maxLength];
-	this->length = 0;
+	Clear();
 }
 
 Buffer::~Buffer()
 {
-	delete buffer;
+	delete[] buffer;
 }
 
 bool Buffer::HasData() const

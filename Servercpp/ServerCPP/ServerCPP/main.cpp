@@ -13,7 +13,7 @@
 
 using namespace robotguide::com::transportlayer;
 
-void LoopThroughAllConnections(std::vector<IConnection*>& connections, const std::string& message);
+void SendToAllConnections(std::vector<IConnection*>& connections, const std::string& message);
 
 
 int main()
@@ -40,7 +40,7 @@ int main()
 	catch (SocketInitializationException& e)
 	{
 		std::cout << e.what() << std::endl;
-		return 0;
+		return 1;
 	}
 	std::string str;
 	std::vector<IConnection*> connections;
@@ -73,11 +73,11 @@ int main()
 			std::cout << e.what() << std::endl;
 		}
 
-		LoopThroughAllConnections(connections, str);
+		SendToAllConnections(connections, str);
 	}
 }
 
-void LoopThroughAllConnections(std::vector<IConnection*>& connections, const std::string& message)
+void SendToAllConnections(std::vector<IConnection*>& connections, const std::string& message)
 {
 	try
 	{

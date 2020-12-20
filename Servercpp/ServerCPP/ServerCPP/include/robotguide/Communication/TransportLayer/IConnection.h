@@ -2,11 +2,12 @@
 #define  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_CONNECTION_H
 
 #include "Buffer.h"
+#include "ISocket.h"
 #include <string>
 
 namespace robotguide::com::transportlayer
 {
-	class IConnection
+	class IConnection : public ISocket
 	{
 	public:
 
@@ -22,7 +23,7 @@ namespace robotguide::com::transportlayer
 		virtual int GetSocketHandle() const = 0;
 
 		/// <summary>
-		/// Send data to the connected application
+		/// Send data to the connected application. This is a blocking function!
 		/// </summary>
 		/// <param name="message">The message you want to send</param>
 		virtual void Send(const std::string& message) = 0;

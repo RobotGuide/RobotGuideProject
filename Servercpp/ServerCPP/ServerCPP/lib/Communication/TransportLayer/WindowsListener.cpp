@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <WS2tcpip.h>
 
+#include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
+
 
 using namespace robotguide::com::transportlayer;
 

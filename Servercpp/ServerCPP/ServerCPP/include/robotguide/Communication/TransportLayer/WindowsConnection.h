@@ -52,6 +52,11 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>The buffer for this connection</returns>
 		Buffer& GetReceiveBuffer() override;
+
+		/// <summary>
+		/// Add a received value to the buffer. This function should only be called when data is available.
+		/// </summary>
+		void HandleData() override;
 	};
 }
 #endif
