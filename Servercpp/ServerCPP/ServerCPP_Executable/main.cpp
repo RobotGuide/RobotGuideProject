@@ -14,7 +14,7 @@ int main()
 	auto parser = Parser();
 	auto instructionPrinter = InstructionPrinter();
 
-	while(true)
+	while (true)
 	{
 		std::string input = " ";
 		std::getline(std::cin, input);
@@ -29,7 +29,7 @@ int main()
 			std::cout << instructionStream.ToString() << std::endl;
 			std::cout << instructionPrinter.ConvertInstructionStreamToASCII(instructionStream);
 		}
-		catch(robotguide::com::exception::al::LexerException& ex)
+		catch (robotguide::com::exception::applicationlayer::LexerException& ex)
 		{
 			std::cout << "Error occured! Current state: " << (unsigned)lexer.CurrentState() << std::endl;
 			std::cout << ex.what() << std::endl;
