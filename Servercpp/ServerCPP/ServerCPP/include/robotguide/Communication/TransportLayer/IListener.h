@@ -1,14 +1,14 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_ILISTENER_H
 #define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_ILISTENER_H
 
-#include "ISocket.h"
+#include "ISelectable.h"
 
 namespace robotguide::com::transportlayer
 {
 	/// <summary>
 	/// Implement this interface for classes where you can listen for pending connections
 	/// </summary>
-	class IListener : public ISocket
+	class IListener : public ISelectable
 	{
 	public:
 		/// <summary>

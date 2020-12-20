@@ -10,12 +10,13 @@ namespace robotguide::com::transportlayer
 	{
 	protected:
 		std::vector<ISelectable*> selectables;
-	public:
+
 		/// <summary>
 		/// Destruct a receiver
 		/// </summary>
-		virtual ~Receiver() = default;
+		virtual ~Receiver();
 
+	public:
 		/// <summary>
 		/// Receive data for all socket who have pending data request.
 		/// </summary>
@@ -24,13 +25,13 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Add a new connection to the receiver
 		/// </summary>
-		/// <param name="socket">The socket you want to manage</param>
-		virtual void AddSelectable(ISelectable* socket) = 0;
+		/// <param name="selectable">The selectable you want to be able to handle receiving for</param>
+		void AddSelectable(const ISelectable& selectable);
 
 		/// <summary>
 		/// Clean all inactive connections
 		/// </summary>
-		virtual void Clean() = 0;
+		void Clean();
 	};
 }
 

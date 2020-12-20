@@ -30,6 +30,4 @@ namespace robotguide::com::transportlayer
 		virtual unsigned int GetSocketHandle() const = 0;
 	};
 }
-
-
 #endif

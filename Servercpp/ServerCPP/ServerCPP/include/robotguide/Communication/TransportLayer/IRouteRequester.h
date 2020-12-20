@@ -8,5 +8,4 @@ public:
 	virtual ~IRouteRequester() = default;
 };
 
-
 #endif
