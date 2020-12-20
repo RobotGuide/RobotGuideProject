@@ -2,7 +2,9 @@
 #include "robotguide/Communication/TransportLayer/WindowsListener.h"
 #include "robotguide/Communication/TransportLayer/SocketException.h"
 #include "robotguide/Communication/TransportLayer/WindowsReceiver.h"
+#include "robotguide/Communication/TransportLayer/WindowsRobotListener.h"
 #include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
+#include "robotguide/Communication/ApplicationLayer/RobotInstructor.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -31,78 +33,24 @@ int main()
 	const std::string ipAddress = "0.0.0.0";
 	const std::string port = "3030";
 
-	WindowsListener listener(ipAddress, port, hints);
+	WindowsReceiver receiver;
+	RobotInstructor instructor;
+	WindowsRobotListener listener(receiver, instructor, ipAddress, port, hints);
 	try
 	{
 		listener.Listen(10);
 		std::cout << "Started at address: " << ipAddress << " Port: " << port << std::endl;
+		receiver.AddSelectable(listener);
 	}
 	catch (SocketInitializationException& e)
 	{
 		std::cout << e.what() << std::endl;
 		return 1;
 	}
-	std::string str;
-	std::vector<Connection*> connections;
-	std::vector<int> handlers;
-	WindowsReceiver receiver;
 
 	while (true)
 	{
-		std::getline(std::cin, str);
-		std::cout << str << std::endl;
-
-		try
-		{
-			const int handle = listener.Accept();
-			connections.push_back(new WindowsConnection(handle, 80));
-			handlers.push_back(handle);
-			std::cout << handle << std::endl;
-		}
-		catch (SocketException& e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-
-		try
-		{
-			receiver.ReceiveData(connections);
-		}
-		catch (SocketException& e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-
-		SendToAllConnections(connections, str);
-	}
-}
-
-void SendToAllConnections(std::vector<Connection*>& connections, const std::string& message)
-{
-	try
-	{
-		auto iterator = connections.begin();
-		while (iterator != connections.end())
-		{
-			if ((*iterator)->IsConnected())
-			{
-				(*iterator)->Send(message + '\n');
-				std::cout << "Sent: " << message << std::endl;
-				++iterator;
-			}
-			else
-			{
-				Connection* temp = *iterator;
-				iterator = connections.erase(iterator);
-				delete temp;
-				temp = nullptr;
-			}
-		}
-		std::cout << "There are: " << connections.size() << " connections" << std::endl;
-
-	}
-	catch (SocketException& e)
-	{
-		std::cout << e.what() << std::endl;
+		receiver.CheckForData();
+		receiver.Clean();
 	}
 }
