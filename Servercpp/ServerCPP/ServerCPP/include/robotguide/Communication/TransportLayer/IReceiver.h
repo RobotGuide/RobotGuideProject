@@ -3,7 +3,6 @@
 
 #include "robotguide/Communication/TransportLayer/IConnection.h"
 #include <vector>
-#include <memory>
 
 namespace robotguide::com::transportlayer
 {
@@ -19,8 +18,8 @@ namespace robotguide::com::transportlayer
 		/// Receive data for all socket who have pending data request.
 		/// </summary>
 		/// <param name="connections">The connections you want to check for data</param>
-		virtual void ReceiveData(const std::vector<std::shared_ptr<IConnection>>& connections) = 0;
+		virtual void ReceiveData(const std::vector<IConnection*>& connections) = 0;
 	};
 }
 
-#endif
+#endif 
