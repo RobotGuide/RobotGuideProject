@@ -1,30 +1,44 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSRECEIVER_H
 #define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSRECEIVER_H
 
-#include "IReceiver.h"
+#include "Receiver.h"
+#include "ISelectable.h"
 #include <vector>
 #include <WinSock2.h>
 
 namespace robotguide::com::transportlayer
 {
 
-	class WindowsReceiver final : public IReceiver
+	class WindowsReceiver final : public Receiver
 	{
 	private:
 		FD_SET ReadSet = {};
-
 	public:
 		WindowsReceiver() = default;
 		~WindowsReceiver() override = default;
 
 		/// <summary>
-		/// Receive data for all available sockets
+		/// Check all sockets for data
 		/// </summary>
-		/// <param name="connections">The connections you want to check for available data</param>
-		void ReceiveData(const std::vector<Connection*>& connections) override;
+		void CheckForData() override;
+
+		/// <summary>
+		/// Add a new socket to the receiver to check for data
+		/// </summary>
+		/// <param name="socket">The socket you want to add</param>
+		void AddSelectable(ISelectable* socket) override;
+
+		/// <summary>
+		/// Remove all inactive connections
+		/// </summary>
+		void Clean() override;
+
 	private:
-		int GetAvailableSocketsCount(const std::vector<Connection*>& connections);
-		static void ReceiveDataFromConnection(Connection& connection);
+		/// <summary>
+		/// Count the number of sockets who have data available to them
+		/// </summary>
+		/// <returns>The amount of sockets with data</returns>
+		int SetFDSet();
 	};
 }
 #endif

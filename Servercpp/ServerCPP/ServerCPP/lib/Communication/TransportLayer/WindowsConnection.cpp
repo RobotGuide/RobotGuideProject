@@ -6,34 +6,24 @@
 using namespace robotguide::com::transportlayer;
 
 WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const unsigned int receiveBufferSize)
-	: socket(socketHandler), Connection(receiveBufferSize)
+	: Connection(socketHandler, receiveBufferSize)
 {
 	u_long mode = 1;
 	ioctlsocket(socketHandler, FIONBIO, &mode);
 }
 
-WindowsConnection::~WindowsConnection()
-{
-	Disconnect();
-};
-
-int WindowsConnection::GetSocketHandle() const
-{
-	return socket;
-}
-
 void WindowsConnection::Disconnect()
 {
-	closesocket(socket);
-	socket = INVALID_SOCKET;
+	closesocket(socketHandle);
+	socketHandle = INVALID_SOCKET;
 }
 
 void WindowsConnection::Send(const std::string& message)
 {
-	const int result = send(socket, message.c_str(), message.length(), 0);
+	const int result = send(socketHandle, message.c_str(), message.length(), 0);
 	if (result == SOCKET_ERROR)
 	{
-		socket = INVALID_SOCKET;
+		socketHandle = INVALID_SOCKET;
 		if (WSAGetLastError() == WSAEWOULDBLOCK)
 		{
 			throw SocketTimeOutException("Sent timed out");
@@ -44,7 +34,7 @@ void WindowsConnection::Send(const std::string& message)
 
 bool WindowsConnection::IsConnected() const
 {
-	return socket != INVALID_SOCKET;
+	return socketHandle != INVALID_SOCKET;
 }
 
 void WindowsConnection::HandleAvailableData()

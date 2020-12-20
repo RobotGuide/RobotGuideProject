@@ -3,8 +3,14 @@
 
 using namespace robotguide::com::transportlayer;
 
-Connection::Connection(unsigned int receiveBufferSize) : receiveBuffer(receiveBufferSize)
+Connection::Connection(const unsigned int socketHandle, const unsigned int receiveBufferSize)
+	: receiveBuffer(receiveBufferSize), socketHandle(socketHandle)
 {
+}
+
+unsigned Connection::GetSocketHandle() const
+{
+	return socketHandle;
 }
 
 Buffer& Connection::GetReceiveBuffer()

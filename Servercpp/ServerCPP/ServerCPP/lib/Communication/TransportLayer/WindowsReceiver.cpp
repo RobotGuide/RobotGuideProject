@@ -6,38 +6,6 @@
 
 using namespace  robotguide::com::transportlayer;
 
-void WindowsReceiver::ReceiveData(const std::vector<Connection*>& connections)
-{
-	int activeSockets = GetAvailableSocketsCount(connections);
-	for (Connection* connection : connections)
-	{
-		if (FD_ISSET(connection->GetSocketHandle(), &ReadSet))
-		{
-			activeSockets--;
-			ReceiveDataFromConnection(*connection);
-		}
-	}
-}
-
-int WindowsReceiver::GetAvailableSocketsCount(const std::vector<Connection*>& connections)
-{
-	FD_ZERO(&ReadSet);
-	struct timeval tv
-	{
-		0, 50
-	};
-
-	for (Connection* connection : connections)
-	{
-		if (connection == nullptr)
-		{
-			throw std::invalid_argument("Connections can not be nullptr");
-		}
-		FD_SET(connection->GetSocketHandle(), &ReadSet);
-	}
-
-	return select(0, &ReadSet, nullptr, nullptr, &tv);
-}
 
 void WindowsReceiver::ReceiveDataFromConnection(Connection& connection)
 {
@@ -62,3 +30,50 @@ void WindowsReceiver::ReceiveDataFromConnection(Connection& connection)
 	std::cout << std::endl;
 }
 
+void WindowsReceiver::CheckForData()
+{
+	SetFDSet();
+	for (ISelectable* selectable : selectables)
+	{
+		if (FD_ISSET(selectable->GetSocketHandle(), &ReadSet))
+		{
+			selectable->HandleAvailableData();
+		}
+	}
+}
+
+void WindowsReceiver::AddSelectable(ISelectable* socket)
+{
+	selectables.push_back(new ISelectable(socket));
+}
+
+void WindowsReceiver::Clean()
+{
+	auto iterator = selectables.begin();
+	while (iterator != selectables.end())
+	{
+		if (!(*iterator)->IsConnected())
+		{
+			ISelectable* temp = *iterator;
+			iterator = selectables.erase(iterator);
+			delete temp;
+			temp = nullptr;
+		}
+	}
+}
+
+int WindowsReceiver::SetFDSet()
+{
+	FD_ZERO(&ReadSet);
+	struct timeval tv
+	{
+		0, 50
+	};
+
+	for (ISelectable* selectable : selectables)
+	{
+		FD_SET(selectable->GetSocketHandle(), &ReadSet);
+	}
+
+	return select(0, &ReadSet, nullptr, nullptr, &tv);
+}

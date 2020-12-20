@@ -10,9 +10,6 @@ namespace robotguide::com::transportlayer
 
 	class WindowsConnection : public Connection
 	{
-	private:
-		SOCKET socket;
-
 	public:
 		/// <summary>
 		/// Initialize a connection
@@ -20,17 +17,7 @@ namespace robotguide::com::transportlayer
 		/// <param name="socketHandler">The socket handler</param>
 		/// <param name="receiveBufferSize">The size of the receive buffer</param>
 		WindowsConnection(const SOCKET& socketHandler, unsigned int receiveBufferSize);
-
-		~WindowsConnection() override;
-
-		WindowsConnection(const WindowsConnection& connection) = delete;
-		WindowsConnection& operator=(const WindowsConnection&) = delete;
-
-		/// <summary>
-		/// Get the socket handler for this windows connection
-		/// </summary>
-		/// <returns>The socket handle</returns>
-		int GetSocketHandle() const override;
+		~WindowsConnection() override = default;
 
 		/// <summary>
 		/// Disconnect from this connection

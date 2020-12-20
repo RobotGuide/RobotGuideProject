@@ -11,7 +11,18 @@ namespace robotguide::com::transportlayer
 	private:
 		IRouteRequester& routeRequester;
 	public:
+		/// <summary>
+		/// Initialize the connection between a user and the server 
+		/// </summary>
+		/// <param name="routeRequester">The route requester that the user connection can interface with</param>
+		/// <param name="socketHandler">The socket handler for this connection</param>
+		/// <param name="receiveBufferSize">The size of the receive buffer in characters</param>
 		WindowsUserConnection(IRouteRequester& routeRequester, const SOCKET& socketHandler, unsigned int receiveBufferSize);
+		~WindowsUserConnection() override = default;
+
+		/// <summary>
+		/// Handle user requests
+		/// </summary>
 		virtual void HandleAvailableData() override;
 	};
 }

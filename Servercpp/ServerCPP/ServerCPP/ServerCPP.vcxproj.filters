@@ -74,9 +74,6 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h">
       <Filter>Header Files\Transport Layer\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,6 +111,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\ISelectable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Receiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,14 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_ILISTENER_H
 #define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_ILISTENER_H
 
+#include "ISocket.h"
+
 namespace robotguide::com::transportlayer
 {
 	/// <summary>
 	/// Implement this interface for classes where you can listen for pending connections
 	/// </summary>
-	class IListener
+	class IListener : public ISocket
 	{
 	public:
 		/// <summary>
@@ -25,11 +27,6 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>It returns the socket handler</returns>
 		virtual int Accept() = 0;
-
-		/// <summary>
-		/// Stop listening for connections
-		/// </summary>
-		virtual void Stop() = 0;
 	};
 }
 
