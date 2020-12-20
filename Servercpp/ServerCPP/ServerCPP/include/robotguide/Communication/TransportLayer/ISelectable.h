@@ -18,7 +18,10 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		virtual void HandleAvailableData() = 0;
 
-		virtual void Copy();
+		/// <summary>
+		/// Copy the selectable object
+		/// </summary>
+		virtual ISelectable* Copy() const = 0;
 	};
 }
 

@@ -11,8 +11,10 @@ namespace robotguide::com::transportlayer
 	{
 	private:
 		Buffer receiveBuffer;
+
 	protected:
 		unsigned int socketHandle;
+
 	public:
 
 		/// <summary>
@@ -25,7 +27,7 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Destruct a connection
 		/// </summary>
-		virtual ~Connection() = default;
+		~Connection() override = default;
 
 		/// <summary>
 		/// Returns the socket handler for this connection
