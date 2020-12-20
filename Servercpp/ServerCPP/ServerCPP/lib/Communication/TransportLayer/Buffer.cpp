@@ -16,6 +16,12 @@ Buffer::~Buffer()
 	buffer = nullptr;
 }
 
+Buffer::Buffer(const Buffer& buffer)
+	: maxLength(buffer.maxLength), length(0)
+{
+	this->buffer = new char[buffer.maxLength];
+}
+
 bool Buffer::HasData() const
 {
 	return length > 0;

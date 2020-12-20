@@ -13,7 +13,7 @@ namespace robotguide::com::transportlayer
 		Buffer(const unsigned int maxLength);
 		~Buffer();
 
-		Buffer(const Buffer& buffer) = delete;
+		Buffer(const Buffer& buffer);
 		Buffer& operator=(const Buffer&) = delete;
 
 		/// <summary>
