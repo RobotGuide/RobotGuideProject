@@ -14,7 +14,7 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Handle the data. This should only be called when the socket has data available.
 		/// </summary>
-		virtual void HandleData() = 0;
+		virtual void HandleAvailableData() = 0;
 	};
 }
 

@@ -2,7 +2,7 @@
 #include "robotguide/Communication/TransportLayer/WindowsListener.h"
 #include "robotguide/Communication/TransportLayer/SocketException.h"
 #include "robotguide/Communication/TransportLayer/WindowsReceiver.h"
-#include "robotguide/Communication/TransportLayer/SocketIntializationException.h"
+#include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -13,7 +13,7 @@
 
 using namespace robotguide::com::transportlayer;
 
-void SendToAllConnections(std::vector<IConnection*>& connections, const std::string& message);
+void SendToAllConnections(std::vector<Connection*>& connections, const std::string& message);
 
 
 int main()
@@ -43,7 +43,7 @@ int main()
 		return 1;
 	}
 	std::string str;
-	std::vector<IConnection*> connections;
+	std::vector<Connection*> connections;
 	std::vector<int> handlers;
 	WindowsReceiver receiver;
 
@@ -77,7 +77,7 @@ int main()
 	}
 }
 
-void SendToAllConnections(std::vector<IConnection*>& connections, const std::string& message)
+void SendToAllConnections(std::vector<Connection*>& connections, const std::string& message)
 {
 	try
 	{
@@ -92,7 +92,7 @@ void SendToAllConnections(std::vector<IConnection*>& connections, const std::str
 			}
 			else
 			{
-				IConnection* temp = *iterator;
+				Connection* temp = *iterator;
 				iterator = connections.erase(iterator);
 				delete temp;
 				temp = nullptr;

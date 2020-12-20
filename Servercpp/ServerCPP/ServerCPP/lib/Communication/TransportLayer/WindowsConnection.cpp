@@ -5,8 +5,8 @@
 
 using namespace robotguide::com::transportlayer;
 
-WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const int receiveBufferSize)
-	: socket(socketHandler), receiveBuffer(receiveBufferSize)
+WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const unsigned int receiveBufferSize)
+	: socket(socketHandler), Connection(receiveBufferSize)
 {
 	u_long mode = 1;
 	ioctlsocket(socketHandler, FIONBIO, &mode);
@@ -47,21 +47,16 @@ bool WindowsConnection::IsConnected() const
 	return socket != INVALID_SOCKET;
 }
 
-Buffer& WindowsConnection::GetReceiveBuffer()
-{
-	return receiveBuffer;
-}
-
-void WindowsConnection::HandleData()
+void WindowsConnection::HandleAvailableData()
 {
 	WSABUF wsaBuffer;
 	DWORD bytesReceived;
 	DWORD Flags = 0;
 
-	receiveBuffer.Clear();
+	GetReceiveBuffer().Clear();
 
-	wsaBuffer.buf = receiveBuffer.GetBuffer();
-	wsaBuffer.len = receiveBuffer.GetMaxLength();
+	wsaBuffer.buf = GetReceiveBuffer().GetBuffer();
+	wsaBuffer.len = GetReceiveBuffer().GetMaxLength();
 
 	const int value = WSARecv(GetSocketHandle(), &wsaBuffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
 	if (value == SOCKET_ERROR)
@@ -70,15 +65,15 @@ void WindowsConnection::HandleData()
 		{
 			throw SocketTimeOutException("Socked would have timed out");
 		}
-		receiveBuffer.Clear();
+		GetReceiveBuffer().Clear();
 		return;
 	}
 	else if (bytesReceived <= 0)
 	{
 		Disconnect();
-		receiveBuffer.Clear();
+		GetReceiveBuffer().Clear();
 		return;
 	}
-	receiveBuffer.SetLength(bytesReceived);
+	GetReceiveBuffer().SetLength(bytesReceived);
 }
 

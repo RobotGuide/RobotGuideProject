@@ -1,12 +1,9 @@
 #include "robotguide/Communication/TransportLayer/WindowsListener.h"
-#include "robotguide/Communication/TransportLayer/SocketIntializationException.h"
+#include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
 #include "robotguide/Communication/TransportLayer/SocketException.h"
 #include <iostream>
 #include <stdexcept>
 #include <WS2tcpip.h>
-
-#include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
-
 
 using namespace robotguide::com::transportlayer;
 

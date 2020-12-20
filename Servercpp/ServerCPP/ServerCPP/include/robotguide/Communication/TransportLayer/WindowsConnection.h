@@ -1,18 +1,17 @@
-#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWS_CONNECTION_H
-#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWS_CONNECTION_H
+#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSCONNECTION_H
+#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSCONNECTION_H
 
-#include "IConnection.h"
+#include "Connection.h"
 #include <WinSock2.h>
 #include <string>
 
 namespace robotguide::com::transportlayer
 {
 
-	class WindowsConnection final : public IConnection
+	class WindowsConnection : public Connection
 	{
 	private:
 		SOCKET socket;
-		Buffer receiveBuffer;
 
 	public:
 		/// <summary>
@@ -20,9 +19,12 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <param name="socketHandler">The socket handler</param>
 		/// <param name="receiveBufferSize">The size of the receive buffer</param>
-		WindowsConnection(const SOCKET& socketHandler, int receiveBufferSize);
+		WindowsConnection(const SOCKET& socketHandler, unsigned int receiveBufferSize);
 
 		~WindowsConnection() override;
+
+		WindowsConnection(const WindowsConnection& connection) = delete;
+		WindowsConnection& operator=(const WindowsConnection&) = delete;
 
 		/// <summary>
 		/// Get the socket handler for this windows connection
@@ -48,15 +50,9 @@ namespace robotguide::com::transportlayer
 		bool IsConnected() const override;
 
 		/// <summary>
-		/// Get a reference to the buffer
-		/// </summary>
-		/// <returns>The buffer for this connection</returns>
-		Buffer& GetReceiveBuffer() override;
-
-		/// <summary>
 		/// Add a received value to the buffer. This function should only be called when data is available.
 		/// </summary>
-		void HandleData() override;
+		virtual void HandleAvailableData() override;
 	};
 }
 #endif

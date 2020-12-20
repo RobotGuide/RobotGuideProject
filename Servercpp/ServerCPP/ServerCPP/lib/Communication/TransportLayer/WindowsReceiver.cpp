@@ -6,10 +6,10 @@
 
 using namespace  robotguide::com::transportlayer;
 
-void WindowsReceiver::ReceiveData(const std::vector<IConnection*>& connections)
+void WindowsReceiver::ReceiveData(const std::vector<Connection*>& connections)
 {
 	int activeSockets = GetAvailableSocketsCount(connections);
-	for (IConnection* connection : connections)
+	for (Connection* connection : connections)
 	{
 		if (FD_ISSET(connection->GetSocketHandle(), &ReadSet))
 		{
@@ -19,7 +19,7 @@ void WindowsReceiver::ReceiveData(const std::vector<IConnection*>& connections)
 	}
 }
 
-int WindowsReceiver::GetAvailableSocketsCount(const std::vector<IConnection*>& connections)
+int WindowsReceiver::GetAvailableSocketsCount(const std::vector<Connection*>& connections)
 {
 	FD_ZERO(&ReadSet);
 	struct timeval tv
@@ -27,7 +27,7 @@ int WindowsReceiver::GetAvailableSocketsCount(const std::vector<IConnection*>& c
 		0, 50
 	};
 
-	for (IConnection* connection : connections)
+	for (Connection* connection : connections)
 	{
 		if (connection == nullptr)
 		{
@@ -39,7 +39,7 @@ int WindowsReceiver::GetAvailableSocketsCount(const std::vector<IConnection*>& c
 	return select(0, &ReadSet, nullptr, nullptr, &tv);
 }
 
-void WindowsReceiver::ReceiveDataFromConnection(IConnection& connection)
+void WindowsReceiver::ReceiveDataFromConnection(Connection& connection)
 {
 	WSABUF buffer;
 	DWORD bytesReceived;

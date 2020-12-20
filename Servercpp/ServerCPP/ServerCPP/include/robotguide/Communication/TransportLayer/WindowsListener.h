@@ -1,5 +1,5 @@
-#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWS_RECEIVER_H
-#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWS_RECEIVER_H
+#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSLISTENER_H
+#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSLISTENER_H
 
 #include "IListener.h"
 #include <string>
@@ -7,7 +7,7 @@
 
 namespace robotguide::com::transportlayer
 {
-	class WindowsListener final : public IListener
+	class WindowsListener : public IListener
 	{
 	public:
 		/// <summary>
@@ -42,7 +42,6 @@ namespace robotguide::com::transportlayer
 	private:
 		addrinfo* address;
 		SOCKET listenerSocket;
-
 
 		/// <summary>
 		/// Initialize the listener socket
