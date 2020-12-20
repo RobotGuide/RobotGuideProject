@@ -67,3 +67,8 @@ void WindowsConnection::HandleAvailableData()
 	GetReceiveBuffer().SetLength(bytesReceived);
 }
 
+ISelectable* WindowsConnection::Copy() const
+{
+	return new WindowsConnection(*this);
+}
+

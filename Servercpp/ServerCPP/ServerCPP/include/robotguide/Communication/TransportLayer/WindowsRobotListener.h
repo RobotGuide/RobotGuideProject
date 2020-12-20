@@ -9,7 +9,7 @@
 namespace robotguide::com::transportlayer
 {
 
-	class WindowsRobotListener final : protected WindowsListener, public ISelectable
+	class WindowsRobotListener final : public WindowsListener
 	{
 	private:
 		Receiver& receiver;
@@ -26,11 +26,17 @@ namespace robotguide::com::transportlayer
 		WindowsRobotListener(Receiver& receiver, IRobotInstructor& robotInstructor, const std::string& ipAddress, const std::string& port, const addrinfo& type);
 		~WindowsRobotListener() override = default;
 
-
 		/// <summary>
 		/// Handle available data for this socket
 		/// </summary>
 		void HandleAvailableData() override;
+
+
+		/// <summary>
+		/// Create a copy on the heap for this Robot Listener
+		/// </summary>
+		/// <returns>A copy of the robot listener</returns>
+		ISelectable* Copy() const override;
 	};
 }
 

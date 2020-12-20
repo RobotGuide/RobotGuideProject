@@ -39,7 +39,13 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Add a received value to the buffer. This function should only be called when data is available.
 		/// </summary>
-		virtual void HandleAvailableData() override;
+		void HandleAvailableData() override;
+
+		/// <summary>
+		/// Copy a connection
+		/// </summary>
+		/// <returns>The copy in the heap</returns>
+		ISelectable* Copy() const override;
 	};
 }
 #endif

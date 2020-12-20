@@ -1,7 +1,6 @@
 #include "robotguide/Communication/TransportLayer/WindowsListener.h"
 #include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
 #include "robotguide/Communication/TransportLayer/SocketException.h"
-#include <iostream>
 #include <stdexcept>
 #include <WS2tcpip.h>
 
@@ -12,9 +11,9 @@ WindowsListener::WindowsListener(const std::string& ipAddress, const std::string
 	address = nullptr;
 	listenerSocket = INVALID_SOCKET;
 
-
 	const int outcome = getaddrinfo(ipAddress.c_str(), port.c_str(), &type, &address);
-	if (outcome != 0) {
+	if (outcome != 0)
+	{
 		WSACleanup();
 		throw SocketInitializationException("Could not get address for these specific parameter");
 	}
@@ -28,6 +27,7 @@ WindowsListener::~WindowsListener()
 WindowsListener::WindowsListener(const WindowsListener& listener)
 {
 	address = new addrinfo(*listener.address);
+	listenerSocket = listener.listenerSocket;
 }
 
 WindowsListener& WindowsListener::operator=(const WindowsListener& listener)
@@ -36,6 +36,8 @@ WindowsListener& WindowsListener::operator=(const WindowsListener& listener)
 	{
 		return *this;
 	}
+	freeaddrinfo(address);
+	address = nullptr;
 	address = new addrinfo(*listener.address);
 	return *this;
 }
