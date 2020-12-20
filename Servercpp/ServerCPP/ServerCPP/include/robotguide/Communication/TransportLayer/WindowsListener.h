@@ -2,6 +2,7 @@
 #define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSLISTENER_H
 
 #include "IListener.h"
+#include "Receiver.h"
 #include <string>
 #include <WinSock2.h>
 
@@ -11,7 +12,7 @@ namespace robotguide::com::transportlayer
 	{
 	private:
 		addrinfo* address;
-		unsigned int listenerSocket{};
+		unsigned int listenerSocket;
 
 	public:
 		/// <summary>
