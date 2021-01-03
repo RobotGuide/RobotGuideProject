@@ -10,6 +10,8 @@ namespace robotguide::com::transportlayer
 	{
 	private:
 		IRobotInstructor& robotInstructor;
+		int robotID;
+
 	public:
 		/// <summary>
 		/// Initialize the connection between a robot and the server
