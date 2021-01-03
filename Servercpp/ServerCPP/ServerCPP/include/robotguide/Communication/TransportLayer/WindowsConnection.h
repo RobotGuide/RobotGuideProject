@@ -28,7 +28,7 @@ namespace robotguide::com::transportlayer
 		/// Send data to the connected application
 		/// </summary>
 		/// <param name="message">The message you want to send</param>
-		void Send(const std::string& message) override;
+		void Send(const std::string& message) const override;
 
 		/// <summary>
 		/// Returns if the connection is still connected

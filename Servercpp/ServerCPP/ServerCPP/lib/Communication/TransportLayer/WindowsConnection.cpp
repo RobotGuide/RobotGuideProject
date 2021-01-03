@@ -18,12 +18,11 @@ void WindowsConnection::Disconnect()
 	socketHandle = INVALID_SOCKET;
 }
 
-void WindowsConnection::Send(const std::string& message)
+void WindowsConnection::Send(const std::string& message) const
 {
 	const int result = send(socketHandle, message.c_str(), message.length(), 0);
 	if (result == SOCKET_ERROR)
 	{
-		socketHandle = INVALID_SOCKET;
 		if (WSAGetLastError() == WSAEWOULDBLOCK)
 		{
 			throw SocketTimeOutException("Sent timed out");
