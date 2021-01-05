@@ -11,7 +11,7 @@ namespace robotguide::path
 	class VertexVector 
 	{
 	public:
-		std::vector<std::shared_ptr<Vertex>> vertexes;
+		std::vector<std::shared_ptr<Vertex>> vertices;
 		
 	public:
 		VertexVector() = default;
@@ -24,6 +24,5 @@ namespace robotguide::path
 		void Remove(std::shared_ptr<Vertex> vertex);
 	};
 }
-
 #endif //ROBOTGUIDE_PAHTFINDING_GRID_VERTEXVECTOR_H
 

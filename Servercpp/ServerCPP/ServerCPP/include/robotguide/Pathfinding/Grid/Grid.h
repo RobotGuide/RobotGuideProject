@@ -10,7 +10,7 @@ namespace robotguide::path
 	class Grid
 	{
 	private:
-		VertexVector vertexes;
+		VertexVector vertices;
 
 	public:
 		Grid() = default;

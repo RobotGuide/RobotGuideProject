@@ -17,15 +17,15 @@ int main()
 
 	robotguide::path::PathFinder pathFinder = robotguide::path::PathFinder(std::make_shared<robotguide::path::Grid>(grid));
 
-	std::cout << grid.GetVertexes().vertexes.size() << " vertexes in grid" << std::endl;
+	std::cout << grid.GetVertexes().vertices.size() << " vertices in grid" << std::endl;
 
 	srand(time(NULL));
-	int startVertex = rand() % (grid.GetVertexes().vertexes.size() - 1);
-	int targetVertex = rand() % (grid.GetVertexes().vertexes.size() - 1);
+	int startVertex = rand() % (grid.GetVertexes().vertices.size() - 1);
+	int targetVertex = rand() % (grid.GetVertexes().vertices.size() - 1);
 
-	std::cout << "Startpoint has " << grid.GetVertexes().vertexes[startVertex]->connectedVertexes.vertexes.size() << " connected vertexes" << std::endl;
-	std::cout << "Generating path from " << grid.GetVertexes().vertexes[startVertex]->coordinate.x << "," << grid.GetVertexes().vertexes[startVertex]->coordinate.z << " to " << grid.GetVertexes().vertexes[targetVertex]->coordinate.x << "," << grid.GetVertexes().vertexes[targetVertex]->coordinate.z << std::endl;
-	robotguide::path::Path generatePath = pathFinder.FindPath(grid.GetVertexes().vertexes.at(startVertex), grid.GetVertexes().vertexes.at(targetVertex));
+	std::cout << "Startpoint has " << grid.GetVertexes().vertices[startVertex]->connectedVertexes.vertices.size() << " connected vertices" << std::endl;
+	std::cout << "Generating path from " << grid.GetVertexes().vertices[startVertex]->coordinate.x << "," << grid.GetVertexes().vertices[startVertex]->coordinate.z << " to " << grid.GetVertexes().vertices[targetVertex]->coordinate.x << "," << grid.GetVertexes().vertices[targetVertex]->coordinate.z << std::endl;
+	robotguide::path::Path generatePath = pathFinder.FindPath(grid.GetVertexes().vertices.at(startVertex), grid.GetVertexes().vertices.at(targetVertex));
 
 	std::cout << std::endl << std::endl << std::endl << "--------------------" << std::endl << "Path Generated:" << std::endl;
 	std::cout << "  > Path length: " << generatePath.vertexPath.size() << std::endl;

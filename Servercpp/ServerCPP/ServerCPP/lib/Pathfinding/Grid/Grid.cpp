@@ -1,29 +1,31 @@
 #include "robotguide/Pathfinding/Grid/Grid.h"
 #include "robotguide/Pathfinding/Grid/Vertex.h"
 
-void robotguide::path::Grid::AddVertex(std::shared_ptr<robotguide::path::Vertex> newVertex)
+using namespace robotguide::path;
+
+void Grid::AddVertex(std::shared_ptr<Vertex> newVertex)
 {
-	vertexes.Add(newVertex);
+	vertices.Add(newVertex);
 }
 
-void robotguide::path::Grid::RemoveVertex(std::shared_ptr<robotguide::path::Vertex> vertex)
+void Grid::RemoveVertex(std::shared_ptr<Vertex> vertex)
 {
-	vertexes.Remove(vertex);
+	vertices.Remove(vertex);
 }
 
-void robotguide::path::Grid::AddConnection(std::shared_ptr<Vertex> startVertex, std::shared_ptr<Vertex> targetVertex)
+void Grid::AddConnection(std::shared_ptr<Vertex> startVertex, std::shared_ptr<Vertex> targetVertex)
 {
 	startVertex->AddConnectedVertex(targetVertex);
 	targetVertex->AddConnectedVertex(startVertex);
 }
 
-void robotguide::path::Grid::RemoveConnection(std::shared_ptr<Vertex> startVertex, std::shared_ptr<Vertex> targetVertex)
+void Grid::RemoveConnection(std::shared_ptr<Vertex> startVertex, std::shared_ptr<Vertex> targetVertex)
 {
 	startVertex->RemoveConnectedVertex(targetVertex);
 	targetVertex->RemoveConnectedVertex(startVertex);
 }
 
-const robotguide::path::VertexVector& robotguide::path::Grid::GetVertexes() const
+const VertexVector& Grid::GetVertexes() const
 {
-	return vertexes;
+	return vertices;
 }

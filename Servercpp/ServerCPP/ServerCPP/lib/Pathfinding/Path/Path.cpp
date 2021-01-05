@@ -25,7 +25,7 @@ void Path::RemoveLast(std::shared_ptr<Vertex> vertex)
 
 int Path::GetLength() const
 {
-	return sizeof(vertexPath) / sizeof(std::shared_ptr<Vertex>);
+	return vertexPath.size();
 }
 
 const std::vector<std::shared_ptr<Vertex>>& Path::GetVertexes() const

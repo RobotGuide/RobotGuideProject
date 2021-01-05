@@ -105,7 +105,6 @@
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Grid.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\TestGridBuilder.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\Vertex.h" />
-    <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexType.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexVector.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Path\Path.h" />
     <ClInclude Include="include\robotguide\Pathfinding\Path\PathFinder.h" />

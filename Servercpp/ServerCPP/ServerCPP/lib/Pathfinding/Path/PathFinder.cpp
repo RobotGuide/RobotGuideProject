@@ -3,6 +3,7 @@
 #include <memory>
 #include <stdexcept>
 #include <iostream>
+#include <windows.h>
 
 robotguide::path::PathFinder::PathFinder(std::shared_ptr<robotguide::path::Grid> grid_)
 {
@@ -34,7 +35,7 @@ robotguide::path::Path robotguide::path::PathFinder::FindPath(std::shared_ptr<ro
 	bool startPointValid = false;
 	bool endPointValid = false;
 
-	for (std::shared_ptr<robotguide::path::Vertex> vertex : grid->GetVertexes().vertexes)
+	for (std::shared_ptr<robotguide::path::Vertex> vertex : grid->GetVertexes().vertices)
 	{
 		if (vertex == startPoint)
 		{
@@ -63,48 +64,33 @@ robotguide::path::Path robotguide::path::PathFinder::FindPath(std::shared_ptr<ro
 	std::vector<robotguide::path::Path> newFrontier;
 	std::vector<std::shared_ptr<robotguide::path::Vertex>> finishedVertexes;
 
-	std::cout << "------------------------------" << std::endl;
-	for(int i = 1; i < 50; i++)
+	for(int i = 0; i < grid->GetVertexes().vertices.size(); i++)
 	{
-		std::cout << "> Frontier cycle: " << i << std::endl;
 		for (robotguide::path::Path testFrontier : frontier)
 		{
-			std::cout << "  > New frontier at " << testFrontier.vertexPath.at(testFrontier.vertexPath.size() - 1)->coordinate.x << "," << testFrontier.vertexPath.at(testFrontier.vertexPath.size() - 1)->coordinate.z;
-			for (std::shared_ptr<robotguide::path::Vertex> testVertex : testFrontier.vertexPath.back()->connectedVertexes.vertexes)
-			{
-				std::cout << std::endl << "    > Testing " << testVertex->coordinate.x << "," << testVertex->coordinate.z;
+			for (std::shared_ptr<robotguide::path::Vertex> testVertex : testFrontier.vertexPath.back()->connectedVertexes.vertices)
+			{				
 				if (std::find(finishedVertexes.begin(), finishedVertexes.end(), testVertex) != finishedVertexes.end())
-				{
-					std::cout << "     | Already checked, skipping";
+				{					
 					continue;
-				}
-				std::cout << " x";
+				}				
 
 				Path newPath = Path(testFrontier);
 				newPath.Add(testVertex);
 				finishedVertexes.push_back(testVertex);
-
-				std::cout << "x";
+				
 				if (newPath.vertexPath.at(newPath.vertexPath.size() - 1) == endPoint)
-				{
-					std::cout << "  | Target found!";
+				{					
 					return newPath;
-				}
-
-				std::cout << "x";
-				newFrontier.push_back(newPath);
-				std::cout << " | Not target, added to frontier";
+				}				
+				newFrontier.push_back(newPath);				
 			}
-			std::cout << std::endl;
 		}
-
 		frontier.clear();
 		frontier = newFrontier;
 		newFrontier.clear();
-		std::cout << std::endl;
 	}
-
-	return Path();
+	throw new std::runtime_error("Could not find path between start- and endpoint");
 }
 
 void temp(std::shared_ptr<robotguide::path::Path> path, std::shared_ptr<robotguide::path::Vertex> targetVertex)

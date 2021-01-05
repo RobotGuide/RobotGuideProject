@@ -56,7 +56,7 @@ void robotguide::path::TestGridBuilder::PopulateGrid(Grid* grid)
 		throw std::invalid_argument("nullptr was provided as argument");
 	}
 
-	//step 1 place down vertexes
+	//step 1 place down vertices
 	for (int z = 0; z < maxZ; z++)
 	{
 		for (int x = 0; x < maxX; x++)
@@ -74,10 +74,10 @@ void robotguide::path::TestGridBuilder::PopulateGrid(Grid* grid)
 		}
 	}
 
-	//step 2 iterate over vertexes adding connections with neighbours
-	for (auto vertex : grid->GetVertexes().vertexes)
+	//step 2 iterate over vertices adding connections with neighbours
+	for (auto vertex : grid->GetVertexes().vertices)
 	{
-		for (auto neighbourVertex : grid->GetVertexes().vertexes)
+		for (auto neighbourVertex : grid->GetVertexes().vertices)
 		{
 			if (vertex == neighbourVertex)
 			{

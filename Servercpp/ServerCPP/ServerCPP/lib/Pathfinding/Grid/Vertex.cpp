@@ -6,10 +6,6 @@ Vertex::Vertex(const Coordinate& coordinate_) : coordinate(coordinate_)
 {
 }
 
-Vertex::Vertex(const Coordinate& coordinate_, const VertexType vertexType_) : vertexType(vertexType_), coordinate(coordinate_)
-{
-}
-
 Vertex::~Vertex()
 {
 	RemoveReferencesToSelf();
@@ -27,7 +23,7 @@ void Vertex::RemoveConnectedVertex(std::shared_ptr<Vertex> vertex)
 
 void Vertex::RemoveReferencesToSelf()
 {
-	for (auto vertex : connectedVertexes.vertexes)
+	for (auto vertex : connectedVertexes.vertices)
 	{
 		vertex->RemoveConnectedVertex(std::shared_ptr<Vertex>(this));
 	}

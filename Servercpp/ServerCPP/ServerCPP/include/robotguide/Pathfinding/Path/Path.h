@@ -9,9 +9,7 @@ namespace robotguide::path
 {
 	struct Path
 	{
-	public:
-		std::vector<std::shared_ptr<Vertex>> vertexPath;
-		bool completed = false;
+		std::vector<std::shared_ptr<Vertex>> vertexPath;		
 
 	public:
 		Path() = default;

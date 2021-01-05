@@ -14,11 +14,11 @@ robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction(const int
 
 void robotguide::path::PathToProtocolInstruction::ConvertPathToInstructionStream(const Path& path, com::applicationlayer::InstructionStream& instructions) const
 {
-	const std::vector<std::shared_ptr<Vertex>>& vertexes = path.GetVertexes();
+	const std::vector<std::shared_ptr<Vertex>>& vertices = path.GetVertexes();
 
-	for (auto i = 0; i < vertexes.size(); i++)
+	for (auto i = 0; i < vertices.size(); i++)
 	{
-		const auto newInstructions = CreateInstruction(vertexes, i);
+		const auto newInstructions = CreateInstruction(vertices, i);
 		for (auto* newInstruction : newInstructions)
 		{
 			instructions.AddInstruction(newInstruction);
@@ -27,12 +27,12 @@ void robotguide::path::PathToProtocolInstruction::ConvertPathToInstructionStream
 }
 
 std::vector<robotguide::com::applicationlayer::Instruction*> robotguide::path::PathToProtocolInstruction::CreateInstruction(
-	const std::vector<std::shared_ptr<Vertex>>& vertexes, const int index) const
+	const std::vector<std::shared_ptr<Vertex>>& vertices, const int index) const
 {
-	const Vertex* currentVertex = vertexes[index].get();
-	if (index != vertexes.size() - 1)
+	const Vertex* currentVertex = vertices[index].get();
+	if (index != vertices.size() - 1)
 	{
-		const Vertex* nextVertex = vertexes[index + 1].get();
+		const Vertex* nextVertex = vertices[index + 1].get();
 		return GetInstruction(*currentVertex, *nextVertex);
 	}
 	else

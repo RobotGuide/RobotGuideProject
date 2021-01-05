@@ -97,7 +97,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\Pathfinding\Grid\Coordinate.cpp">
-    	<Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp">
       <Filter>Source Files</Filter>
@@ -231,9 +231,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h">

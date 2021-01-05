@@ -24,7 +24,7 @@ namespace robotguide::path
 
 		std::vector<com::applicationlayer::Instruction*> GetInstruction(const Vertex& currentVertex, const Vertex& nextVertex) const;
 		std::vector<com::applicationlayer::Instruction*> GetLastInstruction(const Vertex& vertex) const;
-		std::vector<com::applicationlayer::Instruction*> CreateInstruction(const std::vector<std::shared_ptr<Vertex>>& vertexes, const int index) const;
+		std::vector<com::applicationlayer::Instruction*> CreateInstruction(const std::vector<std::shared_ptr<Vertex>>& vertices, const int index) const;
 	public:
 		PathToProtocolInstruction();
 		PathToProtocolInstruction(const int curentAngle);
