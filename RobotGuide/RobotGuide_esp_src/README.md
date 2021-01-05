@@ -20,6 +20,4 @@ Currently the esp only forwards the instructions and responses and does not modi
 - ESP8622 LED will stay on when its connected to the server and Wi-Fi.  
 
 
-## Possible future todo's
-[] bake a cake...
-(you can remove this section if not necessary)
+
