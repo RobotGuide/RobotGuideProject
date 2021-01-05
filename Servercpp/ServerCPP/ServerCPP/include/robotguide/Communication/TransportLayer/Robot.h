@@ -18,7 +18,7 @@ namespace robotguide::com::transportlayer
 
 		int GetRobotId() const;
 		void SetConnection(Connection& connection);
-		const Connection* GetConnection() const;
+		Connection* GetConnection() const;
 	};
 }
 

@@ -3,6 +3,9 @@
 
 #include "WindowsConnection.h"
 #include "IRobotInstructor.h"
+#include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
+#include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
+
 
 namespace robotguide::com::transportlayer
 {
@@ -11,6 +14,8 @@ namespace robotguide::com::transportlayer
 	private:
 		IRobotInstructor& robotInstructor;
 		int robotID;
+		applicationlayer::Lexer lexer;
+		applicationlayer::Parser parser;
 
 	public:
 		/// <summary>
@@ -33,6 +38,10 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>The copy in the heap</returns>
 		ISelectable* Copy() const override;
+
+	private:
+		void HandleMessage(const std::string& message);
+		static bool HandleInstruction(const applicationlayer::Instruction& instruction);
 	};
 }
 

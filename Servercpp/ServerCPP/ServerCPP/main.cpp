@@ -6,7 +6,6 @@
 #include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
 #include "robotguide/Communication/ApplicationLayer/RobotInstructor.h"
 #include <string>
-#include <vector>
 #include <iostream>
 
 //Required for windows socket
@@ -14,9 +13,6 @@
 #undef  UNICODE
 
 using namespace robotguide::com::transportlayer;
-
-void SendToAllConnections(std::vector<Connection*>& connections, const std::string& message);
-
 
 int main()
 {

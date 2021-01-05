@@ -39,7 +39,7 @@ namespace robotguide::com::transportlayer
 		/// Send data to the connected application. This is a blocking function!
 		/// </summary>
 		/// <param name="message">The message you want to send</param>
-		virtual void Send(const std::string& message) const = 0;
+		virtual void Send(const std::string& message) = 0;
 
 		/// <summary>
 		/// Get a reference to the buffer

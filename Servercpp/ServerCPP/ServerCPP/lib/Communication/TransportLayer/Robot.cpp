@@ -16,7 +16,7 @@ void Robot::SetConnection(Connection& connection)
 	this->connection = &connection;
 }
 
-const Connection* Robot::GetConnection() const
+Connection* Robot::GetConnection() const
 {
 	return connection;
 }
