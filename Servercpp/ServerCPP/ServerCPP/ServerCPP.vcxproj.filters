@@ -120,6 +120,9 @@
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h">

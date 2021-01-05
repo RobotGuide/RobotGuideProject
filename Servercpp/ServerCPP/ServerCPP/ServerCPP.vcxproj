@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionPrinter.cpp" />

@@ -41,7 +41,7 @@ namespace robotguide::com::transportlayer
 
 	private:
 		void HandleMessage(const std::string& message);
-		static bool HandleInstruction(const applicationlayer::Instruction& instruction);
+		bool HandleInstruction(const applicationlayer::Instruction& instruction);
 	};
 }
 

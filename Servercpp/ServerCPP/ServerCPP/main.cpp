@@ -13,6 +13,7 @@
 #undef  UNICODE
 
 using namespace robotguide::com::transportlayer;
+using namespace robotguide::com::applicationlayer;
 
 int main()
 {
