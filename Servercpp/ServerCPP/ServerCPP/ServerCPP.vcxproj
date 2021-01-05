@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="test|Win32">
+      <Configuration>test</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="test|x64">
+      <Configuration>test</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionPrinter.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Parser\Parser.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\DecimalToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\InstructionToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\IntegerToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\TextToken.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\Token.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Token\TokenStream.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\ApplicationLayerException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Instruction\InvalidConversionToInstructionType.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\LexerException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionPrinter.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TextToken.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\Token.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenStream.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenType.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\ApplicationLayerException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Instruction\InvalidConversionToInstructionType.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\LexerException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{690c7665-1c9b-410b-9c61-6d14849b5037}</ProjectGuid>
+    <RootNamespace>ServerCPP</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <SourcePath>./lib;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <SourcePath>./lib;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <SourcePath>./lib;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <LinkStatus>true</LinkStatus>
+      <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <LinkStatus>true</LinkStatus>
+      <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+    </ClCompile>
+    <Link>
+      <ShowProgress>NotSet</ShowProgress>
+    </Link>
+    <Link>
+      <LinkStatus>true</LinkStatus>
+      <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
