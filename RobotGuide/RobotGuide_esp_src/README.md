@@ -15,9 +15,9 @@ Currently the esp only forwards the instructions and responses and does not modi
 - Use VIN to power the ESP8622 board.  
 
 3. Wait for the ESP to connect to the server.  
-⋅⋅* ESP8622 LED will Blink fast when its connecting to Wi-Fi.  
-⋅⋅* ESP8622 LED will Blink slowly when connecting to the server.  
-⋅⋅* ESP8622 LED will stay on when its connected to the server and Wi-Fi.  
+- ESP8622 LED will Blink fast when its connecting to Wi-Fi.  
+- ESP8622 LED will Blink slowly when connecting to the server.  
+- ESP8622 LED will stay on when its connected to the server and Wi-Fi.  
 
 
 ## Possible future todo's
