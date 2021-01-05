@@ -20,4 +20,5 @@ Currently the esp only forwards the instructions and responses and does not modi
 - ESP8622 LED will stay on when its connected to the server and Wi-Fi.  
 
 
-
+## Note(s)
+- When an instruction is sent by the server, the ESP8622 will wait for an acknowledgement from the Arduino UNO. Therefore, if the server sends another instruction, it will be ignored. (Arduino UNO acknowledgement timeout not implemented)
