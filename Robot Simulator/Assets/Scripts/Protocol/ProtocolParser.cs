@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 public static class ProtocolParser
 {
@@ -35,8 +36,15 @@ public static class ProtocolParser
             else if (double.TryParse(message[i], out double value))
             {
                 //Check if it is an integer
-                bool isValueAnInt = value == Math.Floor(value) && !double.IsInfinity(value);
-                objects.Add(isValueAnInt ? (int)value : value);
+                if (value == Math.Floor(value) && !double.IsInfinity(value))
+                {
+                    int intValue = Convert.ToInt32(value);
+                    objects.Add(intValue);
+                }
+                else
+                {
+                    objects.Add(value);
+                }
             }
             else
             {
