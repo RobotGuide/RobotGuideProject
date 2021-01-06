@@ -4,7 +4,6 @@
 #include <Windows.h>
 #include <WinSock2.h>
 
-
 using namespace  robotguide::com::transportlayer;
 
 void WindowsReceiver::CheckForData()

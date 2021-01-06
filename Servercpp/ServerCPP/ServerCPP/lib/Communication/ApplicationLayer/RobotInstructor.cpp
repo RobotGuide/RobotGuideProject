@@ -18,7 +18,7 @@ RobotInstructor::~RobotInstructor()
 
 void RobotInstructor::AddRobot(Robot& robot)
 {
-	if (GetRobot(robot.GetRobotId()) == nullptr)
+	if (GetRobot(robot.GetRobotId()) != nullptr)
 	{
 		robots.push_back(new Robot(robot));
 	}

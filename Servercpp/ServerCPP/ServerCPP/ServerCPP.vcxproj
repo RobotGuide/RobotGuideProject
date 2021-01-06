@@ -50,6 +50,7 @@
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
     <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\Receiver.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Robot.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsRobotListener.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsRobotConnection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsUserConnection.cpp" />
@@ -97,7 +98,7 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IRouteRequester.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\ISelectable.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\ISocket.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\Robot.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Robot.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketNoConnectionException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\Connection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
@@ -111,7 +112,6 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserConnection.h" />
-    <ClInclude Include="lib\Communication\TransportLayer\Robot.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

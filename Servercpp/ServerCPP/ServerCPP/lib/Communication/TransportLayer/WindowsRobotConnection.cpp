@@ -22,6 +22,11 @@ void WindowsRobotConnection::HandleAvailableData()
 	WindowsConnection::HandleAvailableData();
 	const std::string message(GetReceiveBuffer().GetBuffer());
 
+	if (socketHandle == INVALID_SOCKET)
+	{
+		return;
+	}
+
 	if (robotID == INVALID_ID)
 	{
 		try
@@ -39,7 +44,6 @@ void WindowsRobotConnection::HandleAvailableData()
 	}
 	else
 	{
-		// Pass message to robot
 	}
 	std::cout << message << std::endl;
 }
@@ -73,15 +77,15 @@ bool WindowsRobotConnection::HandleInstruction(const Instruction& instruction)
 {
 	if (instruction.GetType() == InstructionType::Seni)
 	{
-		if (instruction.GetData().size() == 1)
+		if (instruction.GetData().size() == 2)
 		{
-			robotID = instruction.GetData()[0].GetInteger();
+			robotID = instruction.GetData()[1].GetInteger();
 			return robotInstructor.GetRobot(robotID) != nullptr;
 		}
-		if (instruction.GetData().empty())
+		if (instruction.GetData().size() == 1)
 		{
 			robotID = robotInstructor.GetUniqueID();
-			const std::string command = InstructionPrinter().InstructionTypeToString(InstructionType::Seni) + " " + std::to_string(robotID);
+			const std::string command = InstructionPrinter().InstructionTypeToString(InstructionType::Seti) + " " + std::to_string(robotID);
 			Send(command);
 			return  true;
 		}

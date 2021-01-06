@@ -9,7 +9,7 @@ namespace robotguide::com::applicationlayer
 	class RobotInstructor final : public transportlayer::IRobotInstructor
 	{
 	private:
-		std::vector<transportlayer::Robot*> robots;
+		std::vector<Robot*> robots;
 		uint64_t nextRobotID;
 
 	public:
@@ -18,9 +18,9 @@ namespace robotguide::com::applicationlayer
 		RobotInstructor(const RobotInstructor& instructor) = delete;
 		RobotInstructor& operator=(const RobotInstructor& instructor) = delete;
 
-		void AddRobot(transportlayer::Robot& robot) override;
+		void AddRobot(Robot& robot) override;
 
-		transportlayer::Robot* GetRobot(int id) override;
+		Robot* GetRobot(int id) override;
 
 		int GetUniqueID() override;
 

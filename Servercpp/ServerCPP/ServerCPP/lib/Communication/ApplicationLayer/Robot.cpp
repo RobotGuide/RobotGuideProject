@@ -1,6 +1,8 @@
-#include "robotguide\Communication\TransportLayer\Robot.h"
+#include "robotguide/Communication/ApplicationLayer/Robot.h"
+#include "robotguide/Communication/TransportLayer/Connection.h"
 
 using namespace  robotguide::com::transportlayer;
+using namespace  robotguide::com::applicationlayer;
 
 Robot::Robot(int id) : id(id), connection(nullptr)
 {
@@ -19,4 +21,8 @@ void Robot::SetConnection(Connection& connection)
 Connection* Robot::GetConnection() const
 {
 	return connection;
+}
+
+void Robot::HandleMessage(const std::string& message)
+{
 }

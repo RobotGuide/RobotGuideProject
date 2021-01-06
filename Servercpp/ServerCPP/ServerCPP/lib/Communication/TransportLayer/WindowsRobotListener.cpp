@@ -16,7 +16,6 @@ void WindowsRobotListener::HandleAvailableData()
 	std::cout << "New robot connected: " << socketHandle << std::endl;
 	WindowsRobotConnection robot(robotInstructor, socketHandle, 80);
 	receiver.AddSelectable(robot);
-	robot.Send("FORN 10");
 }
 
 ISelectable* WindowsRobotListener::Copy() const

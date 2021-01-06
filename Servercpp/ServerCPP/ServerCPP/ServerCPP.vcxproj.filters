@@ -123,6 +123,9 @@
     <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\Robot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h">
@@ -269,10 +272,7 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\Robot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\Communication\TransportLayer\Robot.cpp">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Robot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
