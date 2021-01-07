@@ -3,12 +3,12 @@
 
 using namespace robotguide::path;
 
-Path::Path(Vertex* startPoint)
+robotguide::path::Path::Path(Vertex* startPoint)
 {
 	Add(startPoint);
 }
 
-void Path::Add(Vertex* newVertex)
+void robotguide::path::Path::Add(Vertex* newVertex)
 {
 	if (newVertex == nullptr)
 	{
@@ -18,17 +18,17 @@ void Path::Add(Vertex* newVertex)
 	vertexPath.push_back(newVertex);
 }
 
-void Path::RemoveLast(Vertex* vertex)
+void robotguide::path::Path::RemoveLast(Vertex* vertex)
 {
 	vertexPath.erase(vertexPath.end());
 }
 
-int Path::GetLength() const
+int robotguide::path::Path::GetLength() const
 {
 	return vertexPath.size();
 }
 
-const std::vector<Vertex*>& Path::GetVertexes() const
+const std::vector<Vertex*>& robotguide::path::Path::GetVertexes() const
 {
 	return vertexPath;
 }

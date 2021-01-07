@@ -3,7 +3,7 @@
 
 using namespace robotguide::path;
 
-Grid::~Grid() 
+robotguide::path::Grid::~Grid()
 {
 	for (int i = 0; i < vertices.vertices.size(); i++)
 	{
@@ -11,29 +11,29 @@ Grid::~Grid()
 	}
 }
 
-void Grid::AddVertex(Vertex* newVertex)
+void robotguide::path::Grid::AddVertex(Vertex* newVertex)
 {
 	vertices.Add(newVertex);
 }
 
-void Grid::RemoveVertex(Vertex* vertex)
+void robotguide::path::Grid::RemoveVertex(Vertex* vertex)
 {
 	vertices.Remove(vertex);
 }
 
-void Grid::AddConnection(Vertex* startVertex, Vertex* targetVertex)
+void robotguide::path::Grid::AddConnection(Vertex* startVertex, Vertex* targetVertex)
 {
 	startVertex->AddConnectedVertex(targetVertex);
 	targetVertex->AddConnectedVertex(startVertex);
 }
 
-void Grid::RemoveConnection(Vertex* startVertex, Vertex* targetVertex)
+void robotguide::path::Grid::RemoveConnection(Vertex* startVertex, Vertex* targetVertex)
 {
 	startVertex->RemoveConnectedVertex(targetVertex);
 	targetVertex->RemoveConnectedVertex(startVertex);
 }
 
-const VertexVector& Grid::GetVertexes() const
+const VertexVector& robotguide::path::Grid::GetVertexes() const
 {
 	return vertices;
 }

@@ -2,26 +2,26 @@
 
 using namespace robotguide::path;
 
-Vertex::Vertex(const Coordinate& coordinate_) : coordinate(coordinate_)
+robotguide::path::Vertex::Vertex(const Coordinate& coordinate_) : coordinate(coordinate_)
 {
 }
 
-Vertex::~Vertex()
+robotguide::path::Vertex::~Vertex()
 {
 	RemoveReferencesToSelf();
 }
 
-void Vertex::AddConnectedVertex(Vertex* newVertex)
+void robotguide::path::Vertex::AddConnectedVertex(Vertex* newVertex)
 {
 	connectedVertexes.Add(newVertex);
 }
 
-void Vertex::RemoveConnectedVertex(Vertex* vertex)
+void robotguide::path::Vertex::RemoveConnectedVertex(Vertex* vertex)
 {
 	connectedVertexes.Remove(vertex);
 }
 
-void Vertex::RemoveReferencesToSelf()
+void robotguide::path::Vertex::RemoveReferencesToSelf()
 {
 	for (auto vertex : connectedVertexes.vertices)
 	{

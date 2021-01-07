@@ -17,7 +17,7 @@ robotguide::path::PathFinder::PathFinder(Grid* grid_)
 	grid = grid_;
 }
 
-robotguide::path::Path robotguide::path::PathFinder::FindPath(Vertex* startPoint, Vertex* endPoint)
+Path robotguide::path::PathFinder::FindPath(Vertex* startPoint, Vertex* endPoint)
 {
 	if (startPoint == nullptr)
 	{
@@ -60,15 +60,15 @@ robotguide::path::Path robotguide::path::PathFinder::FindPath(Vertex* startPoint
 		return {};
 	}
 
-	std::vector<robotguide::path::Path> frontier;
+	std::vector<Path> frontier;
 	frontier.push_back(Path(startPoint));
 
-	std::vector<robotguide::path::Path> newFrontier;
+	std::vector<Path> newFrontier;
 	std::vector<Vertex*> finishedVertexes;
 
 	for(int i = 0; i < grid->GetVertexes().vertices.size(); i++)
 	{
-		for (robotguide::path::Path testFrontier : frontier)
+		for (Path testFrontier : frontier)
 		{
 			for (Vertex* testVertex : testFrontier.vertexPath.back()->connectedVertexes.vertices)
 			{				

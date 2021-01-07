@@ -3,7 +3,7 @@
 
 using namespace robotguide::path;
 
-bool VertexVector::IsVertexInConnectedVertexes(Vertex* vertex)
+bool robotguide::path::VertexVector::IsVertexInConnectedVertexes(Vertex* vertex)
 {
 	for (auto tempVertex : vertices)
 	{
@@ -15,7 +15,7 @@ bool VertexVector::IsVertexInConnectedVertexes(Vertex* vertex)
 	return false;
 }
 
-int VertexVector::GetVertexIndex(Vertex* vertex)
+int robotguide::path::VertexVector::GetVertexIndex(Vertex* vertex)
 {
 	int resultIndex = 0;
 
@@ -30,12 +30,12 @@ int VertexVector::GetVertexIndex(Vertex* vertex)
 	return -1;
 }
 
-std::vector<Vertex*>::iterator VertexVector::GetVertexIterator(Vertex* vertex)
+std::vector<Vertex*>::iterator robotguide::path::VertexVector::GetVertexIterator(Vertex* vertex)
 {
 	return vertices.begin() + GetVertexIndex(vertex);
 }
 
-void VertexVector::Add(Vertex* newVertex) 
+void robotguide::path::VertexVector::Add(Vertex* newVertex)
 {
 	if (IsVertexInConnectedVertexes(newVertex))
 	{
@@ -45,7 +45,7 @@ void VertexVector::Add(Vertex* newVertex)
 	vertices.push_back(newVertex);
 }
 
-void VertexVector::Remove(Vertex* vertex)
+void robotguide::path::VertexVector::Remove(Vertex* vertex)
 {
 	if (!IsVertexInConnectedVertexes(vertex))
 	{
