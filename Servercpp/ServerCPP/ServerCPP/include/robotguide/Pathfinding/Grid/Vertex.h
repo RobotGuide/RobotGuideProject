@@ -17,8 +17,8 @@ namespace robotguide::path
 		Vertex(const Coordinate& coordinate_);
 		virtual ~Vertex();
 
-		void AddConnectedVertex(std::shared_ptr<Vertex> newVertex);
-		void RemoveConnectedVertex(std::shared_ptr<Vertex> vertex);
+		void AddConnectedVertex(Vertex* newVertex);
+		void RemoveConnectedVertex(Vertex* vertex);
 		void RemoveReferencesToSelf();			
 	};
 }

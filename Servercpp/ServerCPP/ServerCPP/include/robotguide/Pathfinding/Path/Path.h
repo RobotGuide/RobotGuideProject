@@ -9,19 +9,19 @@ namespace robotguide::path
 {
 	struct Path
 	{
-		std::vector<std::shared_ptr<Vertex>> vertexPath;		
+		std::vector<Vertex*> vertexPath;		
 
 	public:
 		Path() = default;
-		Path(std::shared_ptr<Vertex> startPoint);
+		Path(Vertex* startPoint);
 		virtual ~Path() = default;
 
-		void Add(std::shared_ptr<Vertex> newVertex);
-		void RemoveLast(std::shared_ptr<Vertex> vertex);
+		void Add(Vertex* newVertex);
+		void RemoveLast(Vertex* vertex);
 
 		int GetLength() const;
 
-		const std::vector<std::shared_ptr<Vertex>>& GetVertexes() const;
+		const std::vector<Vertex*>& GetVertexes() const;
 	};
 }
 	

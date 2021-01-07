@@ -14,13 +14,16 @@ namespace robotguide::path
 
 	public:
 		Grid() = default;
-		virtual ~Grid() = default;
+		virtual ~Grid();
 
-		void AddVertex(std::shared_ptr <Vertex> newVertex);
-		void RemoveVertex(std::shared_ptr<Vertex> vertex);
+		Grid(const Grid&) = delete;
+		Grid& operator=(const Grid&) = delete;
 
-		void AddConnection(std::shared_ptr<Vertex> startVertex, std::shared_ptr<Vertex> targetVertex);
-		void RemoveConnection(std::shared_ptr<Vertex> startVertex, std::shared_ptr<Vertex> targetVertex);
+		void AddVertex(Vertex* newVertex);
+		void RemoveVertex(Vertex* vertex);
+
+		void AddConnection(Vertex* startVertex, Vertex* targetVertex);
+		void RemoveConnection(Vertex* startVertex, Vertex* targetVertex);
 
 		const VertexVector& GetVertexes() const;
 	};

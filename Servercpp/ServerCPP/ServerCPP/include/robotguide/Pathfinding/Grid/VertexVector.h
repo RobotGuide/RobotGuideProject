@@ -11,17 +11,17 @@ namespace robotguide::path
 	class VertexVector 
 	{
 	public:
-		std::vector<std::shared_ptr<Vertex>> vertices;
+		std::vector<Vertex*> vertices;
 		
 	public:
 		VertexVector() = default;
 		virtual ~VertexVector() = default;
-		bool IsVertexInConnectedVertexes(std::shared_ptr<Vertex> vertex);
-		int GetVertexIndex(std::shared_ptr<Vertex> vertex);
-		std::vector<std::shared_ptr<Vertex>>::iterator GetVertexIterator(std::shared_ptr<Vertex> vertex);
+		bool IsVertexInConnectedVertexes(Vertex* vertex);
+		int GetVertexIndex(Vertex* vertex);
+		std::vector<Vertex*>::iterator GetVertexIterator(Vertex* vertex);
 
-		void Add(std::shared_ptr<Vertex> newVertex);
-		void Remove(std::shared_ptr<Vertex> vertex);
+		void Add(Vertex* newVertex);
+		void Remove(Vertex* vertex);
 	};
 }
 #endif //ROBOTGUIDE_PAHTFINDING_GRID_VERTEXVECTOR_H

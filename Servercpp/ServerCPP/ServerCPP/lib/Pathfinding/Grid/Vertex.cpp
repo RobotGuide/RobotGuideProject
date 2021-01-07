@@ -11,12 +11,12 @@ Vertex::~Vertex()
 	RemoveReferencesToSelf();
 }
 
-void Vertex::AddConnectedVertex(std::shared_ptr<Vertex> newVertex)
+void Vertex::AddConnectedVertex(Vertex* newVertex)
 {
 	connectedVertexes.Add(newVertex);
 }
 
-void Vertex::RemoveConnectedVertex(std::shared_ptr<Vertex> vertex)
+void Vertex::RemoveConnectedVertex(Vertex* vertex)
 {
 	connectedVertexes.Remove(vertex);
 }
@@ -25,7 +25,7 @@ void Vertex::RemoveReferencesToSelf()
 {
 	for (auto vertex : connectedVertexes.vertices)
 	{
-		vertex->RemoveConnectedVertex(std::shared_ptr<Vertex>(this));
+		vertex->RemoveConnectedVertex(this);
 	}
 }
 

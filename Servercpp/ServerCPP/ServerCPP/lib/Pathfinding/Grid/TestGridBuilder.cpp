@@ -5,14 +5,14 @@
 #include <memory>
 #include <iostream>
 
-//    Z ->
-// X .......
-// | .##..#.
-// v .#.....
+//    X ->			0		6
+// Z .s00#..
+// | .##0##t
+// v .#.0000
 //   .......
-//   ##...#.
-//   .#..###
 //   .....#.
+//   .#..###
+//   .....#.		6
 
 robotguide::path::TestGridBuilder::TestGridBuilder()
 {
@@ -68,7 +68,7 @@ void robotguide::path::TestGridBuilder::PopulateGrid(Grid* grid)
 
 			Coordinate tileCoord = Coordinate(x, z);
 
-			std::shared_ptr<Vertex> tileVert(new Vertex(tileCoord));
+			Vertex* tileVert(new Vertex(tileCoord));
 
 			grid->AddVertex(tileVert);
 		}

@@ -3,14 +3,14 @@
 
 using namespace robotguide::path;
 
-Path::Path(std::shared_ptr<Vertex> startPoint)
+Path::Path(Vertex* startPoint)
 {
 	Add(startPoint);
 }
 
-void Path::Add(std::shared_ptr<Vertex> newVertex)
+void Path::Add(Vertex* newVertex)
 {
-	if (newVertex.get() == nullptr)
+	if (newVertex == nullptr)
 	{
 		throw std::invalid_argument("newVertex");
 	}
@@ -18,7 +18,7 @@ void Path::Add(std::shared_ptr<Vertex> newVertex)
 	vertexPath.push_back(newVertex);
 }
 
-void Path::RemoveLast(std::shared_ptr<Vertex> vertex)
+void Path::RemoveLast(Vertex* vertex)
 {
 	vertexPath.erase(vertexPath.end());
 }
@@ -28,7 +28,7 @@ int Path::GetLength() const
 	return vertexPath.size();
 }
 
-const std::vector<std::shared_ptr<Vertex>>& Path::GetVertexes() const
+const std::vector<Vertex*>& Path::GetVertexes() const
 {
 	return vertexPath;
 }

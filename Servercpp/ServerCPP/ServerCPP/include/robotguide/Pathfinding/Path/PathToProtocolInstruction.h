@@ -11,26 +11,26 @@ namespace robotguide::path
 	class PathToProtocolInstruction final
 	{
 	private:
-		const int currentAngle_;
+		int currentAngle_;
 	private:
-		int GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2) const;
-		int GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2) const;
-		int CalculateNeededAngle(const double verticalDistance, const double horizontalDistance) const;
+		int GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2);
+		int GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2);
+		int CalculateNeededAngle(const double verticalDistance, const double horizontalDistance);
 		std::vector<com::applicationlayer::Instruction*> DetermineInstructionToMoveToDesiredPlace(
-			int distanceToMove, int angleToMove) const;
+			int distanceToMove, int angleToMove);
 
 		int GetDistanceViaVerticalAndHorizontalDistance(const double verticalDistance,
-		                                                const double horizontalDistance) const;
+		                                                const double horizontalDistance);
 
-		std::vector<com::applicationlayer::Instruction*> GetInstruction(const Vertex& currentVertex, const Vertex& nextVertex) const;
-		std::vector<com::applicationlayer::Instruction*> GetLastInstruction(const Vertex& vertex) const;
-		std::vector<com::applicationlayer::Instruction*> CreateInstruction(const std::vector<std::shared_ptr<Vertex>>& vertices, const int index) const;
+		std::vector<com::applicationlayer::Instruction*> GetInstruction(const Vertex& currentVertex, const Vertex& nextVertex);
+		std::vector<com::applicationlayer::Instruction*> GetLastInstruction(const Vertex& vertex);
+		std::vector<com::applicationlayer::Instruction*> CreateInstruction(const std::vector<Vertex*>& vertices, const int index);
 	public:
 		PathToProtocolInstruction();
 		PathToProtocolInstruction(const int curentAngle);
 		~PathToProtocolInstruction() = default;
 
-		void ConvertPathToInstructionStream(const Path& path, com::applicationlayer::InstructionStream& instructions) const;
+		void ConvertPathToInstructionStream(const Path& path, com::applicationlayer::InstructionStream& instructions);
 	};
 }
 

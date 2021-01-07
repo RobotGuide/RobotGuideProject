@@ -5,9 +5,11 @@
 #include <iostream>
 #include <windows.h>
 
-robotguide::path::PathFinder::PathFinder(std::shared_ptr<robotguide::path::Grid> grid_)
+using namespace robotguide::path;
+
+robotguide::path::PathFinder::PathFinder(Grid* grid_)
 {
-	if (grid_.get() == nullptr)
+	if (grid_ == nullptr)
 	{
 		throw std::invalid_argument("grid_");
 	}
@@ -15,27 +17,22 @@ robotguide::path::PathFinder::PathFinder(std::shared_ptr<robotguide::path::Grid>
 	grid = grid_;
 }
 
-robotguide::path::Path robotguide::path::PathFinder::FindPath(std::shared_ptr<robotguide::path::Vertex> startPoint, std::shared_ptr<robotguide::path::Vertex> endPoint)
+robotguide::path::Path robotguide::path::PathFinder::FindPath(Vertex* startPoint, Vertex* endPoint)
 {
-	if (startPoint.get() == nullptr)
+	if (startPoint == nullptr)
 	{
 		throw std::invalid_argument("startPoint");
 	}
 
-	if (endPoint.get() == nullptr)
+	if (endPoint == nullptr)
 	{
 		throw std::invalid_argument("endPoint");
-	}
-
-	if (startPoint == endPoint)
-	{
-		throw std::invalid_argument("startPoint and endPoint cant be the same vertex");
-	}
+	}	
 
 	bool startPointValid = false;
 	bool endPointValid = false;
 
-	for (std::shared_ptr<robotguide::path::Vertex> vertex : grid->GetVertexes().vertices)
+	for (Vertex* vertex : grid->GetVertexes().vertices)
 	{
 		if (vertex == startPoint)
 		{
@@ -58,17 +55,22 @@ robotguide::path::Path robotguide::path::PathFinder::FindPath(std::shared_ptr<ro
 		throw std::invalid_argument("endPoint");
 	}
 
+	if (startPoint == endPoint)
+	{
+		return {};
+	}
+
 	std::vector<robotguide::path::Path> frontier;
 	frontier.push_back(Path(startPoint));
 
 	std::vector<robotguide::path::Path> newFrontier;
-	std::vector<std::shared_ptr<robotguide::path::Vertex>> finishedVertexes;
+	std::vector<Vertex*> finishedVertexes;
 
 	for(int i = 0; i < grid->GetVertexes().vertices.size(); i++)
 	{
 		for (robotguide::path::Path testFrontier : frontier)
 		{
-			for (std::shared_ptr<robotguide::path::Vertex> testVertex : testFrontier.vertexPath.back()->connectedVertexes.vertices)
+			for (Vertex* testVertex : testFrontier.vertexPath.back()->connectedVertexes.vertices)
 			{				
 				if (std::find(finishedVertexes.begin(), finishedVertexes.end(), testVertex) != finishedVertexes.end())
 				{					
@@ -91,10 +93,5 @@ robotguide::path::Path robotguide::path::PathFinder::FindPath(std::shared_ptr<ro
 		newFrontier.clear();
 	}
 	throw new std::runtime_error("Could not find path between start- and endpoint");
-}
-
-void temp(std::shared_ptr<robotguide::path::Path> path, std::shared_ptr<robotguide::path::Vertex> targetVertex)
-{
-	
 }
 

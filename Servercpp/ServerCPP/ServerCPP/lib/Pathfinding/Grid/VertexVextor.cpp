@@ -3,7 +3,7 @@
 
 using namespace robotguide::path;
 
-bool VertexVector::IsVertexInConnectedVertexes(std::shared_ptr<Vertex> vertex)
+bool VertexVector::IsVertexInConnectedVertexes(Vertex* vertex)
 {
 	for (auto tempVertex : vertices)
 	{
@@ -15,7 +15,7 @@ bool VertexVector::IsVertexInConnectedVertexes(std::shared_ptr<Vertex> vertex)
 	return false;
 }
 
-int VertexVector::GetVertexIndex(std::shared_ptr<Vertex> vertex)
+int VertexVector::GetVertexIndex(Vertex* vertex)
 {
 	int resultIndex = 0;
 
@@ -30,12 +30,12 @@ int VertexVector::GetVertexIndex(std::shared_ptr<Vertex> vertex)
 	return -1;
 }
 
-std::vector<std::shared_ptr<Vertex>>::iterator VertexVector::GetVertexIterator(std::shared_ptr<Vertex> vertex)
+std::vector<Vertex*>::iterator VertexVector::GetVertexIterator(Vertex* vertex)
 {
 	return vertices.begin() + GetVertexIndex(vertex);
 }
 
-void VertexVector::Add(std::shared_ptr<Vertex> newVertex) 
+void VertexVector::Add(Vertex* newVertex) 
 {
 	if (IsVertexInConnectedVertexes(newVertex))
 	{
@@ -45,7 +45,7 @@ void VertexVector::Add(std::shared_ptr<Vertex> newVertex)
 	vertices.push_back(newVertex);
 }
 
-void VertexVector::Remove(std::shared_ptr<Vertex> vertex)
+void VertexVector::Remove(Vertex* vertex)
 {
 	if (!IsVertexInConnectedVertexes(vertex))
 	{
