@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequester.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
@@ -116,6 +116,7 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRobot.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

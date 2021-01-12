@@ -1,12 +1,12 @@
-#ifndef  ROBOTGUIDE_COMMUNICATION_APPLICATRIONLAYER_ROBOT_H
-#define  ROBOTGUIDE_COMMUNICATION_APPLICATRIONLAYER_ROBOT_H
+#ifndef  ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_ROBOT_H
+#define  ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_ROBOT_H
 
 #include "robotguide/Communication/TransportLayer/Connection.h"
-
+#include "robotguide/Communication/TransportLayer/IRobot.h"
 
 namespace robotguide::com::applicationlayer
 {
-	class Robot
+	class Robot : public transportlayer::IRobot
 	{
 	private:
 		int id;
@@ -14,12 +14,16 @@ namespace robotguide::com::applicationlayer
 
 	public:
 		Robot(int id);
-		~Robot() = default;
+		~Robot() override = default;
+		Robot(const Robot& listener) = default;
+		Robot& operator=(const Robot& listener) = default;
 
-		int GetRobotId() const;
-		void SetConnection(transportlayer::Connection& connection);
-		transportlayer::Connection* GetConnection() const;
-		void HandleMessage(const std::string& message);
+
+		int GetRobotId() const override;
+		void SetConnection(transportlayer::Connection& connection) override;
+		transportlayer::Connection* GetConnection() const override;
+		void HandleMessage(const std::string& message) override;
+		IRobot* Copy() override;
 	};
 }
 

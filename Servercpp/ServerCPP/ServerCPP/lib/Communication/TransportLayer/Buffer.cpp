@@ -57,6 +57,6 @@ void Buffer::SetLength(const unsigned int bytes)
 
 void Buffer::Clear()
 {
-	memset(buffer, 0, maxLength);
+	std::fill_n(buffer, maxLength, '\0');
 	length = 0;
 }

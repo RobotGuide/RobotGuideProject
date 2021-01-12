@@ -2,14 +2,16 @@
 #define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_ROBOTINSTRUCTOR_H
 
 #include "robotguide/Communication/TransportLayer/IRobotInstructor.h"
+#include "robotguide/Communication/TransportLayer/IRobot.h"
 #include <vector>
+
 
 namespace robotguide::com::applicationlayer
 {
 	class RobotInstructor final : public transportlayer::IRobotInstructor
 	{
 	private:
-		std::vector<Robot*> robots;
+		std::vector<transportlayer::IRobot*> robots;
 		uint64_t nextRobotID;
 
 	public:
@@ -18,9 +20,9 @@ namespace robotguide::com::applicationlayer
 		RobotInstructor(const RobotInstructor& instructor) = delete;
 		RobotInstructor& operator=(const RobotInstructor& instructor) = delete;
 
-		void AddRobot(Robot& robot) override;
+		void AddRobot(transportlayer::IRobot& robot) override;
 
-		Robot* GetRobot(int id) override;
+		transportlayer::IRobot* GetRobot(int id) override;
 
 		int GetUniqueID() override;
 

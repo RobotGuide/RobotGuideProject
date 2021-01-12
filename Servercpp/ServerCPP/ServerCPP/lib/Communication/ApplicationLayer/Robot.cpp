@@ -26,3 +26,8 @@ Connection* Robot::GetConnection() const
 void Robot::HandleMessage(const std::string& message)
 {
 }
+
+IRobot* Robot::Copy()
+{
+	return new Robot(*this);
+}

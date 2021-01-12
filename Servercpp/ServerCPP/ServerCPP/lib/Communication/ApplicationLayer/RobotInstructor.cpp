@@ -1,4 +1,5 @@
 #include "robotguide/Communication/ApplicationLayer/RobotInstructor.h"
+#include "robotguide/Communication/ApplicationLayer/Robot.h"
 
 using namespace robotguide::com::transportlayer;
 using namespace robotguide::com::applicationlayer;
@@ -9,24 +10,24 @@ RobotInstructor::RobotInstructor() : nextRobotID(0)
 
 RobotInstructor::~RobotInstructor()
 {
-	for (Robot* robot : robots)
+	for (IRobot* robot : robots)
 	{
 		delete robot;
 		robot = nullptr;
 	}
 }
 
-void RobotInstructor::AddRobot(Robot& robot)
+void RobotInstructor::AddRobot(IRobot& robot)
 {
 	if (GetRobot(robot.GetRobotId()) != nullptr)
 	{
-		robots.push_back(new Robot(robot));
+		robots.push_back(robot.Copy());
 	}
 }
 
-Robot* RobotInstructor::GetRobot(const int id)
+IRobot* RobotInstructor::GetRobot(const int id)
 {
-	for (Robot* robot : robots)
+	for (IRobot* robot : robots)
 	{
 		if (robot->GetRobotId() == id)
 		{

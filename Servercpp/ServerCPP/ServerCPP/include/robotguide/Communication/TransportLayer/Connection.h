@@ -41,6 +41,7 @@ namespace robotguide::com::transportlayer
 		/// <param name="message">The message you want to send</param>
 		virtual void Send(const std::string& message) = 0;
 
+	protected:
 		/// <summary>
 		/// Get a reference to the buffer
 		/// </summary>

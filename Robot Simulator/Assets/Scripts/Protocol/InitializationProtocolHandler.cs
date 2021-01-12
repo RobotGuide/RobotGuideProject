@@ -10,13 +10,13 @@ public class InitializationProtocolHandler : ProtocolHandler
         switch (instruction.Instruction)
         {
             case InstructionVariant.ASKI:
-                if (!CheckPermission(instruction))
+                if (!CheckPermission(instruction, typeof(int)))
                     return;
                 ClientSocket.Instance.Send(robotID == InvalidId ? "SENI 0" : $"SENI 0 {robotID}");
                 break;
 
             case InstructionVariant.SETI:
-                if (!CheckPermission(instruction, typeof(int)))
+                if (!CheckPermission(instruction, typeof(int), typeof(int)))
                     return;
                 robotID = (int)instruction.ParameterValues[0];
                 break;
