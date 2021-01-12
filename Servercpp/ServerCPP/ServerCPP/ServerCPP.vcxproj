@@ -61,6 +61,8 @@
     <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsUserListener.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
@@ -114,7 +116,6 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserListener.h" />
-    <ClInclude Include="lib\Communication\TransportLayer\WindowsUserListener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
