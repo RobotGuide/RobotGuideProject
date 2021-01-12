@@ -14,7 +14,7 @@ const char* ip = "192.168.43.18"; //insert server ip here
 const int port = 3030;
 
 int connectionID = -1;
-int channelNum = -1;
+int channelNum = 0;
 
 WiFiClient client;
 
@@ -42,6 +42,8 @@ void loop() {
   ConnectServer();
 
   digitalWrite(LED_BUILTIN, LOW); // turn led on
+  Serial.println(connectionID);
+  delay(200);
 
   switch (current)
   {
@@ -87,9 +89,9 @@ void ConnectServer()
   bool led = false;
   if (!client.connected())
   {
-    client.stop();
+    // client.stop();
     client.connect(ip, port); // CLOSED -> ESTABLISHED
-    unsigned long long time = millis() + 5000;
+    unsigned long long time = millis() + 10000;
     while (client.status() != ESTABLISHED)
     {
       led = !led;
@@ -100,22 +102,24 @@ void ConnectServer()
         break;
       }
     }
-    
+
     // Has connection with the server
     String line = client.readStringUntil('\n'); // Wait for 𝐴𝑆𝐾𝐼 
-    if (line.substring(0, 3) == "ASKI")
+    if (line.substring(0, 4) == "ASKI")
     {
-      String response = "SENI " + channelNum;
+      String response = "SENI " + String(channelNum);
       if (connectionID >= 0) // ESP has a connectionID
       {
-        response += " " + connectionID;
+        response += " " + String(connectionID);
+        Serial.println(response);
         client.print(response); // 𝑆𝐸𝑁𝐼 channelNum connectionID
       }
       else // Connection ID not set
       {
         client.print(response); // SENI channelNum 
         String newIdLine = client.readStringUntil('\n'); // Wait for SETI channelNum connectionID
-        if (line.substring(0, 3) == "SETI")
+
+        if (newIdLine.substring(0, 4) == "SETI")
         {
           channelNum = newIdLine.substring(5).toInt();
           connectionID = newIdLine.substring(7).toInt();
