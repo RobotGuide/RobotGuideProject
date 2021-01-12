@@ -1,22 +1,19 @@
-#include "rotaryEncoders.h"
+#include "RotaryEncoders.h"
+#include "Constants.h"
 
 #include <Arduino.h>
 
-RotaryEncoders* RotaryEncoders::instance = nullptr;
+RotaryEncoders RotaryEncoders::instance;
 
-RotaryEncoders* RotaryEncoders::getInstance()
+RotaryEncoders& RotaryEncoders::getInstance()
 {
-    if(instance == nullptr)
-    {
-      instance = new RotaryEncoders();
-    }
-
     return instance;
 }
 
 RotaryEncoders::RotaryEncoders()
 {
     clearCounts();
+    setupInterrupts(RENC_PIN_L, RENC_PIN_R);
 }
 
 void RotaryEncoders::clearCounts()
@@ -46,11 +43,11 @@ void RotaryEncoders::setupInterrupts(int encoderPinL, int encoderPinR)
 
 void RotaryEncoders::isr_renc_L()
 {
-    instance->encoderCounterL++;
+    instance.encoderCounterL++;
 }
 
 void RotaryEncoders::isr_renc_R()
 {
-    instance->encoderCounterR++;
+    instance.encoderCounterR++;
 }
 
