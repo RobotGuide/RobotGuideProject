@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
@@ -60,7 +61,6 @@
     <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
@@ -75,6 +75,7 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RobotInstructor.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
@@ -112,6 +113,8 @@
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserListener.h" />
+    <ClInclude Include="lib\Communication\TransportLayer\WindowsUserListener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
