@@ -4,7 +4,8 @@
 using namespace robotguide::com::transportlayer;
 
 Connection::Connection(const unsigned int socketHandle, const unsigned int receiveBufferSize)
-	: receiveBuffer(receiveBufferSize), socketHandle(socketHandle)
+	: receiveBuffer(receiveBufferSize)
+	, socketHandle(socketHandle)
 {
 }
 

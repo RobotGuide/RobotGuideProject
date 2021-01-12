@@ -20,7 +20,7 @@ Buffer::Buffer(const Buffer& buffer)
 	: maxLength(buffer.maxLength), length(buffer.length)
 {
 	this->buffer = new char[buffer.maxLength];
-	for (int i = 0; i < buffer.length; i++)
+	for (unsigned i = 0; i < buffer.length; i++)
 	{
 		this->buffer[i] = buffer.buffer[i];
 	}

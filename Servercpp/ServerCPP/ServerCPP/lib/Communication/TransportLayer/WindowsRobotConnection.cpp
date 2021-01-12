@@ -11,10 +11,14 @@ using namespace robotguide::com::exception::applicationlayer;
 
 static constexpr int INVALID_ID = -1;
 
-WindowsRobotConnection::WindowsRobotConnection(IRobotInstructor& robotInstructor, const SOCKET& socketHandler, const unsigned int receiveBufferSize)
-	: WindowsConnection(socketHandler, receiveBufferSize), robotInstructor(robotInstructor), robotID(INVALID_ID)
+WindowsRobotConnection::WindowsRobotConnection(IRobotInstructor& robotInstructor,
+	const SOCKET& socketHandler,
+	const unsigned int receiveBufferSize)
+	: WindowsConnection(socketHandler, receiveBufferSize)
+	, robotInstructor(robotInstructor)
+	, robotID(INVALID_ID)
 {
-	WindowsConnection::Send(InstructionPrinter().InstructionTypeToString(InstructionType::Aski));
+	WindowsConnection::Send(InstructionPrinter().InstructionTypeToString(InstructionType::Aski) + '\n');
 }
 
 void WindowsRobotConnection::HandleAvailableData()
@@ -85,7 +89,7 @@ bool WindowsRobotConnection::HandleInstruction(const Instruction& instruction)
 		if (instruction.GetData().size() == 1)
 		{
 			robotID = robotInstructor.GetUniqueID();
-			const std::string command = InstructionPrinter().InstructionTypeToString(InstructionType::Seti) + " " + std::to_string(robotID);
+			const std::string command = InstructionPrinter().InstructionTypeToString(InstructionType::Seti) + " " + std::to_string(robotID) + '\n';
 			Send(command);
 			return  true;
 		}
