@@ -6,6 +6,7 @@
 #include <iostream>
 #include <random>
 #include <time.h>
+#include <math.h>
 
 #include <chrono>
 #include <ctime>
@@ -46,11 +47,8 @@ robotguide::path::Path CalculatePath(robotguide::path::PathFinder& pathFinder, r
 
 std::tuple<robotguide::path::Vertex*, robotguide::path::Vertex*> GetRandomVertexes(robotguide::path::Grid& grid)
 {
-	//int startVertexIndex = rand() % (grid.GetVertexes().vertices.size() - 1);
-	//int targetVertexIndex = rand() % (grid.GetVertexes().vertices.size() - 1);
-
-	int startVertexIndex = 1;
-	int targetVertexIndex = 8;
+	int startVertexIndex = rand() % (grid.GetVertexes().vertices.size() - 1);
+	int targetVertexIndex = rand() % (grid.GetVertexes().vertices.size() - 1);
 
 	robotguide::path::Vertex* startVertex = grid.GetVertexes().vertices[startVertexIndex];
 	robotguide::path::Vertex* targetVertex = grid.GetVertexes().vertices[targetVertexIndex];
@@ -60,7 +58,13 @@ std::tuple<robotguide::path::Vertex*, robotguide::path::Vertex*> GetRandomVertex
 
 int main()
 {
-
+	//                      y  x
+	std::cout << "Degree: unknown " << (atan2(0, 0) / std::_Pi * 180) << std::endl;
+	std::cout << "Degree: 90 " << (atan2(1, 0) / std::_Pi * 180) << std::endl;
+	std::cout << "Degree: 180 " << (atan2(0, -1) / std::_Pi * 180) << std::endl;
+	std::cout << "Degree: 270 " << (atan2(-1, 0) / std::_Pi * 180) << std::endl;
+	std::cout << "Degree: 0/360 " << (atan2(0, 1) / std::_Pi * 180) << std::endl;
+	
 	robotguide::path::Grid grid;
 	robotguide::path::TestGridBuilder* gridBuilder = new robotguide::path::TestGridBuilder();
 	gridBuilder->PopulateGrid(&grid);

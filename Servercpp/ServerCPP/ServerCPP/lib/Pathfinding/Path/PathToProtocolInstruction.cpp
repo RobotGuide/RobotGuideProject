@@ -3,6 +3,7 @@
 #include "robotguide/Pathfinding/Path/Path.h"
 #include <iostream>
 #include <math.h>
+#include <random>
 
 robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction() : currentAngle_(0)
 {
@@ -41,36 +42,31 @@ std::vector<robotguide::com::applicationlayer::Instruction*> robotguide::path::P
 	}
 }
 
-int robotguide::path::PathToProtocolInstruction::GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2)
+int robotguide::path::PathToProtocolInstruction::GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target)
 {
-	return v1.coordinate.z - v2.coordinate.z;
+	return target.coordinate.z - source.coordinate.z;
 }
 
-int robotguide::path::PathToProtocolInstruction::GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2)
+int robotguide::path::PathToProtocolInstruction::GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target)
 {
-	return v1.coordinate.x - v2.coordinate.x;
+	return target.coordinate.x - source.coordinate.x;
 }
 
 int robotguide::path::PathToProtocolInstruction::CalculateNeededAngle(const double verticalDistance, const double horizontalDistance)
 {
-	return static_cast<int>(atan2(verticalDistance, horizontalDistance)) * 90;
+	return static_cast<int>(atan2(-verticalDistance, horizontalDistance) / std::_Pi * 180);
 }
 
 std::vector<robotguide::com::applicationlayer::Instruction*> robotguide::path::PathToProtocolInstruction::GetInstruction(
 	const Vertex& currentVertex, const Vertex& nextVertex)
 {
-	const int VerticalDistance = -GetVerticalDistanceBetweenNextAndCurrentPath(currentVertex, nextVertex);
+	const int VerticalDistance = GetVerticalDistanceBetweenNextAndCurrentPath(currentVertex, nextVertex);
 	const int HorizontalDistance = GetHorizontalDistanceBetweenNextAndCurrentPath(currentVertex, nextVertex);
-
-	//const int VerticalDistance = GetHorizontalDistanceBetweenNextAndCurrentPath(currentVertex, nextVertex);
-	//const int HorizontalDistance = GetVerticalDistanceBetweenNextAndCurrentPath(currentVertex, nextVertex);
 
 	const int distanceToMove = GetDistanceViaVerticalAndHorizontalDistance(VerticalDistance, HorizontalDistance);
 	const int angleToMove = CalculateNeededAngle(VerticalDistance, HorizontalDistance);
 
 	const int newAngle = angleToMove - currentAngle_;
-	std::cout << "Delta Angle: " << newAngle << " TargetAngle: " << angleToMove << " StartAngle: " << currentAngle_ << std::endl;
-	std::cout << distanceToMove << std::endl;
 
 	std::vector<com::applicationlayer::Instruction*> newInstructions = DetermineInstructionToMoveToDesiredPlace(distanceToMove, newAngle);
 	currentAngle_ = angleToMove;

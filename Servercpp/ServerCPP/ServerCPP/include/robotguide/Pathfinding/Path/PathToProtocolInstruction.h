@@ -13,8 +13,8 @@ namespace robotguide::path
 	private:
 		int currentAngle_;
 	private:
-		int GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2);
-		int GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& v1, const Vertex& v2);
+		int GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target);
+		int GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target);
 		int CalculateNeededAngle(const double verticalDistance, const double horizontalDistance);
 		std::vector<com::applicationlayer::Instruction*> DetermineInstructionToMoveToDesiredPlace(
 			int distanceToMove, int angleToMove);
