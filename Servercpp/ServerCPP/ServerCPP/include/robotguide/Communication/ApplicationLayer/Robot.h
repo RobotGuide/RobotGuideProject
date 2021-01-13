@@ -3,6 +3,11 @@
 
 #include "robotguide/Communication/TransportLayer/Connection.h"
 #include "robotguide/Communication/TransportLayer/IRobot.h"
+#include "robotguide/Communication/ApplicationLayer/Instruction/InstructionStream.h"
+#include "Lexer/Lexer.h"
+#include "Parser/Parser.h"
+#include <queue>
+
 
 namespace robotguide::com::applicationlayer
 {
@@ -11,6 +16,11 @@ namespace robotguide::com::applicationlayer
 	private:
 		int id;
 		transportlayer::Connection* connection;
+		std::tuple<int, int> coordinates;
+		std::tuple<int, int> targetCoordinates;
+		std::queue<std::string> instructions;
+		Lexer lexer;
+		Parser parser;
 
 	public:
 		/// <summary>
@@ -27,6 +37,12 @@ namespace robotguide::com::applicationlayer
 		/// </summary>
 		/// <returns>The robots ID</returns>
 		int GetRobotId() const override;
+
+		/// <summary>
+		/// Check if the robot is connected
+		/// </summary>
+		/// <returns>The connectivity state</returns>
+		bool Isconnected() const;
 
 		/// <summary>
 		/// Set a connection to the transport layer
@@ -47,10 +63,26 @@ namespace robotguide::com::applicationlayer
 		void HandleMessage(const std::string& message) override;
 
 		/// <summary>
+		/// Get coords of the robot
+		/// </summary>
+		/// <returns>The coordinates</returns>
+		std::tuple<int, int> GetCoordinates() const override;
+
+		/// <summary>
+		/// Add instructions to this Robot
+		/// </summary>
+		/// <param name="stream">The stream you want to add</param>
+		/// <param name="endCoordinates">The end coordinates for the robot after handling all instructions</param>
+		void AddInstructions(const InstructionStream& stream, const std::tuple<int, int>& endCoordinates) override;
+
+		/// <summary>
 		/// Get a copy of the robot
 		/// </summary>
 		/// <returns>A copy of IRobot</returns>
 		IRobot* Copy() override;
+
+	private:
+		void HandleInstruction(const Instruction& instruction);
 	};
 }
 

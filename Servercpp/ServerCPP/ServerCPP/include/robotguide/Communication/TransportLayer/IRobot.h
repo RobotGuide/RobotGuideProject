@@ -3,6 +3,14 @@
 
 #include "robotguide/Communication/TransportLayer/Connection.h"
 
+namespace robotguide {
+	namespace com {
+		namespace applicationlayer {
+			class InstructionStream;
+		}
+	}
+}
+
 namespace robotguide::com::transportlayer
 {
 	class IRobot
@@ -15,6 +23,12 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <returns>The robots ID</returns>
 		virtual int GetRobotId() const = 0;
+
+		/// <summary>
+		/// Check if the robot is connected
+		/// </summary>
+		/// <returns>The connectivity state</returns>
+		bool Isconnected() const;
 
 		/// <summary>
 		/// Set a connection to the transport layer
@@ -33,6 +47,19 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
 		virtual void HandleMessage(const std::string& message) = 0;
+
+		/// <summary>
+		/// Get current coordinates of the robot
+		/// </summary>
+		/// <returns>A copy of IRobot</returns>
+		virtual std::tuple<int, int> GetCoordinates() const = 0;
+
+		/// <summary>
+		/// Add instructions to this Robot
+		/// </summary>
+		/// <param name="stream">The stream you want to add</param>
+		/// <param name="endCoordinates">The end coordinates for the robot after handling all instructions</param>
+		virtual void AddInstructions(const applicationlayer::InstructionStream& stream, const std::tuple<int, int>& endCoordinates) = 0;
 
 		/// <summary>
 		/// Get a copy of a robot child class
