@@ -20,7 +20,7 @@ namespace robotguide::com::transportlayer
 		/// Set a connection to the transport layer
 		/// </summary>
 		/// <param name="connection">The connection that this robot has</param>
-		virtual void SetConnection(Connection& connection) = 0;
+		virtual void SetConnection(Connection* connection) = 0;
 
 		/// <summary>
 		/// Get the connection we have to the actual robot

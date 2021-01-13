@@ -32,7 +32,7 @@ namespace robotguide::com::applicationlayer
 		/// Set a connection to the transport layer
 		/// </summary>
 		/// <param name="connection">The connection that this robot has</param>
-		void SetConnection(transportlayer::Connection& connection) override;
+		void SetConnection(transportlayer::Connection* connection) override;
 
 		/// <summary>
 		/// Get the connection we have to the actual robot

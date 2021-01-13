@@ -15,10 +15,10 @@ int Robot::GetRobotId() const
 	return id;
 }
 
-void Robot::SetConnection(Connection& connection)
+void Robot::SetConnection(Connection* connection)
 {
-	this->connection = &connection;
-	std::cout << "A robot reconnected " << id << std::endl;
+	this->connection = connection;
+	std::cout << (connection == nullptr ? "A robot disconnected " : "A robot reconnected ") << id << std::endl;
 }
 
 Connection* Robot::GetConnection() const
