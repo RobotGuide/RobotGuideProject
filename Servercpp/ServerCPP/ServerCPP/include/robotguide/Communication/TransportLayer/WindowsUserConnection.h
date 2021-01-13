@@ -23,7 +23,13 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Handle user requests
 		/// </summary>
-		virtual void HandleAvailableData() override;
+		void HandleAvailableData() override;
+
+		/// <summary>
+		/// Copy a robot connection
+		/// </summary>
+		/// <returns>The copy in the heap</returns>
+		ISelectable* Copy() const override;
 	};
 }
 
