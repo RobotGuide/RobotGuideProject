@@ -16,8 +16,9 @@ namespace robotguide::path
 		PathFinder(Grid* grid);
 		virtual ~PathFinder() = default;
 			
-		virtual Path FindPath(Vertex* startPoint, 
-								Vertex* endPoint);
+		virtual Path GeneratePath(Vertex* startPoint, Vertex* endPoint);
+		virtual Path FindPath(Vertex* startPoint, Vertex* endpoint);
+		virtual Path FindPath(int startX, int startY, int endX, int endY);
 	};
 }
 

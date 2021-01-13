@@ -19,6 +19,16 @@ robotguide::path::PathFinder::PathFinder(Grid* grid_)
 
 Path robotguide::path::PathFinder::FindPath(Vertex* startPoint, Vertex* endPoint)
 {
+	return GeneratePath(startPoint, endPoint);
+}
+
+Path robotguide::path::PathFinder::FindPath(int startX, int startY, int endX, int endY)
+{
+
+}
+
+Path robotguide::path::PathFinder::GeneratePath(Vertex* startPoint, Vertex* endPoint)
+{
 	if (startPoint == nullptr)
 	{
 		throw std::invalid_argument("startPoint");
