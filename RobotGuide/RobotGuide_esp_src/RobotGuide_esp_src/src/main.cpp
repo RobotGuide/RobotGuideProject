@@ -42,8 +42,6 @@ void loop() {
   ConnectServer();
 
   digitalWrite(LED_BUILTIN, LOW); // turn led on
-  Serial.println(connectionID);
-  delay(200);
 
   switch (current)
   {
@@ -89,7 +87,7 @@ void ConnectServer()
   bool led = false;
   if (!client.connected())
   {
-    // client.stop();
+    client.stop();
     client.connect(ip, port); // CLOSED -> ESTABLISHED
     unsigned long long time = millis() + 10000;
     while (client.status() != ESTABLISHED)
@@ -111,7 +109,6 @@ void ConnectServer()
       if (connectionID >= 0) // ESP has a connectionID
       {
         response += " " + String(connectionID);
-        Serial.println(response);
         client.print(response); // 𝑆𝐸𝑁𝐼 channelNum connectionID
       }
       else // Connection ID not set
