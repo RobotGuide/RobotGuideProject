@@ -25,7 +25,10 @@ namespace robotguide::com::transportlayer
 		/// <param name="socketHandler">The socket handler for this connection</param>
 		/// <param name="receiveBufferSize">The receive buffer size</param>
 		WindowsRobotConnection(IRobotInstructor& robotInstructor, const SOCKET& socketHandler, unsigned int receiveBufferSize);
-		~WindowsRobotConnection() override = default;
+		~WindowsRobotConnection() override;
+		WindowsRobotConnection(const WindowsRobotConnection& connection);
+		WindowsRobotConnection& operator=(const WindowsRobotConnection& connection) = delete;
+
 
 		/// <summary>
 		/// Handle responses from the robot

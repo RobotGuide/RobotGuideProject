@@ -20,6 +20,25 @@ WindowsRobotConnection::WindowsRobotConnection(IRobotInstructor& robotInstructor
 	WindowsConnection::Send(InstructionPrinter().InstructionTypeToString(InstructionType::Aski) + " 0 " + '\n');
 }
 
+WindowsRobotConnection::~WindowsRobotConnection()
+{
+	if (robotID != INVALID_ID)
+	{
+		IRobot* robot = robotInstructor.GetRobot(robotID);
+		if (robot != nullptr)
+		{
+			robot->SetConnection(nullptr);
+		}
+	}
+}
+
+WindowsRobotConnection::WindowsRobotConnection(const WindowsRobotConnection& connection)
+	: WindowsConnection(connection.socketHandle, connection.receiveBuffer.GetMaxLength())
+	, robotInstructor(connection.robotInstructor)
+	, robotID(INVALID_ID)
+{
+}
+
 void WindowsRobotConnection::HandleAvailableData()
 {
 	WindowsConnection::HandleAvailableData();
@@ -97,13 +116,13 @@ bool WindowsRobotConnection::HandleInstruction(const Instruction& instruction)
 			{
 				return false;
 			}
-			robot->SetConnection(*this);
+			robot->SetConnection(this);
 			return true;
 		}
 		if (instruction.GetData().size() == 1)
 		{
 			IRobot& robot = robotInstructor.CreateNewRobot();
-			robot.SetConnection(*this);
+			robot.SetConnection(this);
 			robotID = robot.GetRobotId();
 			const std::string command = InstructionPrinter().InstructionTypeToString(InstructionType::Seti) + " 0 " + std::to_string(robotID) + '\n';
 			Send(command);

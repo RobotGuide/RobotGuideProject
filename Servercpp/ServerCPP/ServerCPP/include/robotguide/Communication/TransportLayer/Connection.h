@@ -9,10 +9,8 @@ namespace robotguide::com::transportlayer
 {
 	class Connection : public ISelectable
 	{
-	private:
-		Buffer receiveBuffer;
-
 	protected:
+		Buffer receiveBuffer;
 		unsigned int socketHandle;
 
 	public:
