@@ -6,7 +6,7 @@
 #include "ObstacleDetection.h"
 #include "Movement.h"
 
-class Navigator : ILoopComponent
+class Navigator : public ILoopComponent
 {
 public:
     Navigator(Movement& movement, ObstacleDetection& obstacles, unsigned int delay);

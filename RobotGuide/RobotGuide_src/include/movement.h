@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 
-class Movement : ILoopComponent
+class Movement : public ILoopComponent
 {
 public:
     Movement(RotaryEncoders& rotaryEncoders, 

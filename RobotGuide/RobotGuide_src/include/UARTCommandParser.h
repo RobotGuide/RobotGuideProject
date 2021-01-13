@@ -6,7 +6,7 @@
 #include "Navigator.h"
 #include "Commands.h"
 
-class UARTCommandParser : ILoopComponent, INavigatorCallback
+class UARTCommandParser : public ILoopComponent, public INavigatorCallback
 {
 public:
     UARTCommandParser(Navigator& navigator, unsigned int delay);
