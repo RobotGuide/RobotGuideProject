@@ -3,43 +3,45 @@
 #include <Arduino.h>
 
 L298NWheel::L298NWheel(uint8_t directionPin1, uint8_t directionPin2, uint8_t pwmPin)
-    :directionPin1_(directionPin1), directionPin2_(directionPin2), pwmPin_(pwmPin)
+    : directionPin1(directionPin1)
+    , directionPin2(directionPin2)
+    , pwmPin(pwmPin)
 {
-    pinMode(directionPin1_, OUTPUT);
-    pinMode(directionPin2_, OUTPUT);
-    pinMode(pwmPin_, OUTPUT);
+    pinMode(directionPin1, OUTPUT);
+    pinMode(directionPin2, OUTPUT);
+    pinMode(pwmPin, OUTPUT);
 }
 
-void L298NWheel::setWheel(Direction direction, uint8_t power) const
+void L298NWheel::SetWheel(Direction direction, uint8_t power) const
 {
-    setWheelDirection(direction);
-    setWheelPower(power);
+    SetWheelDirection(direction);
+    SetWheelPower(power);
 }
 
-void L298NWheel::setWheelDirection(Direction direction) const
+void L298NWheel::SetWheelDirection(Direction direction) const
 {
     switch (direction)
     {
     case Direction::FORWARD:
-        digitalWrite(directionPin1_, LOW);
-        digitalWrite(directionPin2_, HIGH);
+        digitalWrite(directionPin1, LOW);
+        digitalWrite(directionPin2, HIGH);
         break;
 
     case Direction::BACKWARD:
-        digitalWrite(directionPin1_, HIGH);
-        digitalWrite(directionPin2_, LOW);
+        digitalWrite(directionPin1, HIGH);
+        digitalWrite(directionPin2, LOW);
         break;
     }  
 }
 
-void L298NWheel::setWheelPower(uint8_t power) const
+void L298NWheel::SetWheelPower(uint8_t power) const
 {
-    analogWrite(pwmPin_, power);
+    analogWrite(pwmPin, power);
 }
 
-void L298NWheel::brake() const
+void L298NWheel::Brake() const
 {
-    digitalWrite(directionPin1_, LOW);
-    digitalWrite(directionPin2_, LOW);
-    analogWrite(pwmPin_, 255);
+    digitalWrite(directionPin1, LOW);
+    digitalWrite(directionPin2, LOW);
+    analogWrite(pwmPin, 255);
 }

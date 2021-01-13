@@ -3,25 +3,21 @@
 #include <Arduino.h>
 #include <math.h>
 
-//TODO:
-//clean up this file. create helper functions and add object variables whenever needed
-//TULN 90 and TURN 90 kinda get stuck at the moment, i assume not enough power?
-//check if problem also exists in ES version
-
-Movement::Movement(int wheelDiameter,
-                  int platformDiameter,
-                  int rencCountsPerRev,
-                  float controlSignalPercentile,
-                  float correctionPercentile,
-                  float integratorCutoffBound,
-                  uint8_t maxPower,
-                  uint8_t errorBound,
-                  RotaryEncoders& rotaryEncoders, 
+Movement::Movement(RotaryEncoders& rotaryEncoders, 
                   L298NWheel& leftWheel,
                   L298NWheel& rightWheel,
                   PIDcontroller& leftPID,
                   PIDcontroller& rightPID,
-                  PIDcontroller& deltaPID)
+                  PIDcontroller& deltaPID,
+                  int rencCountsPerRev,
+                  int wheelDiameter,
+                  int platformDiameter,
+                  uint8_t maxPower,
+                  uint8_t errorBound,
+                  float controlSignalPercentile,
+                  float correctionPercentile,
+                  float integratorCutoffBound,
+                  unsigned int delay)
     : rotaryEncoders(rotaryEncoders)
     , leftWheel(leftWheel)
     , rightWheel(rightWheel)
@@ -37,74 +33,67 @@ Movement::Movement(int wheelDiameter,
     , correctionPercentile(correctionPercentile)
     , integratorCutoffBound(integratorCutoffBound)
     , moving(false)
+    , leftMoving(false)
+    , rightMoving(false)
     , targetCount(0)
     , prevTime(0)
-    , delay(10)
+    , delay(delay)
 {
 
 }
 
 bool Movement::NeedsUpdate(unsigned long time) const
 {
-    return (moving && time >= prevTime + delay);
+    return (IsMoving() && time >= prevTime + delay);
 }
 
 void Movement::Update(unsigned long time)
 {
-    const unsigned long encoderL = rotaryEncoders.getEncoderCountL();
-    const unsigned long encoderR = rotaryEncoders.getEncoderCountR();
+    const unsigned long encoderL = rotaryEncoders.GetEncoderCountL();
+    const unsigned long encoderR = rotaryEncoders.GetEncoderCountR();
 
     const long errorL = targetCount - encoderL;
     const long errorR = targetCount - encoderR;
     const long errorDelta = errorL - errorR;
-
-    const long deltaTime = time - prevTime;
+    const long timeDelta = time - prevTime;
 
     prevTime = time;
-
-    //make a general function that handles the left and right motors?
-    if(errorL <= 0)
-    {
-        leftPID.resetController();
-        leftWheel.brake();
-    }
-
-    if(errorR <= 0)
-    {
-        rightPID.resetController();
-        rightWheel.brake();
-    }
-
-    if(errorL <= 0 && errorR <= 0)
-    {
-        Brake();
-        return;
-    }
-
-    float controlSignalL = leftPID.calculateControlSignal(errorL, deltaTime);
-    float controlSignalR = rightPID.calculateControlSignal(errorR, deltaTime);
-
-    //good oportunity for a clamp function?
-    float clampedControlSignalL = constrain(controlSignalL, 0, controlSignalPercentile * maxPower);
-    float clampedControlSignalR = constrain(controlSignalR, 0, controlSignalPercentile * maxPower);
-
-    //good oportunity for a helper function?
-    leftPID.integratorEnabled(fabs(controlSignalL - clampedControlSignalL) < integratorCutoffBound);
-    rightPID.integratorEnabled(fabs(controlSignalR - clampedControlSignalR) < integratorCutoffBound);
-
-    float controlSignalDelta = deltaPID.calculateControlSignal(errorDelta, deltaTime);
-
+    
+    float controlSignalDelta = deltaPID.CalculateControlSignal(errorDelta, timeDelta);
     float clampedControlSignalDelta = constrain(controlSignalDelta, -(correctionPercentile * maxPower), correctionPercentile * maxPower);
 
-    uint8_t clampedFinalSignalL = constrain(clampedControlSignalL + clampedControlSignalDelta, 0, maxPower);
-    uint8_t clampedFinalSignalR = constrain(clampedControlSignalR - clampedControlSignalDelta, 0, maxPower);
+    if(leftMoving)
+    {
+        float controlSignalL = leftPID.CalculateControlSignal(errorL, timeDelta);
+        float clampedControlSignalL = constrain(controlSignalL, 0, controlSignalPercentile * maxPower);
+        
+        leftPID.IntegratorEnabled(fabs(controlSignalL - clampedControlSignalL) < integratorCutoffBound);
 
-    leftWheel.setWheelPower(clampedFinalSignalL);
-    rightWheel.setWheelPower(clampedFinalSignalR);
+        uint8_t clampedFinalSignalL = constrain(clampedControlSignalL + clampedControlSignalDelta, 0, maxPower);
+        leftWheel.SetWheelPower(clampedFinalSignalL);
+
+        Serial.print("L: ");
+        Serial.println(clampedFinalSignalL);
+    }
+
+    if(rightMoving)
+    {
+        float controlSignalR = rightPID.CalculateControlSignal(errorR, timeDelta);
+        float clampedControlSignalR = constrain(controlSignalR, 0, controlSignalPercentile * maxPower);
+
+        rightPID.IntegratorEnabled(fabs(controlSignalR - clampedControlSignalR) < integratorCutoffBound);
+
+        uint8_t clampedFinalSignalR = constrain(clampedControlSignalR - clampedControlSignalDelta, 0, maxPower);
+        rightWheel.SetWheelPower(clampedFinalSignalR);
+
+        Serial.print("R: ");
+        Serial.println(clampedFinalSignalR);
+    }
+
+    FinishIfDestinationReached(errorL, errorR);
 }
 
-
-bool Movement::IsMoving()
+bool Movement::IsMoving() const
 {
     return moving;
 }
@@ -112,26 +101,30 @@ bool Movement::IsMoving()
 void Movement::Move(int millimeters)
 {
     moving = true;
+    leftMoving = true;
+    rightMoving = true;
 
     targetCount = CalculateEncoderTicks(labs(millimeters));
 
     if(millimeters > 0)
     {
-        leftWheel.setWheel(Direction::FORWARD, 0);
-        rightWheel.setWheel(Direction::FORWARD, 0);
+        leftWheel.SetWheel(Direction::FORWARD, 0);
+        rightWheel.SetWheel(Direction::FORWARD, 0);
     }
     else
     {
-        leftWheel.setWheel(Direction::BACKWARD, 0);
-        rightWheel.setWheel(Direction::BACKWARD, 0);
+        leftWheel.SetWheel(Direction::BACKWARD, 0);
+        rightWheel.SetWheel(Direction::BACKWARD, 0);
     }
 
-    rotaryEncoders.clearCounts();
+    rotaryEncoders.ClearCounts();
 }
 
 void Movement::Rotate(int degrees)
 {
     moving = true;
+    leftMoving = true;
+    rightMoving = true;
 
     const float millimeters = ((float)labs(degrees) * platformCircumference) / 360.0f;
     
@@ -139,32 +132,49 @@ void Movement::Rotate(int degrees)
 
     if(degrees > 0)
     {
-        leftWheel.setWheel(Direction::BACKWARD, 0);
-        rightWheel.setWheel(Direction::FORWARD, 0);
+        leftWheel.SetWheel(Direction::BACKWARD, 0);
+        rightWheel.SetWheel(Direction::FORWARD, 0);
     }
     else
     {
-        leftWheel.setWheel(Direction::FORWARD, 0);
-        rightWheel.setWheel(Direction::BACKWARD, 0);
+        leftWheel.SetWheel(Direction::FORWARD, 0);
+        rightWheel.SetWheel(Direction::BACKWARD, 0);
     }
 
-    rotaryEncoders.clearCounts();
+    rotaryEncoders.ClearCounts();
 }
 
 void Movement::Brake()
 {
-    leftPID.resetController();
-    rightPID.resetController();
-
-    leftWheel.brake();
-    rightWheel.brake();
-    moving = false;
+    FinishIfDestinationReached(-1, -1);
 }
 
 float Movement::CalculateEncoderTicks(float millimeters) const
 {
     float revolutions = millimeters / wheelCircumference;
     return revolutions * countsPerRev;
+}
+
+void Movement::FinishIfDestinationReached(long errorL, long errorR)
+{
+    if(errorL <= 0 && leftMoving)
+    {
+        leftWheel.Brake();
+        leftMoving = false;
+    }
+
+    if(errorR <= 0 && rightMoving)
+    {
+        rightWheel.Brake();
+        rightMoving = false;
+    }
+
+    if(!(leftMoving || rightMoving))
+    {
+        rightPID.ResetController();
+        leftPID.ResetController();
+        moving = false;
+    }
 }
 
 float Movement::CalculateCircumference(float diameter)

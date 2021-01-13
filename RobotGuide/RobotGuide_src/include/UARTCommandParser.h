@@ -1,26 +1,18 @@
-#ifndef ROBOTGUIDE_UART_H
-#define ROBOTGUIDE_UART_H
+#ifndef ROBOTGUIDE_UARTCOMMANDPARSER_H
+#define ROBOTGUIDE_UARTCOMMANDPARSER_H
 
 #include "ILoopComponent.h"
 #include "INavigatorCallback.h"
 #include "Navigator.h"
+#include "Commands.h"
 
-enum class Commands
-{
-    FORN,
-    BACN,
-    TULN,
-    TURN,
-    NOT_A_COMMAND
-};
-
-class UART : ILoopComponent, INavigatorCallback
+class UARTCommandParser : ILoopComponent, INavigatorCallback
 {
 public:
-    UART(Navigator& navigator);
-    UART(const UART& other) = delete;
-    UART& operator=(const UART&) = delete;
-    ~UART() override = default;
+    UARTCommandParser(Navigator& navigator, unsigned int delay);
+    UARTCommandParser(const UARTCommandParser& other) = delete;
+    UARTCommandParser& operator=(const UARTCommandParser&) = delete;
+    ~UARTCommandParser() override = default;
 
     void OnNavigationFinished(NavigatorStatus status) override;
 
@@ -30,7 +22,7 @@ public:
 private:
     Navigator& navigator;
     unsigned long nextUpdateTime;
-    const int delay;
+    const unsigned int delay;
 
     Commands ParseStringToCommand(char* data);
     void ExecuteCommand(Commands command, int arg);

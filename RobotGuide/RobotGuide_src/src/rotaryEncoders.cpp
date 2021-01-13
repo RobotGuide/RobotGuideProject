@@ -1,52 +1,45 @@
 #include "RotaryEncoders.h"
-#include "Constants.h"
 
 #include <Arduino.h>
 
 RotaryEncoders RotaryEncoders::instance;
 
-RotaryEncoders& RotaryEncoders::getInstance()
+RotaryEncoders& RotaryEncoders::GetInstance()
 {
     return instance;
 }
 
-RotaryEncoders::RotaryEncoders()
+void RotaryEncoders::SetupInterrupts(int encoderPinL, int encoderPinR)
 {
-    clearCounts();
-    setupInterrupts(RENC_PIN_L, RENC_PIN_R);
+    pinMode(encoderPinL, INPUT);
+    pinMode(encoderPinR, INPUT);
+
+    attachInterrupt(digitalPinToInterrupt(encoderPinL), &Isr_renc_L, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(encoderPinR), &Isr_renc_R, CHANGE);
 }
 
-void RotaryEncoders::clearCounts()
+void RotaryEncoders::ClearCounts()
 {
     encoderCounterL = 0;
     encoderCounterR = 0;
 }
 
-unsigned long RotaryEncoders::getEncoderCountL() const
+unsigned long RotaryEncoders::GetEncoderCountL() const
 {
     return encoderCounterL;
 }
 
-unsigned long RotaryEncoders::getEncoderCountR() const
+unsigned long RotaryEncoders::GetEncoderCountR() const
 {
     return encoderCounterR;
 }
 
-void RotaryEncoders::setupInterrupts(int encoderPinL, int encoderPinR)
-{
-    pinMode(encoderPinL, INPUT);
-    pinMode(encoderPinR, INPUT);
-
-    attachInterrupt(digitalPinToInterrupt(encoderPinL), &isr_renc_L, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(encoderPinR), &isr_renc_R, CHANGE);
-}
-
-void RotaryEncoders::isr_renc_L()
+void RotaryEncoders::Isr_renc_L()
 {
     instance.encoderCounterL++;
 }
 
-void RotaryEncoders::isr_renc_R()
+void RotaryEncoders::Isr_renc_R()
 {
     instance.encoderCounterR++;
 }

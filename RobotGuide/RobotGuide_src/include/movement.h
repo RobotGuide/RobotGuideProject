@@ -5,25 +5,27 @@
 #include "L298NWheel.h"
 #include "PIDcontroller.h"
 #include "ILoopComponent.h"
+
 #include <stdint.h>
 
 class Movement : ILoopComponent
 {
 public:
-    Movement(int wheelDiameter,
-            int platformDiameter,
-            int rencCountsPerRev,
-            float controlSignalPercentile,
-            float correctionPercentile,
-            float integratorCutoffBound,
-            uint8_t maxPower,
-            uint8_t errorBound,
-            RotaryEncoders& rotaryEncoders,
+    Movement(RotaryEncoders& rotaryEncoders, 
             L298NWheel& leftWheel,
             L298NWheel& rightWheel,
             PIDcontroller& leftPID,
             PIDcontroller& rightPID,
-            PIDcontroller& deltaPID);
+            PIDcontroller& deltaPID,
+            int rencCountsPerRev,
+            int wheelDiameter,
+            int platformDiameter,
+            uint8_t maxPower,
+            uint8_t errorBound,
+            float controlSignalPercentile,
+            float correctionPercentile,
+            float integratorCutoffBound,
+            unsigned int delay);
     Movement(const Movement& other) = delete;
     Movement& operator=(const Movement&) = delete;
     ~Movement() override = default;
@@ -31,7 +33,7 @@ public:
     bool NeedsUpdate(unsigned long time) const override;
     void Update(unsigned long time) override;
 
-    bool IsMoving();
+    bool IsMoving() const;
     void Move(int millimeters);
     void Rotate(int degrees);
     void Brake();
@@ -55,12 +57,15 @@ private:
     const float integratorCutoffBound;
 
     bool moving;
+    bool leftMoving;
+    bool rightMoving;
     unsigned long targetCount;
 
     unsigned long prevTime;
-    const int delay;
+    const unsigned int delay;
 
     float CalculateEncoderTicks(float millimeters) const;
+    void FinishIfDestinationReached(long errorL, long errorR);
     static float CalculateCircumference(float diameter);
 };
 

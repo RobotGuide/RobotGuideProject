@@ -4,17 +4,20 @@
 class RotaryEncoders
 {
 public:
-    static RotaryEncoders& getInstance();
-    void clearCounts();
-    unsigned long getEncoderCountL() const;
-    unsigned long getEncoderCountR() const; 
+    static RotaryEncoders& GetInstance();
+    void SetupInterrupts(int encoderPinL, int encoderPinR);
+    void ClearCounts();
+    unsigned long GetEncoderCountL() const;
+    unsigned long GetEncoderCountR() const; 
 
 private:
-    RotaryEncoders();
-    void setupInterrupts(int encoderPinL, int encoderPinR);
+    RotaryEncoders() = default;
+    RotaryEncoders(const RotaryEncoders& other) = delete;
+    RotaryEncoders& operator=(const RotaryEncoders&) = delete;
+    ~RotaryEncoders() = default;
 
-    static void isr_renc_L();
-    static void isr_renc_R();
+    static void Isr_renc_L();
+    static void Isr_renc_R();
 
     static RotaryEncoders instance;
     volatile unsigned long encoderCounterL;

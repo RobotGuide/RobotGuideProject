@@ -5,34 +5,33 @@ class PIDcontroller
 {
 public:
     PIDcontroller(float pScale, float iScale, float dScale);
-    PIDcontroller(const PIDcontroller&) = delete;
+    PIDcontroller(const PIDcontroller& other) = delete;
     PIDcontroller& operator=(const PIDcontroller&) = delete;
+    ~PIDcontroller() = default;
 
-    float getPScale() const;
-    float getIScale() const;
-    float getDScale() const;
+    float GetPScale() const;
+    float GetIScale() const;
+    float GetDScale() const;
 
-    void setPScale(float scale);
-    void setIScale(float scale);
-    void setDScale(float scale);
+    void SetPScale(float scale);
+    void SetIScale(float scale);
+    void SetDScale(float scale);
 
-    void integratorEnabled(bool enabled);
+    void IntegratorEnabled(bool enabled);
 
-    float calculateControlSignal(long error, long deltaTime);
+    float CalculateControlSignal(long error, long deltaTime);
 
-    void resetController();
+    void ResetController();
 
 private:
-    float pScale_;
-    float iScale_;
-    float dScale_;
+    float pScale;
+    float iScale;
+    float dScale;
 
-    float lastError_;
-    float errorIntegral_;
+    float lastError;
+    float errorIntegral;
 
-    bool integratorEnabled_;
-
-    float calculateScale(long compValue, float scale);
+    bool integratorEnabled;
 };
 
 #endif

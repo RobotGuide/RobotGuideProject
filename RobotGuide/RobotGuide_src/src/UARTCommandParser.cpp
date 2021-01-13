@@ -1,7 +1,8 @@
-#include "UART.h"
-#include "Constants.h"
+#include "UARTCommandParser.h"
+
 #include <Arduino.h>
 
+//currently available serial commands for robot
 static const char* FORN = "FORN";
 static const char* BACN = "BACN";
 static const char* TULN = "TULN";
@@ -10,17 +11,17 @@ static const char* TURN = "TURN";
 static const char* NAVS = "NAVS";
 static const char* NAVF = "NAVF";
 
-UART::UART(Navigator& navigator)
+UARTCommandParser::UARTCommandParser(Navigator& navigator, unsigned int delay)
     : navigator(navigator)
     , nextUpdateTime(0)
-    , delay(50)
+    , delay(delay)
 {
     // do not call serial.begin from here
     // calling serial.begin from outside the Setup() function
     // will cause a crash
 }
 
-void UART::OnNavigationFinished(NavigatorStatus status)
+void UARTCommandParser::OnNavigationFinished(NavigatorStatus status)
 {
     switch (status)
     {
@@ -37,12 +38,12 @@ void UART::OnNavigationFinished(NavigatorStatus status)
     }
 }
 
-bool UART::NeedsUpdate(unsigned long time) const
+bool UARTCommandParser::NeedsUpdate(unsigned long time) const
 {
     return (Serial.available() && time >= nextUpdateTime);
 }
 
-void UART::Update(unsigned long time)
+void UARTCommandParser::Update(unsigned long time)
 {
     nextUpdateTime = time + delay;
 
@@ -72,7 +73,7 @@ void UART::Update(unsigned long time)
     ExecuteCommand(command, arg);
 }
 
-Commands UART::ParseStringToCommand(char* data)
+Commands UARTCommandParser::ParseStringToCommand(char* data)
 {
     if(strcmp(data, FORN) == 0)
     {
@@ -96,7 +97,7 @@ Commands UART::ParseStringToCommand(char* data)
     }
 }
 
-void UART::ExecuteCommand(Commands command, int arg)
+void UARTCommandParser::ExecuteCommand(Commands command, int arg)
 {
     switch (command)
     {
@@ -121,7 +122,7 @@ void UART::ExecuteCommand(Commands command, int arg)
     }
 }
 
-void UART::SendSerialResponse(const char* rsp) const
+void UARTCommandParser::SendSerialResponse(const char* rsp) const
 {
     char data[strlen(rsp) + 2];
     strcpy(data, rsp);

@@ -2,13 +2,13 @@
 
 #include <Arduino.h>
 
-Navigator::Navigator(Movement& movement, ObstacleDetection& obstacles)
+Navigator::Navigator(Movement& movement, ObstacleDetection& obstacles, unsigned int delay)
     : movement(movement)
     , obstacles(obstacles)
     , callback(nullptr)
     , executingCommand(false)
     , nextUpdateTime(0)
-    , delay(25)
+    , delay(delay)
 {
 
 }
@@ -34,32 +34,60 @@ void Navigator::Update(unsigned long time)
     }
 }
 
-void Navigator::MoveForward(int millimeters, INavigatorCallback* callback)
+int Navigator::MoveForward(int millimeters, INavigatorCallback* callback)
 {
+    if(callback == nullptr)
+    {
+        return -1;
+    }
+
     this->callback = callback;
     executingCommand = true;
     movement.Move(millimeters);
+
+    return 0;
 }
 
-void Navigator::MoveBackward(int millimeters, INavigatorCallback* callback)
+int Navigator::MoveBackward(int millimeters, INavigatorCallback* callback)
 {
+    if(callback == nullptr)
+    {
+        return -1;
+    }
+
     this->callback = callback;
     executingCommand = true;
     movement.Move(-millimeters);
+
+    return 0;
 }
 
-void Navigator::RotateLeft(int degrees, INavigatorCallback* callback)
+int Navigator::RotateLeft(int degrees, INavigatorCallback* callback)
 {
+    if(callback == nullptr)
+    {
+        return -1;
+    }
+
     this->callback = callback;
     executingCommand = true;
     movement.Rotate(degrees);
+
+    return 0;
 }
 
-void Navigator::RotateRight(int degrees, INavigatorCallback* callback)
+int Navigator::RotateRight(int degrees, INavigatorCallback* callback)
 {
+    if(callback == nullptr)
+    {
+        return -1;
+    }
+
     this->callback = callback;
     executingCommand = true;
     movement.Rotate(-degrees);
+
+    return 0;
 }
 
 void Navigator::NavigationFinished(NavigatorStatus status)

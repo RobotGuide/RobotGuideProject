@@ -9,7 +9,7 @@
 class Navigator : ILoopComponent
 {
 public:
-    Navigator(Movement& movement, ObstacleDetection& obstacles);
+    Navigator(Movement& movement, ObstacleDetection& obstacles, unsigned int delay);
     Navigator(const Navigator& other) = delete;
     Navigator& operator=(const Navigator&) = delete;
     ~Navigator() override = default;
@@ -17,10 +17,10 @@ public:
     bool NeedsUpdate(unsigned long time) const override;
     void Update(unsigned long time) override;
 
-    void MoveForward(int millimeters, INavigatorCallback* callback);
-    void MoveBackward(int millimeters, INavigatorCallback* callback);
-    void RotateLeft(int degrees, INavigatorCallback* callback);
-    void RotateRight(int degrees, INavigatorCallback* callback);
+    int MoveForward(int millimeters, INavigatorCallback* callback);
+    int MoveBackward(int millimeters, INavigatorCallback* callback);
+    int RotateLeft(int degrees, INavigatorCallback* callback);
+    int RotateRight(int degrees, INavigatorCallback* callback);
 
 private:
     Movement& movement;
@@ -28,7 +28,7 @@ private:
     INavigatorCallback* callback;
     bool executingCommand;
     unsigned long nextUpdateTime;
-    const int delay;
+    const unsigned int delay;
 
     void NavigationFinished(NavigatorStatus status);
 };

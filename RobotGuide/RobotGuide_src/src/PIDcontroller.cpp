@@ -1,80 +1,75 @@
 #include "PIDcontroller.h"
 
 PIDcontroller::PIDcontroller(float pScale, float iScale, float dScale)
-    :pScale_(pScale), iScale_(iScale), dScale_(dScale), errorIntegral_(0), lastError_(0), integratorEnabled_(true)
-{}
-
-float PIDcontroller::getPScale() const
+    : pScale(pScale)
+    , iScale(iScale)
+    , dScale(dScale)
+    , lastError(0)
+    , errorIntegral(0)
+    , integratorEnabled(true)
 {
-    return pScale_;
+    
 }
 
-float PIDcontroller::getIScale() const
+float PIDcontroller::GetPScale() const
 {
-    return iScale_;
+    return pScale;
 }
 
-float PIDcontroller::getDScale() const
+float PIDcontroller::GetIScale() const
 {
-    return dScale_;
+    return iScale;
 }
 
-void PIDcontroller::setPScale(float scale)
+float PIDcontroller::GetDScale() const
 {
-    pScale_ = scale;
+    return dScale;
 }
 
-void PIDcontroller::setIScale(float scale)
+void PIDcontroller::SetPScale(float scale)
 {
-    iScale_ = scale;
+    pScale = scale;
 }
 
-void PIDcontroller::setDScale(float scale)
+void PIDcontroller::SetIScale(float scale)
 {
-    dScale_ = scale;
+    iScale = scale;
 }
 
-void PIDcontroller::integratorEnabled(bool enabled)
+void PIDcontroller::SetDScale(float scale)
 {
-    integratorEnabled_ = enabled;
+    dScale = scale;
 }
 
-float PIDcontroller::calculateControlSignal(long error, long deltaTime)
+void PIDcontroller::IntegratorEnabled(bool enabled)
 {
-    float errorFloat = (float)error;
-    float deltaTimeFloat = (float)deltaTime;
+    integratorEnabled = enabled;
+}
+
+float PIDcontroller::CalculateControlSignal(long error, long deltaTime)
+{
+    const float errorFloat = (float)error;
+    const float deltaTimeFloat = (float)deltaTime;
 
     float compP = 0;
     float compI = 0;
     float compD = 0;
 
-    compP = error * pScale_;
+    compP = error * pScale;
 
-    if(integratorEnabled_)
+    if(integratorEnabled)
     {
-        errorIntegral_ += (errorFloat * deltaTimeFloat);
-        compI = errorIntegral_ * iScale_;
+        errorIntegral += (errorFloat * deltaTimeFloat);
+        compI = errorIntegral * iScale;
     }
 
-    float derivativeValue = (error - lastError_) / deltaTime;
-    compD = derivativeValue * dScale_;
-
+    const float derivativeValue = (error - lastError) / deltaTime;
+    compD = derivativeValue * dScale;
 
     return compP + compI + compD;
 }
 
-void PIDcontroller::resetController()
+void PIDcontroller::ResetController()
 {
-    errorIntegral_ = 0;
-}
-
-//unused method?
-float PIDcontroller::calculateScale(long compValue, float scale)
-{
-    long longScale = scale * 1000L;
-    long longCompValue = compValue * 1000L;
-
-    long actualValue = longCompValue * longScale;
-
-    return actualValue / 1000000L;
+    errorIntegral = 0;
 }

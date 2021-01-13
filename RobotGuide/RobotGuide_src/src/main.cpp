@@ -1,44 +1,49 @@
 #include "RotaryEncoders.h"
 #include "Movement.h"
 #include "L298NWheel.h"
-#include "UART.h"
+#include "UARTCommandParser.h"
 #include "Navigator.h"
 #include "Constants.h"
+
 #include <Arduino.h>
 
 L298NWheel leftWheel(DRIVER_IN3_PIN, DRIVER_IN4_PIN, DRIVER_ENB_PIN);
 L298NWheel rightWheel(DRIVER_IN1_PIN, DRIVER_IN2_PIN, DRIVER_ENA_PIN);
 
-PIDcontroller leftPID(2.0f, 0.01f, 0.5f);
-PIDcontroller rightPID(2.0f, 0.01f, 0.5f);
-PIDcontroller deltaPID(4.0f, 0.0f, 0.1f);
+PIDcontroller leftPID(LEFT_MOTOR_P_VALUE, LEFT_MOTOR_I_VALUE, LEFT_MOTOR_D_VALUE);
+PIDcontroller rightPID(RIGHT_MOTOR_P_VALUE, RIGHT_MOTOR_I_VALUE, RIGHT_MOTOR_D_VALUE);
+PIDcontroller deltaPID(ERROR_DELTA_P_VALUE, ERROR_DELTA_I_VALUE, ERROR_DELTA_D_VALUE);
 
-Movement movement(WHEEL_DIAMETER,
-                 PLATFORM_DIAMETER,
-                 ENCODER_DISK_TICS,
-                 CONTROL_SIGNAL_PERCENTILE,
-                 SIGNAL_CORRECTION_PERCENTILE,
-                 INTEGRATOR_CUTOFF_BOUND,
-                 MAX_MOTOR_POWER,
-                 TARGET_ERROR_BOUND,
-                 RotaryEncoders::getInstance(), 
+Movement movement(RotaryEncoders::GetInstance(), 
                  leftWheel,
                  rightWheel,
                  leftPID,
                  rightPID,
-                 deltaPID);
+                 deltaPID,
+                 ENCODER_DISK_TICS,
+                 WHEEL_DIAMETER,
+                 PLATFORM_DIAMETER,
+                 MAX_MOTOR_POWER,
+                 TARGET_ERROR_BOUND,
+                 CONTROL_SIGNAL_PERCENTILE,
+                 SIGNAL_CORRECTION_PERCENTILE,
+                 INTEGRATOR_CUTOFF_BOUND,
+                 MOVEMENT_DELAY);
 
 ObstacleDetection obstacles;
 
-Navigator navigator(movement, obstacles);
+Navigator navigator(movement, obstacles, NAVIGATOR_DELAY);
 
-UART uart(navigator);
+UARTCommandParser uart(navigator, UART_DELAY);
 
 void setup()
 {
-  Serial.setTimeout(10);
+  RotaryEncoders::GetInstance().SetupInterrupts(RENC_PIN_L, RENC_PIN_R);
+  RotaryEncoders::GetInstance().ClearCounts();
+
+  Serial.setTimeout(TIMEOUT);
   Serial.begin(BAUDRATE);
-  deltaPID.integratorEnabled(false);
+  deltaPID.IntegratorEnabled(false);
 };
 
 void loop()
