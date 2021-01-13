@@ -19,7 +19,7 @@ RobotInstructor::~RobotInstructor()
 
 void RobotInstructor::AddRobot(IRobot& robot)
 {
-	if (GetRobot(robot.GetRobotId()) != nullptr)
+	if (GetRobot(robot.GetRobotId()) == nullptr)
 	{
 		robots.push_back(robot.Copy());
 	}
@@ -37,7 +37,9 @@ IRobot* RobotInstructor::GetRobot(const int id)
 	return nullptr;
 }
 
-int RobotInstructor::GetUniqueID()
+IRobot& RobotInstructor::CreateNewRobot()
 {
-	return nextRobotID++;
+	Robot* robot = new Robot(++nextRobotID);
+	robots.push_back(robot);
+	return *robot;
 }
