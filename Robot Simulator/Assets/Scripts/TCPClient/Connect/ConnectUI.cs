@@ -2,22 +2,26 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(ClientSocket))]
 public class ConnectUI : MonoBehaviour
 {
-    [SerializeField] private Canvas panelUI;
+    [SerializeField] private GameObject panelUI;
+    [SerializeField] private GameObject disconnectUI;
     [SerializeField] private InputField ipInput;
     [SerializeField] private InputField portInput;
     [SerializeField] private Text errorText;
 
     private void Update()
     {
-        if (!panelUI.isActiveAndEnabled && ClientSocket.Instance != null && !ClientSocket.Instance.IsConnected)
+        if (!panelUI.activeSelf && !ClientSocket.Instance.IsConnected)
         {
-            panelUI.enabled = true;
+            panelUI.SetActive(true);
+            disconnectUI.SetActive(false);
         }
-        else if (panelUI.isActiveAndEnabled && ClientSocket.Instance != null && ClientSocket.Instance.IsConnected)
+        else if (panelUI.activeSelf && ClientSocket.Instance.IsConnected)
         {
-            panelUI.enabled = false;
+            panelUI.SetActive(false);
+            disconnectUI.SetActive(true);
         }
     }
 
@@ -58,9 +62,9 @@ public class ConnectUI : MonoBehaviour
 
     private void OnConnect(bool connected)
     {
-        panelUI.enabled = connected;
+        panelUI.SetActive(!connected);
+        disconnectUI.SetActive(connected);
         errorText.text = $"Socket is {(connected ? "connected" : "not connected")}";
-
     }
 
 

@@ -1,9 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 
 public class InstructionHandler : MonoBehaviour
 {
-
     [SerializeField] private ProtocolHandler[] handlers;
 
     // Start is called before the first frame update
@@ -14,14 +14,21 @@ public class InstructionHandler : MonoBehaviour
 
     private void OnDataReceived(byte[] data, int size)
     {
-        HandleInstructions(ProtocolParser.Parse(Encoding.ASCII.GetString(data, 0, size)));
+        string message = Encoding.ASCII.GetString(data, 0, size);
+        foreach (string instruction in message.Split('\n'))
+        {
+            if (!string.IsNullOrWhiteSpace(instruction))
+            {
+                HandleInstructions(ProtocolParser.Parse(instruction));
+            }
+        }
     }
 
     private void HandleInstructions(ProtocolInstruction instruction)
     {
-        for (int i = 0; i < handlers.Length; i++)
+        foreach (ProtocolHandler handler in handlers)
         {
-            handlers[i].HandleInstruction(instruction);
+            handler.HandleInstruction(instruction);
         }
     }
 }

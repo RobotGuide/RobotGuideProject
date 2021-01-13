@@ -27,10 +27,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequester.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp" />
-    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionPrinter.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp" />
@@ -50,23 +50,35 @@
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp" />
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
     <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\Receiver.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\Robot.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsRobotListener.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsRobotConnection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsUserConnection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\Connection.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp" />
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsUserListener.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionPrinter.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RobotInstructor.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h" />
@@ -83,16 +95,28 @@
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Receiver.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRobotInstructor.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRouteRequester.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\ISelectable.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\ISocket.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Robot.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketNoConnectionException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Connection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectedException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h" />
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketInitializationException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserConnection.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserListener.h" />
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRobot.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -103,13 +127,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -130,7 +154,6 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
     <PlatformToolset>v142</PlatformToolset>
-    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|x64'">
     <PlatformToolset>v142</PlatformToolset>
@@ -155,21 +178,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <SourcePath>./lib;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <SourcePath>./lib;$(SourcePath)</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <SourcePath>./lib;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -184,9 +201,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ShowProgress>NotSet</ShowProgress>
+      <ShowProgress>LinkVerbose</ShowProgress>
       <LinkStatus>true</LinkStatus>
-      <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -206,9 +222,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ShowProgress>NotSet</ShowProgress>
+      <ShowProgress>LinkVerbose</ShowProgress>
       <LinkStatus>true</LinkStatus>
-      <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -248,11 +263,10 @@
       <WarningLevel>EnableAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
-      <ShowProgress>NotSet</ShowProgress>
+      <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
     <Link>
       <LinkStatus>true</LinkStatus>
-      <AdditionalLibraryDirectories>./lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -4,9 +4,12 @@
 #include "robotguide/Communication/TransportLayer/WindowsReceiver.h"
 #include "robotguide/Communication/TransportLayer/WindowsRobotListener.h"
 #include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
+#include "robotguide/Communication/ApplicationLayer/RouteRequester.h"
 #include "robotguide/Communication/ApplicationLayer/RobotInstructor.h"
 #include <string>
 #include <iostream>
+
+#include "robotguide/Communication/TransportLayer/WindowsUserListener.h"
 
 //Required for windows socket
 #pragma comment(lib, "Ws2_32.lib")
@@ -29,15 +32,31 @@ int main()
 
 	const std::string ipAddress = "0.0.0.0";
 	const std::string port = "3030";
+	const std::string userPort = "3031";
 
 	WindowsReceiver receiver;
 	RobotInstructor instructor;
 	WindowsRobotListener listener(receiver, instructor, ipAddress, port, hints);
+
+	RouteRequester requester(instructor);
+	WindowsUserListener userListener(receiver, requester, ipAddress, userPort, hints);
 	try
 	{
 		listener.Listen(10);
 		std::cout << "Started at address: " << ipAddress << " Port: " << port << std::endl;
 		receiver.AddSelectable(listener);
+	}
+	catch (SocketInitializationException& e)
+	{
+		std::cout << e.what() << std::endl;
+		return 1;
+	}
+
+	try
+	{
+		userListener.Listen(10);
+		std::cout << "Started user listener address: " << ipAddress << " Port: " << userPort << std::endl;
+		receiver.AddSelectable(userListener);
 	}
 	catch (SocketInitializationException& e)
 	{

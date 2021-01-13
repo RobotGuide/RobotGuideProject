@@ -1,53 +1,74 @@
 #include "robotguide/Communication/TransportLayer/WindowsConnection.h"
-#include "robotguide/Communication/TransportLayer/SocketDisconnectException.h"
+#include "robotguide/Communication/TransportLayer/SocketDisconnectedException.h"
 #include "robotguide/Communication/TransportLayer/SocketTimeOutException.h"
 #include <stdexcept>
 
 using namespace robotguide::com::transportlayer;
 
-WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const int receiveBufferSize)
-	: socket(socketHandler), receiveBuffer(receiveBufferSize)
+WindowsConnection::WindowsConnection(const SOCKET& socketHandler, const unsigned int receiveBufferSize)
+	: Connection(socketHandler, receiveBufferSize)
 {
 	u_long mode = 1;
 	ioctlsocket(socketHandler, FIONBIO, &mode);
 }
 
-WindowsConnection::~WindowsConnection()
-{
-	Disconnect();
-};
-
-int WindowsConnection::GetSocketHandle() const
-{
-	return socket;
-}
-
 void WindowsConnection::Disconnect()
 {
-	closesocket(socket);
+	closesocket(socketHandle);
+	socketHandle = INVALID_SOCKET;
 }
 
 void WindowsConnection::Send(const std::string& message)
 {
-	const int result = send(socket, message.c_str(), message.length(), 0);
+	const int result = send(socketHandle, message.c_str(), message.length(), 0);
 	if (result == SOCKET_ERROR)
 	{
-		socket = INVALID_SOCKET;
-		throw SocketDisconnectException("Socket disconnected");
-	}
-	if (result == WSAEWOULDBLOCK)
-	{
-		throw SocketTimeOutException("Sent timed out");
+		if (WSAGetLastError() == WSAEWOULDBLOCK)
+		{
+			throw SocketTimeOutException("Sent timed out");
+		}
+		socketHandle = INVALID_SOCKET;
+		throw SocketDisconnectedException("Socket disconnected");
 	}
 }
 
 bool WindowsConnection::IsConnected() const
 {
-	return socket != INVALID_SOCKET;
+	return socketHandle != INVALID_SOCKET;
 }
 
-Buffer& WindowsConnection::GetReceiveBuffer()
+void WindowsConnection::HandleAvailableData()
 {
-	return receiveBuffer;
+	WSABUF wsaBuffer;
+	DWORD bytesReceived;
+	DWORD Flags = 0;
+
+	GetReceiveBuffer().Clear();
+
+	wsaBuffer.buf = GetReceiveBuffer().GetBuffer();
+	wsaBuffer.len = GetReceiveBuffer().GetMaxLength();
+
+	const int value = WSARecv(GetSocketHandle(), &wsaBuffer, 1, &bytesReceived, &Flags, nullptr, nullptr);
+	if (value == SOCKET_ERROR)
+	{
+		if (WSAGetLastError() == WSAEWOULDBLOCK)
+		{
+			throw SocketTimeOutException("Socked would have timed out");
+		}
+		GetReceiveBuffer().Clear();
+		return;
+	}
+	else if (bytesReceived <= 0)
+	{
+		Disconnect();
+		GetReceiveBuffer().Clear();
+		return;
+	}
+	GetReceiveBuffer().SetLength(bytesReceived);
+}
+
+ISelectable* WindowsConnection::Copy() const
+{
+	return new WindowsConnection(*this);
 }
 
