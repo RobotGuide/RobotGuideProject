@@ -14,7 +14,11 @@ namespace robotguide::com::applicationlayer
 		RouteRequester(transportlayer::IRobotInstructor& instructor);
 		~RouteRequester() override = default;
 
-		virtual void HandleMessage(const std::string& message) override;
+		/// <summary>
+		/// Handle a message from the transport layer
+		/// </summary>
+		/// <param name="message">The message you need to handle</param>
+		void HandleMessage(const std::string& message) override;
 
 	};
 }

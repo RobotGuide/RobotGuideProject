@@ -10,6 +10,11 @@ namespace robotguide::com::transportlayer
 	public:
 
 		virtual ~IRouteRequester() = default;
+
+		/// <summary>
+		/// Handle a message from the transport layer
+		/// </summary>
+		/// <param name="message">The message you need to handle</param>
 		virtual void HandleMessage(const std::string& message) = 0;
 	};
 }
