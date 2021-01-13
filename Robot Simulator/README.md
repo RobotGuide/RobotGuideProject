@@ -14,6 +14,8 @@ The simulator was developed with the Unity game engine using version `2019.4.11f
 6) Click connect, the simulator will give a message if it has successfully connected.
 7) You can now send commands to the robot simulator via the server.
 
+if you want to connect as user you can use `3031` in the `Port`.
+
 ---
 
 ## Future todo's and/or notes
