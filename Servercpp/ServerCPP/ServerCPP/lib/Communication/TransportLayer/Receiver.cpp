@@ -1,6 +1,4 @@
 #include "robotguide/Communication/TransportLayer/Receiver.h"
-#include <iostream>
-#include <ostream>
 
 using namespace robotguide::com::transportlayer;
 
@@ -28,7 +26,6 @@ void Receiver::Clean()
 		if (!(*iterator)->IsConnected())
 		{
 			ISelectable* temp = *iterator;
-			std::cout << "A socket disconnected" << std::endl;
 			iterator = selectables.erase(iterator);
 			delete temp;
 			temp = nullptr;
