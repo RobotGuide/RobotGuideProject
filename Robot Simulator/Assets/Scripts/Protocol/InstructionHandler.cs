@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 
 public class InstructionHandler : MonoBehaviour
@@ -16,7 +17,10 @@ public class InstructionHandler : MonoBehaviour
         string message = Encoding.ASCII.GetString(data, 0, size);
         foreach (string instruction in message.Split('\n'))
         {
-            HandleInstructions(ProtocolParser.Parse(instruction));
+            if (!string.IsNullOrWhiteSpace(instruction))
+            {
+                HandleInstructions(ProtocolParser.Parse(instruction));
+            }
         }
     }
 

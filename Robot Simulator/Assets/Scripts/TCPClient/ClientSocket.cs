@@ -99,7 +99,7 @@ public class ClientSocket : MonoBehaviour
     public void Disconnect()
     {
         tcpClient?.Close();
-        DataReceived = null;
+        //DataReceived = null;
         tcpClient = null;
     }
 
