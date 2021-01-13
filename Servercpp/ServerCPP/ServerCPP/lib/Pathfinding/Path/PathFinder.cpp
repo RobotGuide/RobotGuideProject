@@ -22,16 +22,19 @@ Path robotguide::path::PathFinder::FindPath(Vertex* startPoint, Vertex* endPoint
 	return GeneratePath(startPoint, endPoint);
 }
 
-Path robotguide::path::PathFinder::FindPath(int startX, int startY, int endX, int endY)
+Path robotguide::path::PathFinder::FindPath(int startX, int startZ, int endX, int endZ)
 {
+	Vertex* startVertex = grid->GetVertexByCoords(startX, startZ);
+	Vertex* endVertex = grid->GetVertexByCoords(endX, endZ);
 
+	return GeneratePath(startVertex, endVertex);
 }
 
 Path robotguide::path::PathFinder::GeneratePath(Vertex* startPoint, Vertex* endPoint)
 {
 	if (startPoint == nullptr)
 	{
-		throw std::invalid_argument("startPoint");
+		throw std::invalid_argument("The start point was either invalid or an invalid coordinate class was used");
 	}
 
 	if (endPoint == nullptr)

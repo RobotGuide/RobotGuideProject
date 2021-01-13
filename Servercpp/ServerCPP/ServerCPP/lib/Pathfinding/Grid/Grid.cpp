@@ -11,6 +11,18 @@ robotguide::path::Grid::~Grid()
 	}
 }
 
+Vertex* robotguide::path::Grid::GetVertexByCoords(int x, int z) 
+{
+	for (Vertex* vertex : vertices.vertices)
+	{
+		if (vertex->coordinate.x == x && vertex->coordinate.z == z)
+		{
+			return vertex;
+		}		
+	}
+	return nullptr;
+}
+
 void robotguide::path::Grid::AddVertex(Vertex* newVertex)
 {
 	vertices.Add(newVertex);

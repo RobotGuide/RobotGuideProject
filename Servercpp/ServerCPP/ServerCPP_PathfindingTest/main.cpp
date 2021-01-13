@@ -17,7 +17,8 @@ robotguide::path::Path CalculatePath(robotguide::path::PathFinder& pathFinder, r
 	std::cout << "Generating path from " << startVertex->coordinate.x << "," << startVertex->coordinate.z << " to " << targetVertex->coordinate.x << "," << targetVertex->coordinate.z << std::endl;
 
 	auto startTime = std::chrono::system_clock::now();
-	robotguide::path::Path generatePath = pathFinder.FindPath(startVertex, targetVertex);
+	//robotguide::path::Path generatePath = pathFinder.FindPath(startVertex, targetVertex);
+	robotguide::path::Path generatePath = pathFinder.FindPath(0,0, 4,4);
 	auto endTime = std::chrono::system_clock::now();
 
 	std::chrono::duration<double> elapsed_seconds = startTime - endTime;

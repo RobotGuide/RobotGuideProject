@@ -25,6 +25,8 @@ namespace robotguide::path
 		void AddConnection(Vertex* startVertex, Vertex* targetVertex);
 		void RemoveConnection(Vertex* startVertex, Vertex* targetVertex);
 
+		Vertex* GetVertexByCoords(int x, int z);
+
 		const VertexVector& GetVertexes() const;
 	};
 }

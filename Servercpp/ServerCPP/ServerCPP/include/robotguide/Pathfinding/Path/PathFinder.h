@@ -18,7 +18,7 @@ namespace robotguide::path
 			
 		virtual Path GeneratePath(Vertex* startPoint, Vertex* endPoint);
 		virtual Path FindPath(Vertex* startPoint, Vertex* endpoint);
-		virtual Path FindPath(int startX, int startY, int endX, int endY);
+		virtual Path FindPath(int startX, int startZ, int endX, int endZ);
 	};
 }
 
