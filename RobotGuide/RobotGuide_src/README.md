@@ -1,6 +1,10 @@
 # Robotguide robot source
 Sourcecode for the physical RobotGuide. The robotguide uses an Arduino Uno programmed with PlatformIO.
 
+<div align="center">
+<img src="images/robotguide.jpg" alt="Robot guide" width="50%" height="50%">
+</div>
+
 ## Parts list
 The robot was assembled using the following parts:
 * [L298N motor driver](https://www.tinytronics.nl/shop/nl/robotica/motoren/motoraansturingen/l298n-bipolaire-stappenmotor-en-dc-motor-motoraansturing) x1
@@ -56,12 +60,18 @@ Tells the robot to rotate a specified amount of degrees clockwise. Once the robo
 
 ---
 
+## Class diagram
+
+<img src="images/classdiagram.png" alt="Class diagram">
+
+---
+
 ## Todo
-[ ] implement new design from class diagram  
-[ ] add PID controller to robot  
+[x] implement new design from class diagram  
+[x] add PID controller to robot  
 [ ] add unit tests  
-[ ] create a static private method for calculating circumference in `movement.cpp`  
+[x] create a static private method for calculating circumference in `movement.cpp`  
 [ ] add a calibration constant variable to `movement` class  
-[ ] replace macros in `main.cpp` with constants in header file  
+[x] replace macros in `main.cpp` with constants in header file  
 [ ] create circuit diagram  
 [ ] replace power source with LiPo battery
