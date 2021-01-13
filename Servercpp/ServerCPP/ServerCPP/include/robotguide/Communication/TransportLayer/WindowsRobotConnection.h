@@ -27,7 +27,6 @@ namespace robotguide::com::transportlayer
 		WindowsRobotConnection(IRobotInstructor& robotInstructor, const SOCKET& socketHandler, unsigned int receiveBufferSize);
 		~WindowsRobotConnection() override = default;
 
-
 		/// <summary>
 		/// Handle responses from the robot
 		/// </summary>

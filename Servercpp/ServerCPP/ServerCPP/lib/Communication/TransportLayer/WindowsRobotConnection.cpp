@@ -2,7 +2,6 @@
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Parser/ParserException.h"
-#include <iostream>
 #include <ostream>
 
 using namespace robotguide::com::transportlayer;

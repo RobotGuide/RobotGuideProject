@@ -7,7 +7,7 @@ using namespace robotguide::com::applicationlayer;
 
 Robot::Robot(int id) : id(id), connection(nullptr)
 {
-	std::cout << "A new Robot connected " << id;
+	std::cout << "A new Robot connected " << id << std::endl;
 }
 
 int Robot::GetRobotId() const
@@ -18,6 +18,7 @@ int Robot::GetRobotId() const
 void Robot::SetConnection(Connection& connection)
 {
 	this->connection = &connection;
+	std::cout << "A robot reconnected " << id << std::endl;
 }
 
 Connection* Robot::GetConnection() const

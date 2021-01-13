@@ -19,7 +19,6 @@ WindowsRobotListener::WindowsRobotListener(Receiver& receiver,
 void WindowsRobotListener::HandleAvailableData()
 {
 	const SOCKET socketHandle = Accept();
-	std::cout << "New robot connected: " << socketHandle << std::endl;
 	receiver.AddSelectable(WindowsRobotConnection(robotInstructor, socketHandle, 80));
 }
 

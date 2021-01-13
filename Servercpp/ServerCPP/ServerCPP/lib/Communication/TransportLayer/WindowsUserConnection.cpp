@@ -1,7 +1,5 @@
 #include "robotguide/Communication/TransportLayer/WindowsUserConnection.h"
 
-#include <iostream>
-
 using namespace robotguide::com::transportlayer;
 
 WindowsUserConnection::WindowsUserConnection(IRouteRequester& routeRequester,
