@@ -17,7 +17,7 @@ public class NavigationProtocolHandler : ProtocolHandler
         {
             case InstructionVariant.FORN:
             case InstructionVariant.BACN:
-                if (!CheckPermission(instruction, typeof(double)) ||
+                if (!CheckPermission(instruction, typeof(double)) &&
                     !CheckPermission(instruction, typeof(int)))
                 {
                     Debug.LogWarning("Wrong permissions for type");
@@ -31,8 +31,8 @@ public class NavigationProtocolHandler : ProtocolHandler
                 break;
             case InstructionVariant.RIGN:
             case InstructionVariant.LEFN:
-                if (!CheckPermission(instruction, typeof(double))
-                    || !CheckPermission(instruction, typeof(int)))
+                if (!CheckPermission(instruction, typeof(double)) && 
+                    !CheckPermission(instruction, typeof(int)))
                 {
                     Debug.LogWarning("Wrong permissions for type");
                     return;
@@ -42,8 +42,8 @@ public class NavigationProtocolHandler : ProtocolHandler
                 robotInstruction = new Instruction(InstructionType.Move, (float)Convert.ToDouble(instruction.ParameterValues[0]));
                 break;
             case InstructionVariant.TURN:
-                if (!CheckPermission(instruction, typeof(double))
-                    || !CheckPermission(instruction, typeof(int)))
+                if (!CheckPermission(instruction, typeof(double)) && 
+                    !CheckPermission(instruction, typeof(int)))
                 {
                     Debug.LogWarning("Wrong permissions for type");
                     return;
