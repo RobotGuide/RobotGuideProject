@@ -1,7 +1,6 @@
 #include "robotguide/Communication/TransportLayer/WindowsRobotListener.h"
 #include "robotguide/Communication/TransportLayer/WindowsRobotConnection.h"
 #include <stdexcept>
-#include <iostream>
 
 using namespace  robotguide::com::transportlayer;
 
