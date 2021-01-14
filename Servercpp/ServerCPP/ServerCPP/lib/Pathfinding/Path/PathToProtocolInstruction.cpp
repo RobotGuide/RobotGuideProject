@@ -5,11 +5,11 @@
 #include <math.h>
 #include <random>
 
-robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction() : currentAngle_(0)
+robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction() : currentAngle_(0), unitSize_(1)
 {
 }
 
-robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction(const int curentAngle) : currentAngle_(curentAngle)
+robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction(const int curentAngle, const int unitSize) : currentAngle_(curentAngle), unitSize_(unitSize)
 {
 }
 
@@ -84,7 +84,7 @@ robotguide::path::PathToProtocolInstruction::DetermineInstructionToMoveToDesired
 		newInstructions.push_back(turnInstruction);
 	}
 
-	auto* const forwardInstruction = new com::applicationlayer::Instruction(com::applicationlayer::InstructionType::Forn, { distanceToMove });
+	auto* const forwardInstruction = new com::applicationlayer::Instruction(com::applicationlayer::InstructionType::Forn, { distanceToMove * unitSize_ });
 	newInstructions.push_back(forwardInstruction);
 	return newInstructions;
 }
@@ -99,7 +99,6 @@ int robotguide::path::PathToProtocolInstruction::GetDistanceViaVerticalAndHorizo
 {
 	const auto verticalDistanceSquared = verticalDistance * verticalDistance;
 	const auto horizontalDistanceSquared = horizontalDistance * horizontalDistance;
-	std::cout << "vertical: " << verticalDistanceSquared << " horizontal: " << horizontalDistanceSquared << std::endl;
 	
 	return static_cast<int>(sqrt(verticalDistanceSquared + horizontalDistanceSquared));
 }

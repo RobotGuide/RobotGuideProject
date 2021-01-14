@@ -12,6 +12,7 @@ namespace robotguide::path
 	{
 	private:
 		int currentAngle_;
+		int unitSize_;
 	private:
 		int GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target);
 		int GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target);
@@ -27,7 +28,7 @@ namespace robotguide::path
 		std::vector<com::applicationlayer::Instruction*> CreateInstruction(const std::vector<Vertex*>& vertices, const int index);
 	public:
 		PathToProtocolInstruction();
-		PathToProtocolInstruction(const int curentAngle);
+		PathToProtocolInstruction(const int curentAngle, const int unitSize);
 		~PathToProtocolInstruction() = default;
 
 		void ConvertPathToInstructionStream(const Path& path, com::applicationlayer::InstructionStream& instructions);
