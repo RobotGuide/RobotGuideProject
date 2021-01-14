@@ -7,6 +7,13 @@ enum class Commands
     BACN,
     TULN,
     TURN,
+    SETMTRVARP,
+    SETMTRVARI,
+    SETMTRVARD,
+    SETDLTVARP,
+    SETDLTVARI,
+    SETDLTVARD,
+    PRINTPIDVARS,
     NOT_A_COMMAND
 };
 

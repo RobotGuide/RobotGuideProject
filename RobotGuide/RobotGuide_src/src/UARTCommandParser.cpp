@@ -11,8 +11,28 @@ static const char* TURN = "TURN";
 static const char* NAVS = "NAVS";
 static const char* NAVF = "NAVF";
 
-UARTCommandParser::UARTCommandParser(Navigator& navigator, unsigned int delay)
+//commands for setting pid controller variables
+static const char* SETMTRVARP = "SETMTRVARP";
+static const char* SETMTRVARI = "SETMTRVARI";
+static const char* SETMTRVARD = "SETMTRVARD";
+
+static const char* SETDLTVARP = "SETDLTVARP";
+static const char* SETDLTVARI = "SETDLTVARI";
+static const char* SETDLTVARD = "SETDLTVARD";
+
+static const char* PRINTPIDVARS = "PRINTPIDVARS";
+
+static const char* VARSETS = "VARSETS";
+
+UARTCommandParser::UARTCommandParser(Navigator& navigator,
+                                    PIDcontroller& leftPID,
+                                    PIDcontroller& rightPID,
+                                    PIDcontroller& deltaPID,
+                                    unsigned int delay)
     : navigator(navigator)
+    , leftPID(leftPID)
+    , rightPID(rightPID)
+    , deltaPID(deltaPID)
     , nextUpdateTime(0)
     , delay(delay)
 {
@@ -60,11 +80,12 @@ void UARTCommandParser::Update(unsigned long time)
 
     char* cmd = strtok(msg, " ");
     char* argc = strtok(NULL, " ");
-    int arg = atoi(argc);
+    float arg = atof(argc);
 
     Commands command = ParseStringToCommand(cmd);
 
-    if(command == Commands::NOT_A_COMMAND || argc == NULL || arg == 0)
+    if(command == Commands::NOT_A_COMMAND || 
+      (command != Commands::PRINTPIDVARS && (argc == NULL || arg == 0)))
     {
         SendSerialResponse(NAVF);
         return;
@@ -91,13 +112,41 @@ Commands UARTCommandParser::ParseStringToCommand(char* data)
     {
         return Commands::TULN;
     }
+    else if(strcmp(data, SETMTRVARP) == 0)
+    {
+        return Commands::SETMTRVARP;
+    }
+    else if(strcmp(data, SETMTRVARI) == 0)
+    {
+        return Commands::SETMTRVARI;
+    }
+    else if(strcmp(data, SETMTRVARD) == 0)
+    {
+        return Commands::SETMTRVARD;
+    }
+    else if(strcmp(data, SETDLTVARP) == 0)
+    {
+        return Commands::SETDLTVARP;
+    }
+    else if(strcmp(data, SETDLTVARI) == 0)
+    {
+        return Commands::SETDLTVARI;
+    }
+    else if(strcmp(data, SETDLTVARD) == 0)
+    {
+        return Commands::SETDLTVARD;
+    }
+    else if(strcmp(data, PRINTPIDVARS) == 0)
+    {
+        return Commands::PRINTPIDVARS;
+    }
     else
     {
         return Commands::NOT_A_COMMAND;
     }
 }
 
-void UARTCommandParser::ExecuteCommand(Commands command, int arg)
+void UARTCommandParser::ExecuteCommand(Commands command, float arg)
 {
     switch (command)
     {
@@ -116,7 +165,44 @@ void UARTCommandParser::ExecuteCommand(Commands command, int arg)
     case Commands::TURN:
         navigator.RotateRight(arg, this);
         break;
-    
+
+    case Commands::SETMTRVARP:
+        leftPID.SetPScale(arg);
+        rightPID.SetPScale(arg);
+        SendSerialResponse(VARSETS);
+        break;
+
+    case Commands::SETMTRVARI:
+        leftPID.SetIScale(arg);
+        rightPID.SetIScale(arg);
+        SendSerialResponse(VARSETS);
+        break;
+
+    case Commands::SETMTRVARD:
+        leftPID.SetDScale(arg);
+        rightPID.SetDScale(arg);
+        SendSerialResponse(VARSETS);
+        break;
+
+    case Commands::SETDLTVARP:
+        deltaPID.SetPScale(arg);
+        SendSerialResponse(VARSETS);
+        break;
+
+    case Commands::SETDLTVARI:
+        deltaPID.SetIScale(arg);
+        SendSerialResponse(VARSETS);
+        break;
+
+    case Commands::SETDLTVARD:
+        deltaPID.SetDScale(arg);
+        SendSerialResponse(VARSETS);
+        break;
+
+    case Commands::PRINTPIDVARS:
+        PrintPIDControllerValues();
+        break;
+        
     default:
         break;
     }
@@ -129,4 +215,32 @@ void UARTCommandParser::SendSerialResponse(const char* rsp) const
     strcat(data, "\n");
 
     Serial.print(data);
+}
+
+void UARTCommandParser::PrintPIDControllerValues() const
+{
+    Serial.print("Left controller P value:----");
+    Serial.println(leftPID.GetPScale());
+    Serial.print("Left controller I value:----");
+    Serial.println(leftPID.GetIScale());
+    Serial.print("Left controller D value:----");
+    Serial.println(leftPID.GetDScale());
+
+    Serial.println("");
+
+    Serial.print("Right controller P value:---");
+    Serial.println(rightPID.GetPScale());
+    Serial.print("Right controller I value:---");
+    Serial.println(rightPID.GetIScale());
+    Serial.print("Right controller D value:---");
+    Serial.println(rightPID.GetDScale());
+
+    Serial.println("");
+
+    Serial.print("Delta controller P value:---");
+    Serial.println(deltaPID.GetPScale());
+    Serial.print("Delta controller I value:---");
+    Serial.println(deltaPID.GetIScale());
+    Serial.print("Delta controller D value:---");
+    Serial.println(deltaPID.GetDScale());
 }

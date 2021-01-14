@@ -24,7 +24,7 @@ const int PLATFORM_DIAMETER = 125;
 //resolution of encoder disks
 const int ENCODER_DISK_TICS = 40;
 
-const uint8_t MAX_MOTOR_POWER = 95;
+const uint8_t MAX_MOTOR_POWER = 100;
 const uint8_t TARGET_ERROR_BOUND = 0;
 
 //percentage of control signal composition
@@ -57,7 +57,7 @@ const int TIMEOUT = 10;
 //-----------------------------------------
 
 //delay times for loop components in milliseconds
-const unsigned int MOVEMENT_DELAY = 10;
+const unsigned int MOVEMENT_DELAY = 15;
 const unsigned int NAVIGATOR_DELAY = 25;
 const unsigned int UART_DELAY = 50;
 

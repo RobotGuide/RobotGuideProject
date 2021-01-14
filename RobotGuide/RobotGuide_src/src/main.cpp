@@ -34,7 +34,11 @@ ObstacleDetection obstacles;
 
 Navigator navigator(movement, obstacles, NAVIGATOR_DELAY);
 
-UARTCommandParser uart(navigator, UART_DELAY);
+UARTCommandParser uart(navigator,
+                      leftPID,
+                      rightPID,
+                      deltaPID,
+                      UART_DELAY);
 
 void setup()
 {

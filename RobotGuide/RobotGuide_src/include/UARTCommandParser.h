@@ -4,12 +4,17 @@
 #include "ILoopComponent.h"
 #include "INavigatorCallback.h"
 #include "Navigator.h"
+#include "PIDcontroller.h"
 #include "Commands.h"
 
 class UARTCommandParser : public ILoopComponent, public INavigatorCallback
 {
 public:
-    UARTCommandParser(Navigator& navigator, unsigned int delay);
+    UARTCommandParser(Navigator& navigator,
+                     PIDcontroller& leftPID,
+                     PIDcontroller& rightPID,
+                     PIDcontroller& deltaPID,
+                     unsigned int delay);
     UARTCommandParser(const UARTCommandParser& other) = delete;
     UARTCommandParser& operator=(const UARTCommandParser&) = delete;
     ~UARTCommandParser() override = default;
@@ -21,12 +26,17 @@ public:
 
 private:
     Navigator& navigator;
+    PIDcontroller& leftPID;
+    PIDcontroller& rightPID;
+    PIDcontroller& deltaPID;
+
     unsigned long nextUpdateTime;
     const unsigned int delay;
 
     Commands ParseStringToCommand(char* data);
-    void ExecuteCommand(Commands command, int arg);
+    void ExecuteCommand(Commands command, float arg);
     void SendSerialResponse(const char* rsp) const;
+    void PrintPIDControllerValues() const;
 };
 
 #endif

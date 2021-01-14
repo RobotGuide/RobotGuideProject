@@ -40,7 +40,7 @@ Commands have the following structure:
 `[COMMAND] [ARGUMENT]\n`  
 The command and its argument are separated by a space character, The instructions themselves are separated by newline characters. The newline character is used to signify the end of a message.
 
-Currently the robot has 4 commands:
+Currently the robot has 4 movement commands:
 
 #### FORN
 Usage: `FORN [distance in millimeters]\n`  
@@ -57,6 +57,36 @@ Tells the robot to rotate a specified amount of degrees counter-clockwise. Once 
 #### TURN
 Usage: `TURN [rotation in degrees]\n`  
 Tells the robot to rotate a specified amount of degrees clockwise. Once the robot has rotated said degrees it will send back a `NAVS\n` token via serial.
+
+The robot also has some additional commands for setting the different scalers for the used PID-controllers. These can be used as followed:
+
+### SETMTRVARP
+Usage: `SETMTRVARP [new scaler value]\n`  
+Sets the `P` values for the 2 PID-controllers that control the motors. Once the robot has set the value it will send back a `VARSETS\n` token via serial.
+
+### SETMTRVARI
+Usage: `SETMTRVARI [new scaler value]\n`  
+Sets the `I` values for the 2 PID-controllers that control the motors. Once the robot has set the value it will send back a `VARSETS\n` token via serial.
+
+### SETMTRVARD
+Usage: `SETMTRVARD [new scaler value]\n`  
+Sets the `D` values for the 2 PID-controllers that control the motors. Once the robot has set the value it will send back a `VARSETS\n` token via serial.
+
+### SETDLTVARP
+Usage: `SETDLTVARP [new scaler value]\n`  
+Sets the `P` value for the PID-controller that corrects the error-delta between the motors. Once the robot has set the value it will send back a `VARSETS\n` token via serial.
+
+### SETDLTVARI
+Usage: `SETDLTVARI [new scaler value]\n`  
+Sets the `I` value for the PID-controller that corrects the error-delta between the motors. Once the robot has set the value it will send back a `VARSETS\n` token via serial.
+
+### SETDLTVARD
+Usage: `SETDLTVARD [new scaler value]\n`  
+Sets the `D` value for the PID-controller that corrects the error-delta between the motors. Once the robot has set the value it will send back a `VARSETS\n` token via serial.
+
+### PRINTPIDVARS
+Usage: `PRINTPIDVARS\n`  
+Prints out the current PID-controller values.
 
 ---
 
