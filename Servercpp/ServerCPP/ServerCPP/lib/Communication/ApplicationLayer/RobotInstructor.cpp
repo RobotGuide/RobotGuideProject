@@ -45,7 +45,7 @@ IRobot* RobotInstructor::GetNearestRobot(const int x, const int y)
 	{
 		const std::tuple<int, int> coords = robot->GetCoordinates();
 		const int distanceFromRobot = abs(std::get<0>(coords) - x) + abs(std::get<1>(coords) - y);
-		if (distance > distanceFromRobot)
+		if (distance > distanceFromRobot && robot->Isconnected())
 		{
 			distance = distanceFromRobot;
 			nearestRobot = robot;

@@ -5,6 +5,7 @@
 #include "IRobotInstructor.h"
 #include "robotguide/Communication/ApplicationLayer/Lexer/Lexer.h"
 #include "robotguide/Communication/ApplicationLayer/Parser/Parser.h"
+#include "robotguide/Communication/ApplicationLayer/Instruction/Instruction.h"
 
 
 namespace robotguide::com::transportlayer
@@ -28,7 +29,6 @@ namespace robotguide::com::transportlayer
 		~WindowsRobotConnection() override;
 		WindowsRobotConnection(const WindowsRobotConnection& connection);
 		WindowsRobotConnection& operator=(const WindowsRobotConnection& connection) = delete;
-
 
 		/// <summary>
 		/// Handle responses from the robot
