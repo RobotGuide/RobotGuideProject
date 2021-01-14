@@ -14,6 +14,9 @@ namespace robotguide::com::applicationlayer
 	{
 	private:
 		std::vector<Instruction*> instructions;
+		using const_iterator = std::vector<Instruction*>::const_iterator;
+		using iterator = std::vector<Instruction*>::iterator;
+		
 	public:
 		InstructionStream() = default;
 		InstructionStream(const InstructionStream& instructionStream) = delete;
@@ -24,19 +27,29 @@ namespace robotguide::com::applicationlayer
 
 		std::string ToString() const;
 
-		const Instruction* operator[](const unsigned index)
+		Instruction& operator[](const unsigned index)
 		{
-			return instructions[index];
+			return *instructions[index];
 		}
 
-		const Instruction* operator[](const unsigned index) const
+		const Instruction& operator[](const unsigned index) const
 		{
-			return instructions[index];
+			return *instructions[index];
 		}
 
 		unsigned size() const;
 
 		InstructionStream& operator=(const InstructionStream& instructionStream) = delete;
+		
+		const_iterator begin() const noexcept
+		{
+			return instructions.begin();
+		}
+
+		const_iterator end() const noexcept
+		{
+			return instructions.end();
+		}
 	};
 }
 

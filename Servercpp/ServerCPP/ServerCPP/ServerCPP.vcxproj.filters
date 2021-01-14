@@ -24,61 +24,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp">
-      <Filter>Source Files\Transport Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp">
-      <Filter>Source Files\Transport Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp">
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp">
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionPrinter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp">
-      <Filter>Source Files\Transport Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\Connection.cpp">
+    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsUserConnection.cpp">
+    <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsRobotConnection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsRobotListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\Receiver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Instruction\InvalidConversionToInstructionType.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\LexerException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\ApplicationLayerException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp">
+    <ClCompile Include="lib\Communication\ApplicationLayer\Parser\Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\DecimalToken.cpp">
@@ -99,132 +57,105 @@
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\TokenStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\Parser\Parser.cpp">
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Instruction\InvalidConversionToInstructionType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\Lexer\Lexer.cpp">
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionStream.cpp">
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionPrinter.cpp">
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Lexer\LexerException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\InstructionData.cpp">
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\Exception\ApplicationLayer\ApplicationLayerException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\Communication\ApplicationLayer\Instruction\Instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp">
+    <ClCompile Include="lib\Communication\TransportLayer\SocketException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\Robot.cpp">
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsConnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\TransportLayer\WindowsUserListener.cpp">
+    <ClCompile Include="lib\Pathfinding\Grid\Coordinate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequester.cpp">
+    <ClCompile Include="lib\Communication\TransportLayer\WindowsReceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Grid\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Grid\Vertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Path\Path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Path\PathFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Grid\VertexVextor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Grid\TestGridBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Pathfinding\Path\PathToProtocolInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\TokenType.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\InstructionType.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h">
-      <Filter>Header Files\Transport Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h">
-      <Filter>Header Files\Transport Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h">
-      <Filter>Header Files\Transport Layer\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h">
-      <Filter>Header Files\Transport Layer\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionPrinter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketNoConnectionException.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectedException.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketInitializationException.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\ISocket.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h">
-      <Filter>Header Files\Transport Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserConnection.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\Connection.h">
-      <Filter>Header Files\Transport Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRouteRequester.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRobotInstructor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotConnection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsRobotListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\ISelectable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\Receiver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RobotInstructor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\ApplicationLayerException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\LexerException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Instruction\InvalidConversionToInstructionType.h">
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h">
@@ -248,46 +179,91 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\TokenType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Instruction\InvalidConversionToInstructionType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\Parser.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidCharacterException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerState.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\InvalidSequenceException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\LexerCharacterType.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Lexer\LexerException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Lexer\Lexer.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\InvalidTokenSequenceException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionType.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionStream.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionPrinter.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\ApplicationLayerException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\InstructionData.h">
+    <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h">
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Robot.h">
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsUserListener.h">
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\NoConnectionException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.h">
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketDisconnectException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\TransportLayer\IRobot.h">
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketIntializationException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\SocketTimeOutException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\IReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\WindowsReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Coordinate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Path\Path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Path\PathFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\TestGridBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Path\PathToProtocolInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

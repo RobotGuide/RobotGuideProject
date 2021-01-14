@@ -93,7 +93,7 @@ void WindowsRobotConnection::HandleMessage(const std::string& message)
 	bool isHandled = false;
 	for (size_t i = 0; i < instructionStream.size() && !isHandled; i++)
 	{
-		isHandled = HandleInstruction(*instructionStream[i]);
+		isHandled = HandleInstruction(instructionStream[i]);
 	}
 
 	//If all of the received messages could not be handled disconnect
