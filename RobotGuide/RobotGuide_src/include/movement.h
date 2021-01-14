@@ -15,6 +15,7 @@ public:
     void rotate(int degrees);
     void loopTick();
     void brake();
+    
 private:
     RotaryEncoders* rotaryEncoders_;
     L298NWheel* leftWheel_;

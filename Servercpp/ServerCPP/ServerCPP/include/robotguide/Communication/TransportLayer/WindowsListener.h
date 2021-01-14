@@ -1,14 +1,19 @@
-#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWS_RECEIVER_H
-#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWS_RECEIVER_H
+#ifndef ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSLISTENER_H
+#define ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_WINDOWSLISTENER_H
 
 #include "IListener.h"
+#include "Receiver.h"
 #include <string>
 #include <WinSock2.h>
 
 namespace robotguide::com::transportlayer
 {
-	class WindowsListener final : public IListener
+	class WindowsListener : public IListener
 	{
+	private:
+		addrinfo* address;
+		unsigned int listenerSocket;
+
 	public:
 		/// <summary>
 		/// Initialize a windows listener
@@ -19,12 +24,20 @@ namespace robotguide::com::transportlayer
 		WindowsListener(const std::string& ipAddress, const std::string& port, const addrinfo& type);
 
 		~WindowsListener() override;
+		WindowsListener(const WindowsListener& listener);
+		WindowsListener& operator=(const WindowsListener& listener);
 
 		/// <summary>
 		/// Start listening for connections
 		/// </summary>
 		/// <param name="maxConnections">The max amount of connections this socket will accept</param>
 		void Listen(unsigned maxConnections) override;
+
+		/// <summary>
+		/// Check if the socket is currently listening for data
+		/// </summary>
+		/// <returns>Activity state</returns>
+		bool IsConnected() const override;
 
 		/// <summary>
 		/// Accept a pending connection
@@ -35,13 +48,15 @@ namespace robotguide::com::transportlayer
 		/// <summary>
 		/// Stop listening for connections
 		/// </summary>
-		void Stop() override;
+		void Disconnect() override;
+
+		/// <summary>
+		/// Get the socket handle for this listener
+		/// </summary>
+		/// <returns>The socket handle</returns>
+		unsigned int GetSocketHandle() const override;
 
 	private:
-		addrinfo* address;
-		SOCKET listenerSocket;
-
-
 		/// <summary>
 		/// Initialize the listener socket
 		/// </summary>

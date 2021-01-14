@@ -4,15 +4,31 @@
 
 using namespace robotguide::com::transportlayer;
 
-Buffer::Buffer(const unsigned int length) : maxLength(length)
+Buffer::Buffer(const unsigned int maxLength) : maxLength(maxLength)
 {
-	buffer = new char[length];
-	this->length = -1;
+	buffer = new char[maxLength];
+	Clear();
 }
 
 Buffer::~Buffer()
 {
-	delete buffer;
+	delete[] buffer;
+	buffer = nullptr;
+}
+
+Buffer::Buffer(const Buffer& buffer)
+	: maxLength(buffer.maxLength), length(buffer.length)
+{
+	this->buffer = new char[buffer.maxLength];
+	for (unsigned i = 0; i < buffer.length; i++)
+	{
+		this->buffer[i] = buffer.buffer[i];
+	}
+}
+
+bool Buffer::HasData() const
+{
+	return length > 0;
 }
 
 char* Buffer::GetBuffer() const
@@ -41,6 +57,6 @@ void Buffer::SetLength(const unsigned int bytes)
 
 void Buffer::Clear()
 {
-	memset(buffer, 0, maxLength);
-	length = -1;
+	std::fill_n(buffer, maxLength, '\0');
+	length = 0;
 }

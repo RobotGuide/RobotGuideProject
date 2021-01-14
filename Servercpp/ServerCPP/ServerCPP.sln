@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerCPPTest", "ServerCPPTest\ServerCPPTest.vcxproj", "{B7A414F0-6C9A-4FEF-9921-7CD6BFD123E8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerCPP_Executable", "ServerCPP_Executable\ServerCPP_Executable.vcxproj", "{6B54EE5A-1D1D-45FF-A084-E9A375F7FB8D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{690C7665-1C9B-410B-9C61-6D14849B5037} = {690C7665-1C9B-410B-9C61-6D14849B5037}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerCPP_PathfindingTest", "ServerCPP_PathfindingTest\ServerCPP_PathfindingTest.vcxproj", "{D3346BB5-96CC-4BAA-AFBB-DA6AB945C30C}"
 EndProject

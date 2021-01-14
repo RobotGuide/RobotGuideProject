@@ -1,10 +1,8 @@
 #include "robotguide/Communication/TransportLayer/WindowsListener.h"
-#include "robotguide/Communication/TransportLayer/SocketIntializationException.h"
+#include "robotguide/Communication/TransportLayer/SocketInitializationException.h"
 #include "robotguide/Communication/TransportLayer/SocketException.h"
-#include <iostream>
 #include <stdexcept>
 #include <WS2tcpip.h>
-
 
 using namespace robotguide::com::transportlayer;
 
@@ -14,7 +12,8 @@ WindowsListener::WindowsListener(const std::string& ipAddress, const std::string
 	listenerSocket = INVALID_SOCKET;
 
 	const int outcome = getaddrinfo(ipAddress.c_str(), port.c_str(), &type, &address);
-	if (outcome != 0) {
+	if (outcome != 0)
+	{
 		WSACleanup();
 		throw SocketInitializationException("Could not get address for these specific parameter");
 	}
@@ -23,7 +22,24 @@ WindowsListener::WindowsListener(const std::string& ipAddress, const std::string
 WindowsListener::~WindowsListener()
 {
 	freeaddrinfo(address);
-	Stop();
+}
+
+WindowsListener::WindowsListener(const WindowsListener& listener)
+{
+	address = new addrinfo(*listener.address);
+	listenerSocket = listener.listenerSocket;
+}
+
+WindowsListener& WindowsListener::operator=(const WindowsListener& listener)
+{
+	if (&listener == this)
+	{
+		return *this;
+	}
+	freeaddrinfo(address);
+	address = nullptr;
+	address = new addrinfo(*listener.address);
+	return *this;
 }
 
 void WindowsListener::Listen(const unsigned maxConnections)
@@ -32,7 +48,6 @@ void WindowsListener::Listen(const unsigned maxConnections)
 	{
 		throw std::invalid_argument("You can not have more than the max amount of connections");
 	}
-
 	try
 	{
 		InitializeListenerSocket();
@@ -43,15 +58,19 @@ void WindowsListener::Listen(const unsigned maxConnections)
 	catch (SocketException&)
 	{
 		freeaddrinfo(address);
-		Stop();
 		WSACleanup();
 		throw;
 	}
 }
 
+bool WindowsListener::IsConnected() const
+{
+	return listenerSocket != INVALID_SOCKET;
+}
+
 int WindowsListener::Accept()
 {
-	if (listenerSocket == INVALID_SOCKET)
+	if (!IsConnected())
 	{
 		throw std::logic_error("You can not accept calls when you are not listening for connections");
 	}
@@ -63,15 +82,20 @@ int WindowsListener::Accept()
 	return handle;
 }
 
-void WindowsListener::Stop()
+void WindowsListener::Disconnect()
 {
-	if (listenerSocket != INVALID_SOCKET)
+	if (!IsConnected())
 	{
-		closesocket(listenerSocket);
-		listenerSocket = INVALID_SOCKET;
+		throw std::logic_error("You can not stop an inactive listener");
 	}
+	closesocket(listenerSocket);
+	listenerSocket = INVALID_SOCKET;
 }
 
+unsigned int WindowsListener::GetSocketHandle() const
+{
+	return listenerSocket;
+}
 
 void WindowsListener::InitializeListenerSocket()
 {

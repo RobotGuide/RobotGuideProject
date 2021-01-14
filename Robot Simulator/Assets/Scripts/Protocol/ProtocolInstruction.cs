@@ -36,7 +36,10 @@ public enum InstructionVariant
     BACN,
     RIGN,
     LEFN,
-    TURN
+    TURN,
+    ASKI,
+    SETI,
+    SENI
 }
 
 
