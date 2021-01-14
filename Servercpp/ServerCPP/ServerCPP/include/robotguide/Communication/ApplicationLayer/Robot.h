@@ -22,6 +22,8 @@ namespace robotguide::com::applicationlayer
 		Lexer lexer;
 		Parser parser;
 
+		bool isOnRoute;
+
 	public:
 		/// <summary>
 		/// Initialize a robot with its ID
@@ -83,6 +85,7 @@ namespace robotguide::com::applicationlayer
 
 	private:
 		void HandleInstruction(const Instruction& instruction);
+		void SendNextInstruction();
 	};
 }
 

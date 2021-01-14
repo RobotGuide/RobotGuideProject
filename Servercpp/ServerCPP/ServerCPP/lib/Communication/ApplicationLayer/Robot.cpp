@@ -2,6 +2,8 @@
 #include "robotguide/Communication/TransportLayer/Connection.h"
 #include <iostream>
 
+
+#include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 #include "robotguide/Communication/ApplicationLayer/Token/TokenStream.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Parser/ParserException.h"
@@ -14,6 +16,7 @@ Robot::Robot(const int id)
 	, connection(nullptr)
 	, coordinates(0, 0)
 	, targetCoordinates(0, 0)
+	, isOnRoute(false)
 {
 	std::cout << "A new Robot connected " << id << std::endl;
 }
@@ -25,7 +28,7 @@ int Robot::GetRobotId() const
 
 bool Robot::Isconnected() const
 {
-	return connection == nullptr;
+	return connection != nullptr;
 }
 
 void Robot::SetConnection(Connection* connection)
@@ -53,9 +56,9 @@ void Robot::HandleMessage(const std::string& message)
 			HandleInstruction(*instruction);
 		}
 	}
-	catch (exception::applicationlayer::LexerException&)
+	catch (exception::applicationlayer::LexerException& e)
 	{
-		std::cout << "Lexer exception encountered" << std::endl;
+		std::cout << "Lexer exception encountered" << e.what() << std::endl;
 	}
 	catch (exception::applicationlayer::ParserException&)
 	{
@@ -74,9 +77,17 @@ void Robot::AddInstructions(const InstructionStream& stream, const std::tuple<in
 {
 	for (size_t i = 0; i < stream.size(); i++)
 	{
-		instructions.push(stream[i].ToString());
+		instructions.push(InstructionPrinter().ConvertInstructionToASCII(stream[i]));
 	}
 	targetCoordinates = endCoordinates;
+
+	//Start the route of this robot is not yet on one.
+	//To start we have to make sure that we actually received instructions
+	if (!isOnRoute && !instructions.empty() && Isconnected())
+	{
+		SendNextInstruction();
+		isOnRoute = true;
+	}
 }
 
 IRobot* Robot::Copy()
@@ -92,13 +103,22 @@ void Robot::HandleInstruction(const Instruction& instruction)
 		{
 			if (!instructions.empty())
 			{
-				connection->Send(instructions.front());
-				instructions.pop();
+				SendNextInstruction();
 			}
 			else
 			{
 				coordinates = targetCoordinates;
+				isOnRoute = false;
 			}
 		}
+	}
+}
+
+void Robot::SendNextInstruction()
+{
+	if (!instructions.empty())
+	{
+		connection->Send(instructions.front());
+		instructions.pop();
 	}
 }
