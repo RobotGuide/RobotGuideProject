@@ -44,10 +44,10 @@ IRobot* RobotInstructor::GetNearestRobot(const int x, const int y)
 	for (Robot* robot : robots)
 	{
 		const std::tuple<int, int> coords = robot->GetCoordinates();
-		const int newDistance = abs(std::get<0>(coords) - x) + abs(std::get<1>(coords) - y);
-		if (distance > newDistance)
+		const int distanceFromRobot = abs(std::get<0>(coords) - x) + abs(std::get<1>(coords) - y);
+		if (distance > distanceFromRobot)
 		{
-			distance = newDistance;
+			distance = distanceFromRobot;
 			nearestRobot = robot;
 		}
 	}
