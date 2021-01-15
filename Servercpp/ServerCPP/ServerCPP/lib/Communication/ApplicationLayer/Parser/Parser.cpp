@@ -73,7 +73,7 @@ void Parser::GetInstructionStream(
 		}
 	}
 
-	if (!instructionData.empty())
+	if (!instructionData.empty() || tokenStream.size() == 1)
 	{
 		instructionStream.AddInstruction(CreateInstruction(instructionHead, instructionData));
 	}
