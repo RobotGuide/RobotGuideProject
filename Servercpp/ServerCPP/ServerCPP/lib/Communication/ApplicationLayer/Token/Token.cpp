@@ -26,10 +26,10 @@ std::string Token::ToString() const
 
 std::string Token::DataToString() const
 {
-	switch(Type)
+	switch (Type)
 	{
 	case TokenType::Head:
-		return InstructionPrinter().InstructionTypeToString(Data.GetInstructionType());
+		return InstructionPrinter::InstructionTypeToString(Data.GetInstructionType());
 	case TokenType::Integer:
 		return std::to_string(Data.GetInteger());
 	case TokenType::Decimal:

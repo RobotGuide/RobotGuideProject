@@ -4,8 +4,7 @@
 
 using namespace robotguide::com::applicationlayer;
 
-InstructionType InstructionPrinter::GetInstructionType(
-	const std::string& text) const
+InstructionType InstructionPrinter::GetInstructionType(const std::string& text)
 {
 	if (text.size() != 4)
 	{
@@ -160,9 +159,9 @@ InstructionType InstructionPrinter::GetInstructionType(
 	throw exception::applicationlayer::InvalidConversionToInstructionType("Couldn't convert text to instruction type");
 }
 
-std::string InstructionPrinter::InstructionTypeToString(const InstructionType type) const
+std::string InstructionPrinter::InstructionTypeToString(const InstructionType type)
 {
-	switch(type)
+	switch (type)
 	{
 	case InstructionType::Heat:
 		return "HEAT";
@@ -223,7 +222,7 @@ std::string InstructionPrinter::InstructionTypeToString(const InstructionType ty
 	case InstructionType::Vers:
 		return "VERS";
 	}
-	
+
 	return "NONE";
 }
 
@@ -237,7 +236,7 @@ std::string InstructionPrinter::ConvertInstructionStreamToASCII(const Instructio
 	return ASCII_Variant;
 }
 
-std::string InstructionPrinter::ConvertInstructionToASCII(const Instruction& instruction) const
+std::string InstructionPrinter::ConvertInstructionToASCII(const Instruction& instruction)
 {
 	std::string ASCII_Variant;
 	ASCII_Variant += InstructionTypeToString(instruction.GetType());

@@ -13,7 +13,7 @@ Instruction::Instruction(const InstructionType type_, const std::vector<Instruct
 
 std::string Instruction::ToString() const
 {
-	return InstructionPrinter().ConvertInstructionToASCII(*this);
+	return InstructionPrinter::ConvertInstructionToASCII(*this);
 }
 
 InstructionType Instruction::GetType() const
