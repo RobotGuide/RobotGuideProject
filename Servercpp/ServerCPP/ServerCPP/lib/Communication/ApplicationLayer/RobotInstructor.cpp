@@ -44,12 +44,17 @@ IRobot* RobotInstructor::GetNearestRobot(const int x, const int y)
 	for (Robot* robot : robots)
 	{
 		const std::tuple<int, int> coords = robot->GetCoordinates();
-		const int distanceFromRobot = abs(std::get<0>(coords) - x) + abs(std::get<1>(coords) - y);
-		if (distance > distanceFromRobot && robot->Isconnected())
+		const int distanceFromTarget = GetDistance(x, y, std::get<0>(coords), std::get<1>(coords));
+		if (distanceFromTarget < distance && robot->IsConnected())
 		{
-			distance = distanceFromRobot;
+			distance = distanceFromTarget;
 			nearestRobot = robot;
 		}
 	}
 	return nearestRobot;
+}
+
+int RobotInstructor::GetDistance(const int x, const int y, const int targetX, const int targetY)
+{
+	return abs(targetX - x) + abs(targetY - y);
 }

@@ -50,6 +50,17 @@ namespace robotguide::com::applicationlayer
 		/// <param name="y">y coordinate</param>
 		/// <returns>The closes robot if no robots are currently connected nullptr will be returned</returns>
 		transportlayer::IRobot* GetNearestRobot(int x, int y) override;
+
+	private:
+		/// <summary>
+		/// Calculate the distance between two points
+		/// </summary>
+		/// <param name="x">current x value</param>
+		/// <param name="y">current y value</param>
+		/// <param name="targetX">target x value</param>
+		/// <param name="targetY">target y value</param>
+		/// <returns>The distance from the current coordinates to the target</returns>
+		static int GetDistance(int x, int y, int targetX, int targetY);
 	};
 }
 #endif
