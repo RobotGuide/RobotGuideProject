@@ -20,8 +20,8 @@ namespace robotguide::com::applicationlayer
 		void GetTokenStream(const std::string& text, TokenStream& stream);
 
 		LexerState CurrentState() const;
-	private:
 		void ResetLexer();
+	private:
 		void AddCharacterToBufferAndRetrieveToken(TokenStream& stream,
 		                                          const char character);
 
