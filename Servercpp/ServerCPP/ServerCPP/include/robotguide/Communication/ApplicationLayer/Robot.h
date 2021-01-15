@@ -44,7 +44,7 @@ namespace robotguide::com::applicationlayer
 		/// Check if the robot is connected
 		/// </summary>
 		/// <returns>The connectivity state</returns>
-		bool Isconnected() const;
+		bool IsConnected() const override;
 
 		/// <summary>
 		/// Set a connection to the transport layer

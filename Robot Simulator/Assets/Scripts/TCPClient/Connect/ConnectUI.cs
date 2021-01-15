@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(ClientSocket))]
 public class ConnectUI : MonoBehaviour
 {
     [SerializeField] private GameObject panelUI;
