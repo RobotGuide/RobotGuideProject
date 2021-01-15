@@ -27,11 +27,11 @@ public class NavigationProtocolHandler : ProtocolHandler
                 if (instruction.Instruction == InstructionVariant.BACN)
                     value = -value;
 
-                robotInstruction = new Instruction(InstructionType.Move, (float)value);
+                robotInstruction = new Instruction(InstructionType.Move, (float)(value / 1000));
                 break;
             case InstructionVariant.RIGN:
             case InstructionVariant.LEFN:
-                if (!CheckPermission(instruction, typeof(double)) && 
+                if (!CheckPermission(instruction, typeof(double)) &&
                     !CheckPermission(instruction, typeof(int)))
                 {
                     Debug.LogWarning("Wrong permissions for type");
@@ -39,17 +39,17 @@ public class NavigationProtocolHandler : ProtocolHandler
                 }
 
                 robot.AddInstruction(new Instruction(InstructionType.Rotate, instruction.Instruction == InstructionVariant.LEFN ? -90 : 90));
-                robotInstruction = new Instruction(InstructionType.Move, (float)Convert.ToDouble(instruction.ParameterValues[0]));
+                robotInstruction = new Instruction(InstructionType.Move, ((float)instruction.ParameterValues[0]) / 1000);
                 break;
             case InstructionVariant.TURN:
-                if (!CheckPermission(instruction, typeof(double)) && 
+                if (!CheckPermission(instruction, typeof(double)) &&
                     !CheckPermission(instruction, typeof(int)))
                 {
                     Debug.LogWarning("Wrong permissions for type");
                     return;
                 }
 
-                robotInstruction = new Instruction(InstructionType.Rotate, (float)Convert.ToDouble(instruction.ParameterValues[0]));
+                robotInstruction = new Instruction(InstructionType.Rotate, ((float)instruction.ParameterValues[0]) / 1000);
                 break;
             default:
                 return;
