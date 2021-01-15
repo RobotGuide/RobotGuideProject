@@ -109,6 +109,8 @@ TEST_F(TestPathToInstructionConversion, test_circleMovement)
 
 	InstructionStream instructions;
 	path_to_instruction.ConvertPathToInstructionStream(path, instructions);
+
+	ASSERT_EQ(15, instructions.size());
 	
 	// go to up
 	ASSERT_ARE_SAME(Instruction(InstructionType::Turn, { 90 }), instructions[0]);
