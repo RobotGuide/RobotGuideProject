@@ -48,9 +48,9 @@ void Robot::HandleMessage(const std::string& message)
 		InstructionStream instructionStream;
 		parser.GetInstructionStream(tokenStream, instructionStream);
 
-		for (size_t i = 0; i < instructionStream.size(); i++)
+		for (Instruction* instruction : instructionStream)
 		{
-			HandleInstruction(*instructionStream[i]);
+			HandleInstruction(*instruction);
 		}
 	}
 	catch (exception::applicationlayer::LexerException&)
@@ -74,7 +74,7 @@ void Robot::AddInstructions(const InstructionStream& stream, const std::tuple<in
 {
 	for (size_t i = 0; i < stream.size(); i++)
 	{
-		instructions.push(stream[i]->ToString());
+		instructions.push(stream[i].ToString());
 	}
 	targetCoordinates = endCoordinates;
 }
@@ -86,7 +86,7 @@ IRobot* Robot::Copy()
 
 void Robot::HandleInstruction(const Instruction& instruction)
 {
-	if (instruction.GetType() == InstructionType::Seni)
+	if (instruction.GetType() == InstructionType::Navs)
 	{
 		if (connection != nullptr)
 		{

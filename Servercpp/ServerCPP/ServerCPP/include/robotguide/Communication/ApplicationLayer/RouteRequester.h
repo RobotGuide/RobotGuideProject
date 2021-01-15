@@ -3,6 +3,10 @@
 
 #include "robotguide/Communication/TransportLayer/IRouteRequester.h"
 #include "robotguide/Communication/TransportLayer/IRobotInstructor.h"
+#include "robotguide/Pathfinding/Path/PathFinder.h"
+#include "robotguide/Pathfinding/Path/PathToProtocolInstruction.h"
+
+
 
 namespace robotguide::com::applicationlayer
 {
@@ -10,8 +14,10 @@ namespace robotguide::com::applicationlayer
 	{
 	private:
 		transportlayer::IRobotInstructor& instructor;
+		path::PathFinder& pathfinder;
+		path::PathToProtocolInstruction converter;
 	public:
-		RouteRequester(transportlayer::IRobotInstructor& instructor);
+		RouteRequester(transportlayer::IRobotInstructor& instructor, path::PathFinder& pathfinder);
 		~RouteRequester() override = default;
 
 		/// <summary>
