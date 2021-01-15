@@ -2,15 +2,17 @@
 #include "robotguide/Communication/Exception/ApplicationLayer/Parser/ParserException.h"
 #include <sstream>
 
+static const char* GOTO_CMD = "GOTO";
+static const int INVALID_ARG = -858993460; // signifies that parsing argument was unsuccessful
+
 routeRequest RouteRequestParser::ParseRequestToRoute(const std::string& message)
 {
-
     std::stringstream stream(message);
     
     std::string cmd;
     stream >> cmd;
 
-    if (cmd.compare("GOTO") != 0)
+    if (cmd.compare(GOTO_CMD) != 0)
     {
         throw  robotguide::com::exception::applicationlayer::ParserException("incorrect command was given");
     }
@@ -20,7 +22,7 @@ routeRequest RouteRequestParser::ParseRequestToRoute(const std::string& message)
     for (int i = 0; i < 4; i++)
     {
         stream >> args[i];
-        if (args[i] == -858993460) // signifies that parsing argument was unsuccessful
+        if (args[i] == INVALID_ARG)
         {
             throw robotguide::com::exception::applicationlayer::ParserException("incorrect argument was given");
         }
