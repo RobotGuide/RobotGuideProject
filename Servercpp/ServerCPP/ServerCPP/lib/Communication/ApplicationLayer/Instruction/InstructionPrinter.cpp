@@ -227,7 +227,7 @@ std::string InstructionPrinter::InstructionTypeToString(const InstructionType ty
 	return "NONE";
 }
 
-std::string InstructionPrinter::ConvertInstructionStreamToASCII(const InstructionStream& stream) const
+std::string InstructionPrinter::ConvertInstructionStreamToASCII(const InstructionStream& stream)
 {
 	std::string ASCII_Variant;
 	for (const auto* instruction : stream)
