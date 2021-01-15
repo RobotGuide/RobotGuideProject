@@ -56,6 +56,7 @@
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Parser\ParserException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.h" />
     <ClInclude Include="include\robotguide\Communication\Exception\CommunicationException.h" />
+    <ClInclude Include="include\robotguide\Communication\Exception\Pathfinding\InvalidRouteException.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\Buffer.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\Connection.h" />
     <ClInclude Include="include\robotguide\Communication\TransportLayer\IListener.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Parser\ParserException.cpp" />
     <ClCompile Include="lib\Communication\Exception\ApplicationLayer\Protocol\ProtocolException.cpp" />
     <ClCompile Include="lib\Communication\Exception\CommunicationException.cpp" />
+    <ClCompile Include="lib\Communication\Exception\Pathfinding\InvalidRouteException.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\Buffer.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\Connection.cpp" />
     <ClCompile Include="lib\Communication\TransportLayer\Receiver.cpp" />
