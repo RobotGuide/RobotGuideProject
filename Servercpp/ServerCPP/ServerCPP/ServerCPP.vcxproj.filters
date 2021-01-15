@@ -156,6 +156,9 @@
     <ClCompile Include="lib\Communication\Exception\Pathfinding\InvalidRouteException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequestParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Instruction\Instruction.h">
@@ -333,6 +336,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Communication\Exception\Pathfinding\InvalidRouteException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequestParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Path\PathToProtocolInstruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Path\Path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Path\PathFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Coordinate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\TestGridBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

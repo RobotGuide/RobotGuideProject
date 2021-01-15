@@ -1,8 +1,11 @@
 #include "robotguide/Communication/ApplicationLayer/RouteRequester.h"
+#include "robotguide/Communication/ApplicationLayer/RouteRequestParser.h"
+#include "robotguide/Communication/Exception/ApplicationLayer/Parser/ParserException.h"
 #include <iostream>
 
 using namespace robotguide::com::applicationlayer;
 using namespace robotguide::com::transportlayer;
+using namespace robotguide::com::exception::applicationlayer;
 
 RouteRequester::RouteRequester(IRobotInstructor& instructor, path::PathFinder& pathfinder)
 	: instructor(instructor)
@@ -12,11 +15,15 @@ RouteRequester::RouteRequester(IRobotInstructor& instructor, path::PathFinder& p
 
 std::string RouteRequester::HandleMessage(const std::string& message)
 {
-	//TODO parse from instruction and return response message
-	const int x = 0;
-	const int y = 0;
-	const int endX = 3;
-	const int endY = 3;
+	RouteRequest request;
+	try
+	{
+		request = RouteRequestParser::ParseRequestToRoute(message);
+	}
+	catch (ParserException&)
+	{
+		return "Invalid message received";
+	}
 
 	std::cout << "User: " << message;
 	IRobot* robot = instructor.GetNearestRobot(0, 0);
@@ -25,16 +32,20 @@ std::string RouteRequester::HandleMessage(const std::string& message)
 		return "No robots available";
 	}
 
-	path::Path path = pathfinder.FindPath(std::get<0>(robot->GetCoordinates()), std::get <1>(robot->GetCoordinates()), x, y);
+	const int robotX = std::get<0>(robot->GetCoordinates());
+	const int robotY = std::get<1>(robot->GetCoordinates());
+
+	AddRouteToRobot(*robot, robotX, robotY, request.xCurrent, request.yCurrent);
+	AddRouteToRobot(*robot, request.xCurrent, request.yCurrent, request.xDestination, request.xDestination);
+	return "Navigation instruction handled";
+}
+
+void RouteRequester::AddRouteToRobot(IRobot& robot, int x, int y, int endX, int endY)
+{
+	const path::Path path = pathfinder.FindPath(x, y, endX, endX);
 
 	InstructionStream stream;
 	converter.ConvertPathToInstructionStream(path, stream);
-	robot->AddInstructions(stream, std::make_tuple(x, y));
-
-	path = pathfinder.FindPath(x, y, endX, endY);
-	converter.ConvertPathToInstructionStream(path, stream);
-	robot->AddInstructions(stream, std::make_tuple(x, y));
-
-	return "Navigation instruction handled";
+	robot.AddInstructions(stream, std::make_tuple(endX, endX));
 }
 

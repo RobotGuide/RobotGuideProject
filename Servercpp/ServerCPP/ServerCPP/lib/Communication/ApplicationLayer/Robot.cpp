@@ -42,8 +42,7 @@ Connection* Robot::GetConnection() const
 
 void Robot::HandleMessage(const std::string& message)
 {
-	SendNextInstruction();
-	/*try
+	try
 	{
 		TokenStream tokenStream;
 		lexer.GetTokenStream(message, tokenStream);
@@ -62,7 +61,7 @@ void Robot::HandleMessage(const std::string& message)
 	catch (exception::applicationlayer::ParserException&)
 	{
 		std::cout << "Parser exception encountered" << std::endl;
-	}*/
+	}
 	std::cout << "Robot " << id << ": " << message;
 }
 
