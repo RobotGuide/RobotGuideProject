@@ -15,6 +15,7 @@ namespace robotguide::com::applicationlayer
 		Instruction(const InstructionType type_, const std::vector<InstructionData>& data_);
 
 		std::string ToString() const;
+		std::string ToFormattedString() const;
 		InstructionType GetType() const;
 		std::vector<InstructionData> GetData() const;
 	};

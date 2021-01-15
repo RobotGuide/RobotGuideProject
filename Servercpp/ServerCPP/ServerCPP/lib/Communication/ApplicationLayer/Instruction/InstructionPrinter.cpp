@@ -232,7 +232,7 @@ std::string InstructionPrinter::ConvertInstructionStreamToASCII(const Instructio
 	std::string ASCII_Variant;
 	for (const auto* instruction : stream)
 	{
-		ASCII_Variant += ConvertInstructionToASCII(*instruction) + '\n';
+		ASCII_Variant += instruction->ToString() + '\n';
 	}
 	return ASCII_Variant;
 }
