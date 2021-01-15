@@ -24,8 +24,7 @@ namespace robotguide::com::applicationlayer
 		/// Handle a message from the transport layer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
-		void HandleMessage(const std::string& message) override;
-
+		std::string HandleMessage(const std::string& message) override;
 	};
 }
 #endif
