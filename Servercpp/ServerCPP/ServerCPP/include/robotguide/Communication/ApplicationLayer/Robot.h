@@ -17,7 +17,9 @@ namespace robotguide::com::applicationlayer
 		int id;
 		transportlayer::Connection* connection;
 		std::tuple<int, int> coordinates;
+		int angle;
 		std::tuple<int, int> targetCoordinates;
+		int targetAngle;
 		std::queue<std::string> instructions;
 		Lexer lexer;
 		Parser parser;
@@ -59,6 +61,12 @@ namespace robotguide::com::applicationlayer
 		transportlayer::Connection* GetConnection() const override;
 
 		/// <summary>
+		/// Get the current angle the robot is rotated at
+		/// </summary>
+		/// <returns>The connection if </returns>
+		int GetRotationAngle() const override;
+
+		/// <summary>
 		/// Handle a message from the transport layer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
@@ -75,7 +83,8 @@ namespace robotguide::com::applicationlayer
 		/// </summary>
 		/// <param name="stream">The stream you want to add</param>
 		/// <param name="endCoordinates">The end coordinates for the robot after handling all instructions</param>
-		void AddInstructions(const InstructionStream& stream, const std::tuple<int, int>& endCoordinates) override;
+		/// <param name="endAngle">The angle the robot will be when all instructions are handled</param>
+		void AddInstructions(const InstructionStream& stream, const std::tuple<int, int>& endCoordinates, int endAngle) override;
 
 		/// <summary>
 		/// Get a copy of the robot

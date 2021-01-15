@@ -8,12 +8,15 @@
 
 using namespace robotguide::com::transportlayer;
 using namespace robotguide::com::applicationlayer;
+using namespace robotguide::com::exception::applicationlayer;
 
 Robot::Robot(const int id)
 	: id(id)
 	, connection(nullptr)
 	, coordinates(0, 0)
+	, angle(0)
 	, targetCoordinates(0, 0)
+	, targetAngle(0)
 	, isOnRoute(false)
 {
 	std::cout << "A new Robot connected " << id << std::endl;
@@ -40,6 +43,11 @@ Connection* Robot::GetConnection() const
 	return connection;
 }
 
+int Robot::GetRotationAngle() const
+{
+	return angle;
+}
+
 void Robot::HandleMessage(const std::string& message)
 {
 	try
@@ -54,11 +62,11 @@ void Robot::HandleMessage(const std::string& message)
 			HandleInstruction(*instruction);
 		}
 	}
-	catch (exception::applicationlayer::LexerException&)
+	catch (LexerException&)
 	{
 		std::cout << "Lexer exception encountered" << std::endl;
 	}
-	catch (exception::applicationlayer::ParserException&)
+	catch (ParserException&)
 	{
 		std::cout << "Parser exception encountered" << std::endl;
 	}
@@ -71,13 +79,14 @@ std::tuple<int, int> Robot::GetCoordinates() const
 	return coordinates;
 }
 
-void Robot::AddInstructions(const InstructionStream& stream, const std::tuple<int, int>& endCoordinates)
+void Robot::AddInstructions(const InstructionStream& stream, const std::tuple<int, int>& endCoordinates, const int endAngle)
 {
 	for (size_t i = 0; i < stream.size(); i++)
 	{
 		instructions.push(InstructionPrinter().ConvertInstructionToASCII(stream[i]));
 	}
 	targetCoordinates = endCoordinates;
+	targetAngle = endAngle;
 
 	//Start the route of this robot is not yet on one.
 	//To start we have to make sure that we actually received instructions
@@ -106,6 +115,7 @@ void Robot::HandleInstruction(const Instruction& instruction)
 			else
 			{
 				coordinates = targetCoordinates;
+				angle = targetAngle;
 				isOnRoute = false;
 			}
 		}

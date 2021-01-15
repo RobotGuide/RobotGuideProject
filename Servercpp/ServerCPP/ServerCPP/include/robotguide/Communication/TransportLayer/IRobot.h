@@ -43,6 +43,12 @@ namespace robotguide::com::transportlayer
 		virtual Connection* GetConnection() const = 0;
 
 		/// <summary>
+		/// Get the current angle the robot is rotated at
+		/// </summary>
+		/// <returns>The connection if </returns>
+		virtual int GetRotationAngle() const = 0;
+
+		/// <summary>
 		/// Handle a message from the transport layer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
@@ -59,7 +65,8 @@ namespace robotguide::com::transportlayer
 		/// </summary>
 		/// <param name="stream">The stream you want to add</param>
 		/// <param name="endCoordinates">The end coordinates for the robot after handling all instructions</param>
-		virtual void AddInstructions(const applicationlayer::InstructionStream& stream, const std::tuple<int, int>& endCoordinates) = 0;
+		/// <param name="endAngle">The angle the robot will be when all instructions are handled</param>
+		virtual void AddInstructions(const applicationlayer::InstructionStream& stream, const std::tuple<int, int>& endCoordinates, int endAngle) = 0;
 
 		/// <summary>
 		/// Get a copy of a robot child class
