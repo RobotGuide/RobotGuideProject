@@ -5,6 +5,8 @@
 #include <iostream>
 #include <windows.h>
 
+#include "robotguide/Communication/Exception/Pathfinding/InvalidRouteException.h"
+
 using namespace robotguide::path;
 
 robotguide::path::PathFinder::PathFinder(Grid* grid_)
@@ -27,6 +29,11 @@ Path robotguide::path::PathFinder::FindPath(int startX, int startZ, int endX, in
 	Vertex* startVertex = grid->GetVertexByCoords(startX, startZ);
 	Vertex* endVertex = grid->GetVertexByCoords(endX, endZ);
 
+	if (startVertex == nullptr || endVertex == nullptr)
+	{
+		throw com::exception::InvalidRouteException("Couldn't find path between given vertexes!");
+	}
+
 	return GeneratePath(startVertex, endVertex);
 }
 
@@ -34,12 +41,13 @@ Path robotguide::path::PathFinder::GeneratePath(Vertex* startPoint, Vertex* endP
 {
 	if (startPoint == nullptr)
 	{
-		throw std::invalid_argument("The start point was either invalid or an invalid coordinate class was used");
+		throw com::exception::InvalidRouteException("The start point was either invalid or an invalid coordinate class was used");
 	}
 
 	if (endPoint == nullptr)
 	{
-		throw std::invalid_argument("endPoint");
+		throw com::exception::InvalidRouteException("The end point was either invalid or an invalid coordinate class was used");
+
 	}	
 
 	bool startPointValid = false;
@@ -105,6 +113,6 @@ Path robotguide::path::PathFinder::GeneratePath(Vertex* startPoint, Vertex* endP
 		frontier = newFrontier;
 		newFrontier.clear();
 	}
-	throw new std::runtime_error("Could not find path between start- and endpoint");
+	throw com::exception::InvalidRouteException("Couldn't find path between given vertexes!");
 }
 
