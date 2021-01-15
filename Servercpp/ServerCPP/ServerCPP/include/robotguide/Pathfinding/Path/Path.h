@@ -14,6 +14,7 @@ namespace robotguide::path
 	public:
 		Path() = default;
 		Path(Vertex* startPoint);
+		Path(std::vector<Vertex*> vertexPath_);
 		virtual ~Path() = default;
 
 		void Add(Vertex* newVertex);

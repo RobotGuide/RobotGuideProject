@@ -5,10 +5,6 @@
 #include <math.h>
 #include <random>
 
-robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction() : currentAngle_(0), unitSize_(1)
-{
-}
-
 robotguide::path::PathToProtocolInstruction::PathToProtocolInstruction(const int curentAngle, const int unitSize) : currentAngle_(curentAngle), unitSize_(unitSize)
 {
 }
@@ -27,6 +23,26 @@ void robotguide::path::PathToProtocolInstruction::ConvertPathToInstructionStream
 	}
 }
 
+int robotguide::path::PathToProtocolInstruction::GetCurrentAngle() const
+{
+	return currentAngle_;
+}
+
+int robotguide::path::PathToProtocolInstruction::GetNodeSize() const
+{
+	return unitSize_;
+}
+
+void robotguide::path::PathToProtocolInstruction::SetNodeSize(int nodeSize)
+{
+	unitSize_ = nodeSize;
+}
+
+void robotguide::path::PathToProtocolInstruction::SetCurrentAngle(int currentAngle)
+{
+	currentAngle_ = currentAngle;
+}
+
 std::vector<robotguide::com::applicationlayer::Instruction*> robotguide::path::PathToProtocolInstruction::CreateInstruction(
 	const std::vector<Vertex*>& vertices, const int index)
 {
@@ -38,22 +54,66 @@ std::vector<robotguide::com::applicationlayer::Instruction*> robotguide::path::P
 	}
 	else
 	{
-		return GetLastInstruction(*currentVertex);
+		return {};
 	}
 }
 
-int robotguide::path::PathToProtocolInstruction::GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target)
+int robotguide::path::PathToProtocolInstruction::ConvertNegativeAngleToPositiveAngle(const int angle)
+{
+	if (angle >= 0)
+	{
+		return angle;
+	}
+
+	return (angle + 360) % 360;
+}
+
+int robotguide::path::PathToProtocolInstruction::ConvertPositiveAngleToNegativeAngle(const int angle)
+{
+	if (angle <= 0)
+	{
+		return angle;
+	}
+
+	return (angle - 360) % 360;
+}
+
+int robotguide::path::PathToProtocolInstruction::GetClosestTurn(const int angle)
+{
+	const int positiveAngleVariant = ConvertNegativeAngleToPositiveAngle(angle);
+	const int negativeAngleVariant = ConvertPositiveAngleToNegativeAngle(angle);
+
+	if (std::abs(positiveAngleVariant) < std::abs(negativeAngleVariant))
+	{
+		return positiveAngleVariant;
+	}
+	else
+	{
+		return negativeAngleVariant;
+	}
+}
+
+int robotguide::path::PathToProtocolInstruction::GetVerticalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target) const
 {
 	return target.coordinate.z - source.coordinate.z;
 }
 
-int robotguide::path::PathToProtocolInstruction::GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target)
+int robotguide::path::PathToProtocolInstruction::GetHorizontalDistanceBetweenNextAndCurrentPath(const Vertex& source, const Vertex& target) const
 {
 	return target.coordinate.x - source.coordinate.x;
 }
 
-int robotguide::path::PathToProtocolInstruction::CalculateNeededAngle(const double verticalDistance, const double horizontalDistance)
+int robotguide::path::PathToProtocolInstruction::CalculateNeededAngle(const double verticalDistance, const double horizontalDistance) const
 {
+	/*
+	 * This returns:
+	 * right: 0
+	 * up: 90
+	 * left: 180/-180
+	 * down: -90
+	 *
+	 * Using vertical and horizontal movement
+	 */
 	return static_cast<int>(atan2(-verticalDistance, horizontalDistance) / std::_Pi * 180);
 }
 
@@ -77,21 +137,18 @@ std::vector<robotguide::com::applicationlayer::Instruction*>
 robotguide::path::PathToProtocolInstruction::DetermineInstructionToMoveToDesiredPlace(
 	const int distanceToMove, const int angleToMove)
 {
+	const int angleToMoveCorrected = GetClosestTurn(angleToMove);
+	
 	std::vector<com::applicationlayer::Instruction*> newInstructions;
 	if (angleToMove % 360 != 0)
 	{
-		auto* const turnInstruction = new com::applicationlayer::Instruction(com::applicationlayer::InstructionType::Turn, { angleToMove });
+		auto* const turnInstruction = new com::applicationlayer::Instruction(com::applicationlayer::InstructionType::Turn, { angleToMoveCorrected });
 		newInstructions.push_back(turnInstruction);
 	}
 
 	auto* const forwardInstruction = new com::applicationlayer::Instruction(com::applicationlayer::InstructionType::Forn, { distanceToMove * unitSize_ });
 	newInstructions.push_back(forwardInstruction);
 	return newInstructions;
-}
-
-std::vector<robotguide::com::applicationlayer::Instruction*> robotguide::path::PathToProtocolInstruction::GetLastInstruction(const Vertex& vertex)
-{
-	return {};
 }
 
 int robotguide::path::PathToProtocolInstruction::GetDistanceViaVerticalAndHorizontalDistance(

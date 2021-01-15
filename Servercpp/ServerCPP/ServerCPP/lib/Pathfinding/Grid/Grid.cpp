@@ -23,6 +23,21 @@ Vertex* robotguide::path::Grid::GetVertexByCoords(int x, int z)
 	return nullptr;
 }
 
+Vertex* Grid::GetVertexByCoords(const Coordinate& coordinate)
+{
+	return GetVertexByCoords(coordinate.x, coordinate.z);
+}
+
+bool Grid::DoesCoordExist(const Coordinate& coordinate)
+{
+	return DoesCoordExist(coordinate.x, coordinate.z);
+}
+
+bool Grid::DoesCoordExist(int x, int z)
+{
+	return GetVertexByCoords(x, z) != nullptr;
+}
+
 void robotguide::path::Grid::AddVertex(Vertex* newVertex)
 {
 	vertices.Add(newVertex);

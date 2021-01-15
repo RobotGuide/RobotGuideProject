@@ -35,7 +35,7 @@ public:
 };
 
 // Only checks integer instruction data objects
-void ASSERT_ARE_SAME(const Instruction& rhs, const Instruction& lhs)
+static void ASSERT_ARE_SAME(const Instruction& rhs, const Instruction& lhs)
 {
 	auto rhsData = rhs.GetData();
 	auto lhsData = lhs.GetData();
