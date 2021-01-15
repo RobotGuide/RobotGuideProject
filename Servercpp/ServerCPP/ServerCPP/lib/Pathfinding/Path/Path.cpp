@@ -8,6 +8,11 @@ robotguide::path::Path::Path(Vertex* startPoint)
 	Add(startPoint);
 }
 
+Path::Path(std::vector<Vertex*> vertexPath_)
+{
+	vertexPath = vertexPath_;
+}
+
 void robotguide::path::Path::Add(Vertex* newVertex)
 {
 	if (newVertex == nullptr)
