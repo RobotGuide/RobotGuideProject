@@ -59,7 +59,7 @@ void Robot::HandleMessage(const std::string& message)
 
 		for (Instruction* instruction : instructionStream)
 		{
-			HandleInstruction(*instruction);
+			HandleResponseRobot(*instruction);
 		}
 	}
 	catch (LexerException&)
@@ -102,7 +102,7 @@ IRobot* Robot::Copy()
 	return new Robot(*this);
 }
 
-void Robot::HandleInstruction(const Instruction& instruction)
+void Robot::HandleResponseRobot(const Instruction& instruction)
 {
 	if (instruction.GetType() == InstructionType::Navs)
 	{
