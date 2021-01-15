@@ -227,12 +227,12 @@ std::string InstructionPrinter::InstructionTypeToString(const InstructionType ty
 	return "NONE";
 }
 
-std::string InstructionPrinter::ConvertInstructionStreamToASCII(const InstructionStream& stream) const
+std::string InstructionPrinter::ConvertInstructionStreamToASCII(const InstructionStream& stream)
 {
 	std::string ASCII_Variant;
 	for (const auto* instruction : stream)
 	{
-		ASCII_Variant += ConvertInstructionToASCII(*instruction) + '\n';
+		ASCII_Variant += instruction->ToString();
 	}
 	return ASCII_Variant;
 }
@@ -247,5 +247,5 @@ std::string InstructionPrinter::ConvertInstructionToASCII(const Instruction& ins
 		ASCII_Variant += std::to_string(data.GetInteger());
 	}
 
-	return ASCII_Variant;
+	return ASCII_Variant + '\n';
 }

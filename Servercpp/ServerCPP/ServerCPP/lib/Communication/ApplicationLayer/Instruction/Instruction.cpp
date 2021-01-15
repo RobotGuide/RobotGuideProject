@@ -13,14 +13,7 @@ Instruction::Instruction(const InstructionType type_, const std::vector<Instruct
 
 std::string Instruction::ToString() const
 {
-	std::string completeString = "Head: " + InstructionPrinter().InstructionTypeToString(type) + '\n';
-
-	for(const auto& singleData : data)
-	{
-		completeString += "\tData member: " + std::to_string(singleData.GetInteger()) + '\n';
-	}
-	
-	return completeString;
+	return InstructionPrinter().ConvertInstructionToASCII(*this);
 }
 
 InstructionType Instruction::GetType() const

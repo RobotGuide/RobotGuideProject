@@ -30,7 +30,6 @@ int main()
 			InstructionStream instructionStream;
 			parser.GetInstructionStream(tokenStream, instructionStream);
 			std::cout << instructionStream.ToString() << std::endl;
-			std::cout << instructionPrinter.ConvertInstructionStreamToASCII(instructionStream);
 		}
 		catch(robotguide::com::exception::applicationlayer::LexerException& ex)
 		{
