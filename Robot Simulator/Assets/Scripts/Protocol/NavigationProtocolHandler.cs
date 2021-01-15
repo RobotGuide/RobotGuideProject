@@ -39,7 +39,7 @@ public class NavigationProtocolHandler : ProtocolHandler
                 }
 
                 robot.AddInstruction(new Instruction(InstructionType.Rotate, instruction.Instruction == InstructionVariant.LEFN ? -90 : 90));
-                robotInstruction = new Instruction(InstructionType.Move, ((float)instruction.ParameterValues[0]) / 1000);
+                robotInstruction = new Instruction(InstructionType.Move, (float)(Convert.ToDouble(instruction.ParameterValues[0]) / 1000));
                 break;
             case InstructionVariant.TURN:
                 if (!CheckPermission(instruction, typeof(double)) &&
@@ -49,7 +49,7 @@ public class NavigationProtocolHandler : ProtocolHandler
                     return;
                 }
 
-                robotInstruction = new Instruction(InstructionType.Rotate, ((float)instruction.ParameterValues[0]) / 1000);
+                robotInstruction = new Instruction(InstructionType.Rotate, (float)Convert.ToDouble(instruction.ParameterValues[0]));
                 break;
             default:
                 return;
