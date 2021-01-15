@@ -93,7 +93,15 @@ namespace robotguide::com::applicationlayer
 		IRobot* Copy() override;
 
 	private:
-		void HandleInstruction(const Instruction& instruction);
+		/// <summary>
+		/// Handle a specific instruction received from the robot
+		/// </summary>
+		/// <param name="instruction">The instruction we received from the robot</param>
+		void HandleResponseRobot(const Instruction& instruction);
+
+		/// <summary>
+		/// Send the next instruction if we have on to the robot
+		/// </summary>
 		void SendNextInstruction();
 	};
 }

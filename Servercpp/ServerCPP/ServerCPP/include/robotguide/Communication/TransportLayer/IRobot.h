@@ -1,15 +1,8 @@
 #ifndef  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_IROBOT_H
 #define  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_IROBOT_H
 
+#include "robotguide/Communication/ApplicationLayer/Instruction/InstructionStream.h"
 #include "robotguide/Communication/TransportLayer/Connection.h"
-
-namespace robotguide {
-	namespace com {
-		namespace applicationlayer {
-			class InstructionStream;
-		}
-	}
-}
 
 namespace robotguide::com::transportlayer
 {
