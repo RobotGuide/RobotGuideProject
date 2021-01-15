@@ -21,6 +21,7 @@ namespace robotguide::com::applicationlayer
 		[[nodiscard]] Instruction* CreateInstruction(const Token* token, const std::vector<Token*>& vector) const;
 	public:
 		Parser() = default;
+		void ResetParser();
 
 		void GetInstructionStream(TokenStream& tokenStream, InstructionStream& instructionStream);
 	};

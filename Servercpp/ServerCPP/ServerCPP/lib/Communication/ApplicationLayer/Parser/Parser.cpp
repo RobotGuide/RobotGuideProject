@@ -4,6 +4,11 @@
 
 using namespace robotguide::com::applicationlayer;
 
+void Parser::ResetParser()
+{
+	currentState = ParserState::None;
+}
+
 void Parser::GetInstructionStream(
 	TokenStream& tokenStream, InstructionStream& instructionStream)
 {
