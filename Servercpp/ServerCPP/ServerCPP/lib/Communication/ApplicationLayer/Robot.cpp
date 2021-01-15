@@ -83,7 +83,7 @@ void Robot::AddInstructions(const InstructionStream& stream, const std::tuple<in
 {
 	for (size_t i = 0; i < stream.size(); i++)
 	{
-		instructions.push(InstructionPrinter().ConvertInstructionToASCII(stream[i]));
+		instructions.push(stream[i].ToString());
 	}
 	targetCoordinates = endCoordinates;
 	targetAngle = endAngle;
