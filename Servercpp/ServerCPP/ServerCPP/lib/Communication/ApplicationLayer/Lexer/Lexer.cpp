@@ -34,6 +34,10 @@ void Lexer::AddCharacterToBufferAndRetrieveToken(TokenStream& stream, const char
 	{
 		throw exception::applicationlayer::InvalidSequenceException("Invalid sequence encountered!");
 	}
+	else if (newState == LexerState::Ignore)
+	{
+		//ignore
+	}
 	else if (newState != LexerState::Stringdeclaration)
 	{
 		buffer += character;
