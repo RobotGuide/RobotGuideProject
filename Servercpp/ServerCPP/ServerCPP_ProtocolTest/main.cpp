@@ -24,7 +24,6 @@ int main()
 		try
 		{
 			TokenStream tokenStream;
-			//lexer.GetTokenStream(input, tokenStream);
 			lexer.GetTokenStream(input, tokenStream);
 			std::cout << tokenStream.ToString() << std::endl;
 
