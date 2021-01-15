@@ -338,12 +338,6 @@
     <ClInclude Include="include\robotguide\Communication\Exception\Pathfinding\InvalidRouteException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequestParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\robotguide\Pathfinding\Path\PathToProtocolInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -366,6 +360,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\robotguide\Pathfinding\Grid\VertexVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequestParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

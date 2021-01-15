@@ -39,7 +39,9 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Robot.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RobotInstructor.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequest.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequestParser.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h" />
@@ -97,6 +99,7 @@
     <ClCompile Include="lib\Communication\ApplicationLayer\Robot.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequester.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequestParser.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\DecimalToken.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\InstructionToken.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\IntegerToken.cpp" />
@@ -132,7 +135,6 @@
     <ClCompile Include="lib\Pathfinding\Path\Path.cpp" />
     <ClCompile Include="lib\Pathfinding\Path\PathFinder.cpp" />
     <ClCompile Include="lib\Pathfinding\Path\PathToProtocolInstruction.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

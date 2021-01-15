@@ -5,6 +5,7 @@
 #include "robotguide/Communication/TransportLayer/IRobotInstructor.h"
 #include "robotguide/Pathfinding/Path/PathFinder.h"
 #include "robotguide/Pathfinding/Path/PathToProtocolInstruction.h"
+#include "robotguide/Communication/ApplicationLayer/RouteRequest.h"
 
 namespace robotguide::com::applicationlayer
 {
@@ -23,17 +24,6 @@ namespace robotguide::com::applicationlayer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
 		std::string HandleMessage(const std::string& message) override;
-
-	private:
-		/// <summary>
-		/// Add a route to a robot
-		/// </summary>
-		/// <param name="robot">The robot you want the route to have</param>
-		/// <param name="x">The start x coordinate</param>
-		/// <param name="y">The start y coordinate</param>
-		/// <param name="endX">The end x coordinate</param>
-		/// <param name="endY">The end y coordinate</param>
-		void AddRouteToRobot(transportlayer::IRobot& robot, int x, int y, int endX, int endY);
 	};
 }
 #endif
