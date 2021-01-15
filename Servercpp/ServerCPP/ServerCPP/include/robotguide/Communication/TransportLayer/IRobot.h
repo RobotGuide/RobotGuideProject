@@ -28,7 +28,7 @@ namespace robotguide::com::transportlayer
 		/// Check if the robot is connected
 		/// </summary>
 		/// <returns>The connectivity state</returns>
-		bool Isconnected() const;
+		virtual bool IsConnected() const = 0;
 
 		/// <summary>
 		/// Set a connection to the transport layer

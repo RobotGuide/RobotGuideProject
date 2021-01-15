@@ -1,12 +1,10 @@
 #include "robotguide/Communication/ApplicationLayer/Robot.h"
 #include "robotguide/Communication/TransportLayer/Connection.h"
-#include <iostream>
-
-
 #include "robotguide/Communication/ApplicationLayer/Instruction/InstructionPrinter.h"
 #include "robotguide/Communication/ApplicationLayer/Token/TokenStream.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Lexer/LexerException.h"
 #include "robotguide/Communication/Exception/ApplicationLayer/Parser/ParserException.h"
+#include <iostream>
 
 using namespace robotguide::com::transportlayer;
 using namespace robotguide::com::applicationlayer;
@@ -26,7 +24,7 @@ int Robot::GetRobotId() const
 	return id;
 }
 
-bool Robot::Isconnected() const
+bool Robot::IsConnected() const
 {
 	return connection != nullptr;
 }
@@ -34,7 +32,7 @@ bool Robot::Isconnected() const
 void Robot::SetConnection(Connection* connection)
 {
 	this->connection = connection;
-	std::cout << (!Isconnected() ? "A robot disconnected " : "A robot reconnected ") << id << std::endl;
+	std::cout << (!IsConnected() ? "A robot disconnected " : "A robot reconnected ") << id << std::endl;
 }
 
 Connection* Robot::GetConnection() const
@@ -44,7 +42,8 @@ Connection* Robot::GetConnection() const
 
 void Robot::HandleMessage(const std::string& message)
 {
-	try
+	SendNextInstruction();
+	/*try
 	{
 		TokenStream tokenStream;
 		lexer.GetTokenStream(message, tokenStream);
@@ -56,14 +55,14 @@ void Robot::HandleMessage(const std::string& message)
 			HandleInstruction(*instruction);
 		}
 	}
-	catch (exception::applicationlayer::LexerException& e)
+	catch (exception::applicationlayer::LexerException&)
 	{
-		std::cout << "Lexer exception encountered" << e.what() << std::endl;
+		std::cout << "Lexer exception encountered" << std::endl;
 	}
 	catch (exception::applicationlayer::ParserException&)
 	{
 		std::cout << "Parser exception encountered" << std::endl;
-	}
+	}*/
 	std::cout << "Robot " << id << ": " << message;
 }
 
@@ -83,7 +82,7 @@ void Robot::AddInstructions(const InstructionStream& stream, const std::tuple<in
 
 	//Start the route of this robot is not yet on one.
 	//To start we have to make sure that we actually received instructions
-	if (!isOnRoute && !instructions.empty() && Isconnected())
+	if (!isOnRoute && !instructions.empty() && IsConnected())
 	{
 		SendNextInstruction();
 		isOnRoute = true;

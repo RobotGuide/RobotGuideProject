@@ -2685,7 +2685,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2019296095}
         m_MethodName: Connect
         m_Mode: 1
         m_Arguments:
