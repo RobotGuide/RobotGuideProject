@@ -36,7 +36,7 @@ void Lexer::AddCharacterToBufferAndRetrieveToken(TokenStream& stream, const char
 	}
 	else if (newState == LexerState::Ignore)
 	{
-		//ignore
+		return;
 	}
 	else if (newState != LexerState::Stringdeclaration)
 	{
