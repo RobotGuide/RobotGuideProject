@@ -45,6 +45,7 @@
     </ClCompile>
     <ClCompile Include="TestParser.cpp" />
     <ClCompile Include="TestPathfinding.cpp" />
+    <ClCompile Include="TestPathToInstructionConversion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

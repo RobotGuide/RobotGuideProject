@@ -13,6 +13,7 @@
     <ClCompile Include="TestPathfinding.cpp">
       <Filter>lib\Testing</Filter>
     </ClCompile>
+    <ClCompile Include="TestPathToInstructionConversion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
