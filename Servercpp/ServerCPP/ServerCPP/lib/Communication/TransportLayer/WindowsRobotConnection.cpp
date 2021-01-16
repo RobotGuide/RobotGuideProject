@@ -17,7 +17,7 @@ WindowsRobotConnection::WindowsRobotConnection(IRobotInstructor& robotInstructor
 	, robotInstructor(robotInstructor)
 	, robotID(INVALID_ID)
 {
-	WindowsConnection::Send(InstructionPrinter().InstructionTypeToString(InstructionType::Aski) + " 0 " + '\n');
+	WindowsConnection::Send(InstructionPrinter::InstructionTypeToString(InstructionType::Aski) + " 0 " + '\n');
 }
 
 WindowsRobotConnection::~WindowsRobotConnection()
@@ -124,7 +124,7 @@ bool WindowsRobotConnection::HandleInstruction(const Instruction& instruction)
 			IRobot& robot = robotInstructor.CreateNewRobot();
 			robot.SetConnection(this);
 			robotID = robot.GetRobotId();
-			const std::string command = InstructionPrinter().InstructionTypeToString(InstructionType::Seti) + " 0 " + std::to_string(robotID) + '\n';
+			const std::string command = InstructionPrinter::InstructionTypeToString(InstructionType::Seti) + " 0 " + std::to_string(robotID) + '\n';
 			Send(command);
 			return  true;
 		}

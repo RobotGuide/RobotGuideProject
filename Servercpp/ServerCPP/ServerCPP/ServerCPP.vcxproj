@@ -39,7 +39,9 @@
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Parser\ParserState.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Robot.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RobotInstructor.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequest.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequester.h" />
+    <ClInclude Include="include\robotguide\Communication\ApplicationLayer\RouteRequestParser.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\DecimalToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\InstructionToken.h" />
     <ClInclude Include="include\robotguide\Communication\ApplicationLayer\Token\IntegerToken.h" />
@@ -97,6 +99,7 @@
     <ClCompile Include="lib\Communication\ApplicationLayer\Robot.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\RobotInstructor.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequester.cpp" />
+    <ClCompile Include="lib\Communication\ApplicationLayer\RouteRequestParser.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\DecimalToken.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\InstructionToken.cpp" />
     <ClCompile Include="lib\Communication\ApplicationLayer\Token\IntegerToken.cpp" />
@@ -195,6 +198,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <SourcePath>./lib;$(SourcePath)</SourcePath>
+    <IncludePath>./include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -202,6 +206,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\ServerCPP\include;$(IncludePath)</IncludePath>
+    <SourcePath>$(SolutionDir)\ServerCPP\lib;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -261,6 +267,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -1,7 +1,7 @@
 #ifndef ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_ROUTEREQUEST_H
 #define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_ROUTEREQUEST_H
 
-struct routeRequest
+struct RouteRequest
 {
 	int xCurrent;
 	int yCurrent;

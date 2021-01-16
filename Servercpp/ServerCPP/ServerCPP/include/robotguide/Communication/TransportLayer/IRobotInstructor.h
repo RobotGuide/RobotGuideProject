@@ -12,17 +12,19 @@ namespace robotguide::com::transportlayer
 		virtual ~IRobotInstructor() = default;
 
 		/// <summary>
-		/// Add a robot to the robot instructor
-		/// </summary>
-		/// <param name="robot">The new robot</param>
-		virtual void AddRobot(IRobot& robot) = 0;
-
-		/// <summary>
 		/// Get a specific robot with its ID
 		/// </summary>
 		/// <param name="id">The id the robot will have</param>
 		/// <returns>Returns the robot if found otherwise returns null</returns>
 		virtual IRobot* GetRobot(int id) = 0;
+
+		/// <summary>
+		/// Get the robot closes to your target that is connected
+		/// </summary>
+		/// <param name="x">x coordinate</param>
+		/// <param name="y">y coordinate</param>
+		/// <returns>The closes robot if no robots are currently connected nullptr will be returned</returns>
+		virtual IRobot* GetNearestRobot(int x, int y) = 0;
 
 		/// <summary>
 		/// Create a new robot

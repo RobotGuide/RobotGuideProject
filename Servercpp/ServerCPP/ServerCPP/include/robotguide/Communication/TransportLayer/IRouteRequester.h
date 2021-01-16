@@ -15,7 +15,7 @@ namespace robotguide::com::transportlayer
 		/// Handle a message from the transport layer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
-		virtual void HandleMessage(const std::string& message) = 0;
+		virtual std::string HandleMessage(const std::string& message) = 0;
 	};
 }
 

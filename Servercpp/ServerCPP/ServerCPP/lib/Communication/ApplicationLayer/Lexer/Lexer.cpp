@@ -91,7 +91,7 @@ LexerState Lexer::LexCharacter(const char character) const
 		}
 
 		return LexerState::Error;
-		
+
 	case LexerCharacterType::Text:
 		if (CurrentStateIsNone() || CurrentStateIsHead())
 		{
@@ -103,7 +103,7 @@ LexerState Lexer::LexCharacter(const char character) const
 		}
 
 		return LexerState::Error;
-		
+
 	case LexerCharacterType::Comma:
 		if (CurrentStateIsInteger())
 		{
@@ -129,7 +129,7 @@ LexerState Lexer::LexCharacter(const char character) const
 		{
 			return LexerState::Text;
 		}
-		
+
 		return LexerState::Error;
 
 	case LexerCharacterType::Point:
@@ -149,7 +149,7 @@ LexerState Lexer::LexCharacter(const char character) const
 		{
 			return LexerState::Text;
 		}
-		
+
 		return LexerState::EndToken;
 
 	case LexerCharacterType::Stringdeclaration:
@@ -168,7 +168,7 @@ LexerState Lexer::LexCharacter(const char character) const
 Token* Lexer::GetToken() const
 {
 	Token* token = nullptr;
-	switch(currentState)
+	switch (currentState)
 	{
 	case LexerState::Head:
 		token = GetInstructionToken();
@@ -190,7 +190,7 @@ Token* Lexer::GetToken() const
 	{
 		throw exception::applicationlayer::InvalidSequenceException("Token couldn't be retrieved");
 	}
-	
+
 	return token;
 }
 
@@ -211,7 +211,7 @@ Token* Lexer::GetIntToken() const
 
 Token* Lexer::GetInstructionToken() const
 {
-	const InstructionType type = InstructionPrinter().GetInstructionType(buffer);
+	const InstructionType type = InstructionPrinter::GetInstructionType(buffer);
 	return new InstructionToken(type);
 }
 
@@ -256,7 +256,7 @@ LexerCharacterType Lexer::GetCharacterType(const char character) const
 		return LexerCharacterType::Text;
 	}
 
-	switch(character)
+	switch (character)
 	{
 	case '-':
 		return LexerCharacterType::Negative_sign;

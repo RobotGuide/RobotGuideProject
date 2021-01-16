@@ -1,6 +1,7 @@
 #ifndef  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_IROBOT_H
 #define  ROBOTGUIDE_COMMUNICATION_TRANSPORTLAYER_IROBOT_H
 
+#include "robotguide/Communication/ApplicationLayer/Instruction/InstructionStream.h"
 #include "robotguide/Communication/TransportLayer/Connection.h"
 
 namespace robotguide::com::transportlayer
@@ -17,6 +18,12 @@ namespace robotguide::com::transportlayer
 		virtual int GetRobotId() const = 0;
 
 		/// <summary>
+		/// Check if the robot is connected
+		/// </summary>
+		/// <returns>The connectivity state</returns>
+		virtual bool IsConnected() const = 0;
+
+		/// <summary>
 		/// Set a connection to the transport layer
 		/// </summary>
 		/// <param name="connection">The connection that this robot has</param>
@@ -29,10 +36,30 @@ namespace robotguide::com::transportlayer
 		virtual Connection* GetConnection() const = 0;
 
 		/// <summary>
+		/// Get the current angle the robot is rotated at
+		/// </summary>
+		/// <returns>The connection if </returns>
+		virtual int GetRotationAngle() const = 0;
+
+		/// <summary>
 		/// Handle a message from the transport layer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
 		virtual void HandleMessage(const std::string& message) = 0;
+
+		/// <summary>
+		/// Get current coordinates of the robot
+		/// </summary>
+		/// <returns>A copy of IRobot</returns>
+		virtual std::tuple<int, int> GetCoordinates() const = 0;
+
+		/// <summary>
+		/// Add instructions to this Robot
+		/// </summary>
+		/// <param name="stream">The stream you want to add</param>
+		/// <param name="endCoordinates">The end coordinates for the robot after handling all instructions</param>
+		/// <param name="endAngle">The angle the robot will be when all instructions are handled</param>
+		virtual void AddInstructions(const applicationlayer::InstructionStream& stream, const std::tuple<int, int>& endCoordinates, int endAngle) = 0;
 
 		/// <summary>
 		/// Get a copy of a robot child class

@@ -20,8 +20,7 @@ public class ClientSocket : MonoBehaviour
     /// <summary>
     /// Add or remove the event
     /// </summary>
-    public event Action<byte[], int> OnDataReceived
-    {
+    public event Action<byte[], int> OnDataReceived {
         add => DataReceived += value;
         remove => DataReceived -= value;
     }
@@ -99,7 +98,6 @@ public class ClientSocket : MonoBehaviour
     public void Disconnect()
     {
         tcpClient?.Close();
-        //DataReceived = null;
         tcpClient = null;
     }
 
@@ -110,6 +108,15 @@ public class ClientSocket : MonoBehaviour
     public void Send(string message)
     {
         tcpClient?.Send(Encoding.ASCII.GetBytes(message));
+    }
+
+    /// <summary>
+    /// Reset the Client Socket
+    /// </summary>
+    public void Reset()
+    {
+        tcpClient = null;
+        DataReceived = null;
     }
 
     /// <summary>

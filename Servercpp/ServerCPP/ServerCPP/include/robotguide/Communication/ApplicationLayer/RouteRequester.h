@@ -3,6 +3,9 @@
 
 #include "robotguide/Communication/TransportLayer/IRouteRequester.h"
 #include "robotguide/Communication/TransportLayer/IRobotInstructor.h"
+#include "robotguide/Pathfinding/Path/PathFinder.h"
+#include "robotguide/Pathfinding/Path/PathToProtocolInstruction.h"
+#include "robotguide/Communication/ApplicationLayer/RouteRequest.h"
 
 namespace robotguide::com::applicationlayer
 {
@@ -10,16 +13,17 @@ namespace robotguide::com::applicationlayer
 	{
 	private:
 		transportlayer::IRobotInstructor& instructor;
+		path::PathFinder& pathfinder;
+		path::PathToProtocolInstruction converter;
 	public:
-		RouteRequester(transportlayer::IRobotInstructor& instructor);
+		RouteRequester(transportlayer::IRobotInstructor& instructor, path::PathFinder& pathfinder);
 		~RouteRequester() override = default;
 
 		/// <summary>
 		/// Handle a message from the transport layer
 		/// </summary>
 		/// <param name="message">The message you need to handle</param>
-		void HandleMessage(const std::string& message) override;
-
+		std::string HandleMessage(const std::string& message) override;
 	};
 }
 #endif

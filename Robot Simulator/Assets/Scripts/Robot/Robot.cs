@@ -98,7 +98,7 @@ public class Robot : MonoBehaviour
         CheckForInstruction();
         if (ClientSocket.Instance != null && ClientSocket.Instance.IsConnected)
         {
-            ClientSocket.Instance.Send("NAVS");
+            ClientSocket.Instance.Send("NAVS\n");
 
         }
     }

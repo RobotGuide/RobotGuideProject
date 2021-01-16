@@ -12,12 +12,12 @@ namespace robotguide::com::applicationlayer
 	class InstructionPrinter
 	{
 	public:
-		InstructionPrinter() = default;
+		InstructionPrinter() = delete;
 
-		static InstructionType GetInstructionType(const std::string& text) const;
-		static std::string InstructionTypeToString(const InstructionType type) const;
+		static InstructionType GetInstructionType(const std::string& text);
+		static std::string InstructionTypeToString(const InstructionType type);
 
-		static std::string ConvertInstructionToASCII(const Instruction& instruction) const;
+		static std::string ConvertInstructionToASCII(const Instruction& instruction);
 		static std::string ConvertInstructionStreamToASCII(const InstructionStream& stream);
 	};
 }

@@ -16,7 +16,6 @@
 
 robotguide::path::TestGridBuilder::TestGridBuilder()
 {
-
 	Coordinate wall1 = Coordinate(1, 1);
 	Coordinate wall2 = Coordinate(1, 2);
 	Coordinate wall3 = Coordinate(1, 5);
@@ -87,7 +86,7 @@ void robotguide::path::TestGridBuilder::PopulateGrid(Grid* grid)
 			if (Coordinate::IsNeighbour(vertex->coordinate, neighbourVertex->coordinate))
 			{
 				vertex->AddConnectedVertex(neighbourVertex);
-			}			
+			}
 		}
 	}
 }

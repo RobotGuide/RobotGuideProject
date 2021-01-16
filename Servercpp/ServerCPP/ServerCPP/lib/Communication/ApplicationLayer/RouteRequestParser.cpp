@@ -5,7 +5,7 @@
 static const char* GOTO_CMD = "GOTO";
 static const int INVALID_ARG = -858993460; // signifies that parsing argument was unsuccessful
 
-routeRequest RouteRequestParser::ParseRequestToRoute(const std::string& message)
+RouteRequest RouteRequestParser::ParseRequestToRoute(const std::string& message)
 {
     std::stringstream stream(message);
     
@@ -28,7 +28,7 @@ routeRequest RouteRequestParser::ParseRequestToRoute(const std::string& message)
         }
     }
 
-    routeRequest parsedRequest = { args[0], args[1], args[2], args[3] };
+    RouteRequest parsedRequest = { args[0], args[1], args[2], args[3] };
 
     return parsedRequest;
 }

@@ -2,8 +2,9 @@
 #define ROBOTGUIDE_COMMUNICATION_APPLICATIONLAYER_ROBOTINSTRUCTOR_H
 
 #include "robotguide/Communication/TransportLayer/IRobotInstructor.h"
-#include "robotguide/Communication/TransportLayer/IRobot.h"
+#include "Robot.h"
 #include <vector>
+
 
 
 namespace robotguide::com::applicationlayer
@@ -11,7 +12,7 @@ namespace robotguide::com::applicationlayer
 	class RobotInstructor final : public transportlayer::IRobotInstructor
 	{
 	private:
-		std::vector<transportlayer::IRobot*> robots;
+		std::vector<Robot*> robots;
 		uint64_t nextRobotID;
 
 	public:
@@ -29,12 +30,6 @@ namespace robotguide::com::applicationlayer
 		RobotInstructor& operator=(const RobotInstructor& instructor) = delete;
 
 		/// <summary>
-		/// Add a robot to the robot instructor
-		/// </summary>
-		/// <param name="robot">The new robot</param>
-		void AddRobot(transportlayer::IRobot& robot) override;
-
-		/// <summary>
 		/// Get a specific robot with its ID
 		/// </summary>
 		/// <param name="id">The id the robot will have</param>
@@ -46,6 +41,26 @@ namespace robotguide::com::applicationlayer
 		/// </summary>
 		/// <returns>The ID of the newly created robot</returns>
 		transportlayer::IRobot& CreateNewRobot() override;
+
+
+		/// <summary>
+		/// Get the robot closes to your target that is connected
+		/// </summary>
+		/// <param name="x">x coordinate</param>
+		/// <param name="y">y coordinate</param>
+		/// <returns>The closes robot if no robots are currently connected nullptr will be returned</returns>
+		transportlayer::IRobot* GetNearestRobot(int x, int y) override;
+
+	private:
+		/// <summary>
+		/// Calculate the distance between two points
+		/// </summary>
+		/// <param name="x">current x value</param>
+		/// <param name="y">current y value</param>
+		/// <param name="targetX">target x value</param>
+		/// <param name="targetY">target y value</param>
+		/// <returns>The distance from the current coordinates to the target</returns>
+		static int GetDistance(int x, int y, int targetX, int targetY);
 	};
 }
 #endif
