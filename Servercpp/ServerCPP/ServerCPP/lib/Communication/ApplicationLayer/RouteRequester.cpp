@@ -28,7 +28,7 @@ std::string RouteRequester::HandleMessage(const std::string& message)
 	}
 
 	std::cout << "User: " << message;
-	IRobot* robot = instructor.GetNearestRobot(0, 0);
+	IRobot* robot = instructor.GetNearestRobot(request.xCurrent, request.yCurrent);
 	if (robot == nullptr)
 	{
 		return "No robots available";
@@ -51,6 +51,6 @@ std::string RouteRequester::HandleMessage(const std::string& message)
 	{
 		return "Invalid route request. The route could not be processed";
 	}
-	robot->AddInstructions(stream, std::make_tuple(request.xDestination, request.xDestination), converter.GetCurrentAngle());
+	robot->AddInstructions(stream, std::make_tuple(request.xDestination, request.yDestination), converter.GetCurrentAngle());
 	return "Navigation instruction handled";
 }
