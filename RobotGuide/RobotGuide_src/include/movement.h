@@ -1,45 +1,72 @@
 #ifndef ROBOTGUIDE_MOVEMENT_H
 #define ROBOTGUIDE_MOVEMENT_H
 
-#include "rotaryEncoders.h"
+#include "RotaryEncoders.h"
 #include "L298NWheel.h"
+#include "PIDcontroller.h"
+#include "ILoopComponent.h"
+
 #include <stdint.h>
 
-class Movement
+class Movement : public ILoopComponent
 {
 public:
-    Movement(int wheelDiameter, int platformDiameter, int rencCountsPerRev,
-        RotaryEncoders* rotaryEncoders, L298NWheel* leftWheel, L298NWheel* rightWheel);
-    bool destinationReached();
-    void move(int millimeters);
-    void rotate(int degrees);
-    void loopTick();
-    void brake();
+    Movement(RotaryEncoders& rotaryEncoders, 
+            L298NWheel& leftWheel,
+            L298NWheel& rightWheel,
+            PIDcontroller& leftPID,
+            PIDcontroller& rightPID,
+            PIDcontroller& deltaPID,
+            int rencCountsPerRev,
+            int wheelDiameter,
+            int platformDiameter,
+            uint8_t maxPower,
+            uint8_t errorBound,
+            float controlSignalPercentile,
+            float correctionPercentile,
+            float integratorCutoffBound,
+            unsigned int delay);
+    Movement(const Movement& other) = delete;
+    Movement& operator=(const Movement&) = delete;
+    ~Movement() override = default;
+
+    bool NeedsUpdate(unsigned long time) const override;
+    void Update(unsigned long time) override;
+
+    bool IsMoving() const;
+    void Move(int millimeters);
+    void Rotate(int degrees);
+    void Brake();
     
 private:
-    RotaryEncoders* rotaryEncoders_;
-    L298NWheel* leftWheel_;
-    L298NWheel* rightWheel_;
-    const int wheelCircumference_;
-    const int platformCircumference_;
-    const unsigned long countsPerRev_;
-    bool done_ = true;
-    unsigned long targetCount_ = 0;
-    unsigned long encLPrev_ = 0;
-    unsigned long encRPrev_ = 0;
-    uint8_t powerL_ = 0;
-    uint8_t powerR_ = 0;
-    unsigned long prevTime_ = 0;
+    RotaryEncoders& rotaryEncoders;
+    L298NWheel& leftWheel;
+    L298NWheel& rightWheel;
+    PIDcontroller& leftPID;
+    PIDcontroller& rightPID;
+    PIDcontroller& deltaPID;
+    
+    const unsigned long countsPerRev;
+    const float wheelCircumference;
+    const float platformCircumference;
+    const uint8_t maxPower;
+    const uint8_t errorBound;
 
-    const unsigned long delayTime_ = 20;
-    const uint8_t baseMovePower_ = 90;
-    const uint8_t baseTurnPower_ = 80;
+    const float controlSignalPercentile;
+    const float correctionPercentile;
+    const float integratorCutoffBound;
 
-    void adjustWheelPower(unsigned long encoderL, unsigned long encoderR);
-    void setWheelPower();
-    bool rotaryEncodersReachedCount(unsigned long encoderL, unsigned long encoderR) const;
-    bool deltaTimeElapsed(unsigned long time) const;
-    unsigned long calculateEncoderTicks(unsigned long millimeters) const;
+    bool moving;
+    bool leftMoving;
+    bool rightMoving;
+    unsigned long targetCount;
+
+    unsigned long prevTime;
+    const unsigned int delay;
+
+    float CalculateEncoderTicks(float millimeters) const;
+    void FinishIfDestinationReached(long errorL, long errorR);
+    static float CalculateCircumference(float diameter);
 };
 
 #endif

@@ -1,29 +1,26 @@
 #ifndef ROBOTGUIDE_L298NWHEEL_H
 #define ROBOTGUIDE_L298NWHEEL_H
 
-#include <stdint.h>
+#include "Direction.h"
 
-enum class Direction
-{
-    FORWARD,
-    BACKWARD
-};
+#include <stdint.h>
 
 class L298NWheel
 {
 public:
-    L298NWheel(
-        uint8_t directionPin1,
-        uint8_t directionPin2,
-        uint8_t pwmPin);
-    void setWheel(Direction direction, uint8_t power) const;
-    void setWheelPower(uint8_t power) const;
-    void setWheelDirection(Direction direction) const;
-    void brake() const;
+    L298NWheel(uint8_t directionPin1, uint8_t directionPin2, uint8_t pwmPin);
+    L298NWheel(const L298NWheel& other) = delete;
+    L298NWheel& operator=(const L298NWheel&) = delete;
+    ~L298NWheel() = default;
+
+    void SetWheel(Direction direction, uint8_t power) const;
+    void SetWheelPower(uint8_t power) const;
+    void SetWheelDirection(Direction direction) const;
+    void Brake() const;
 private:
-    const uint8_t directionPin1_;
-    const uint8_t directionPin2_;
-    const uint8_t pwmPin_;
+    const uint8_t directionPin1;
+    const uint8_t directionPin2;
+    const uint8_t pwmPin;
 };
 
 #endif

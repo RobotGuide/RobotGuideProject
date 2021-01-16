@@ -1,109 +1,71 @@
-#include "rotaryEncoders.h"
-#include "movement.h"
+#include "RotaryEncoders.h"
+#include "Movement.h"
 #include "L298NWheel.h"
+#include "UARTCommandParser.h"
+#include "Navigator.h"
+#include "Constants.h"
+
 #include <Arduino.h>
 
-#define DRIVER_ENA_PIN 10
-#define DRIVER_ENB_PIN 11
-#define DRIVER_IN1_PIN 9
-#define DRIVER_IN2_PIN 8
-#define DRIVER_IN3_PIN 12
-#define DRIVER_IN4_PIN 13
+L298NWheel leftWheel(DRIVER_IN3_PIN, DRIVER_IN4_PIN, DRIVER_ENB_PIN);
+L298NWheel rightWheel(DRIVER_IN1_PIN, DRIVER_IN2_PIN, DRIVER_ENA_PIN);
 
-#define MOTOR_SPEED 90
+PIDcontroller leftPID(LEFT_MOTOR_P_VALUE, LEFT_MOTOR_I_VALUE, LEFT_MOTOR_D_VALUE);
+PIDcontroller rightPID(RIGHT_MOTOR_P_VALUE, RIGHT_MOTOR_I_VALUE, RIGHT_MOTOR_D_VALUE);
+PIDcontroller deltaPID(ERROR_DELTA_P_VALUE, ERROR_DELTA_I_VALUE, ERROR_DELTA_D_VALUE);
 
-#define WHEEL_DIAMETER 70     //mm
-#define PLATFORM_DIAMETER 125 //mm
-#define ENCODER_DISK_TICS 40
+Movement movement(RotaryEncoders::GetInstance(), 
+                 leftWheel,
+                 rightWheel,
+                 leftPID,
+                 rightPID,
+                 deltaPID,
+                 ENCODER_DISK_TICS,
+                 WHEEL_DIAMETER,
+                 PLATFORM_DIAMETER,
+                 MAX_MOTOR_POWER,
+                 TARGET_ERROR_BOUND,
+                 CONTROL_SIGNAL_PERCENTILE,
+                 SIGNAL_CORRECTION_PERCENTILE,
+                 INTEGRATOR_CUTOFF_BOUND,
+                 MOVEMENT_DELAY);
 
-#define RENC_PIN_L 2
-#define RENC_PIN_R 3
+ObstacleDetection obstacles;
 
-#define FORN "FORN"
-#define BACN "BACN"
-#define TULN "TULN"
-#define TURN "TURN"
+Navigator navigator(movement, obstacles, NAVIGATOR_DELAY);
 
-#define NAVS "NAVS\n"
-#define NAVF "NAVF\n"
+UARTCommandParser uart(navigator,
+                      leftPID,
+                      rightPID,
+                      deltaPID,
+                      UART_DELAY);
 
-L298NWheel* leftWheel = NULL;
-L298NWheel* rightWheel = NULL;
-RotaryEncoders* rotaryEncoders = NULL;
-Movement* movement = NULL;
+void setup()
+{
+  RotaryEncoders::GetInstance().SetupInterrupts(RENC_PIN_L, RENC_PIN_R);
+  RotaryEncoders::GetInstance().ClearCounts();
 
-bool responseSend = false;
-
-void setup() {
-  Serial.begin(9600);
-
-  leftWheel = new L298NWheel(DRIVER_IN3_PIN, DRIVER_IN4_PIN, DRIVER_ENB_PIN);
-  rightWheel = new L298NWheel(DRIVER_IN1_PIN, DRIVER_IN2_PIN, DRIVER_ENA_PIN);
-
-  rotaryEncoders = RotaryEncoders::getInstance();
-  rotaryEncoders->setupInterrupts(RENC_PIN_L, RENC_PIN_R);
-
-  movement = new Movement(WHEEL_DIAMETER, PLATFORM_DIAMETER,
-    ENCODER_DISK_TICS, rotaryEncoders, leftWheel, rightWheel);
-
+  Serial.setTimeout(TIMEOUT);
+  Serial.begin(BAUDRATE);
+  deltaPID.IntegratorEnabled(false);
 };
 
-void loop() {
+void loop()
+{
+  unsigned long time = millis();
 
-  movement->loopTick();
-
-  if(!movement->destinationReached())
+  if(uart.NeedsUpdate(time))
   {
-    return;
+    uart.Update(time);
   }
 
-  if(!responseSend)
+  if(navigator.NeedsUpdate(time))
   {
-    Serial.print(NAVS);
-    responseSend = true;
+    navigator.Update(time);
   }
 
-  else if (Serial.available())
+  if(movement.NeedsUpdate(time))
   {
-    char msg[20];
-    memset(msg, ' ', 20);
-
-    size_t msgLength = Serial.readBytesUntil('\n', msg, 20);
-
-    if(msgLength == 0)
-    {
-      Serial.print(NAVF);
-      return;
-    }
-
-    char* cmd = strtok(msg, " ");
-    char* argc = strtok(NULL, " ");
-
-    float arg = atof(argc);
-
-    if(strcmp(cmd, FORN) == 0)
-    {
-      movement->move(arg);
-      responseSend = false;
-    }
-    else if(strcmp(cmd, BACN) == 0)
-    {
-      movement->move(-arg);
-      responseSend = false;
-    }
-    else if(strcmp(cmd, TURN) == 0)
-    {
-      movement->rotate(-arg);
-      responseSend = false;
-    }
-    else if(strcmp(cmd, TULN) == 0)
-    {
-      movement->rotate(arg);
-      responseSend = false;
-    }
-    else
-    {
-      Serial.print(NAVF);
-    }     
+    movement.Update(time);
   }
 };
