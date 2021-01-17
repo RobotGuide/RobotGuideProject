@@ -19,6 +19,8 @@ using namespace robotguide::com::transportlayer;
 using namespace robotguide::com::applicationlayer;
 using namespace robotguide::path;
 
+const int SIZE_IN_MILLIMETERS = 170;
+
 int main()
 {
 	WSADATA wsaData;
@@ -44,11 +46,13 @@ int main()
 	gridBuilder.PopulateGrid(&grid);
 
 	PathFinder pathfinder(&grid);
-	RouteRequester requester(instructor, pathfinder);
+	PathToProtocolInstruction converter(0, SIZE_IN_MILLIMETERS);
+
+	RouteRequester requester(instructor, pathfinder, converter);
 	WindowsUserListener userListener(receiver, requester, ipAddress, userPort, hints);
 	try
 	{
-		listener.Listen(10);
+		listener.Listen(100);
 		std::cout << "Started at address: " << ipAddress << " Port: " << port << std::endl;
 		receiver.AddSelectable(listener);
 	}

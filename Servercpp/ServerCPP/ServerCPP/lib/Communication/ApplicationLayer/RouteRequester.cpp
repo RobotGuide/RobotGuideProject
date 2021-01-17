@@ -8,10 +8,12 @@
 using namespace robotguide::com::applicationlayer;
 using namespace robotguide::com::transportlayer;
 
-RouteRequester::RouteRequester(IRobotInstructor& instructor, path::PathFinder& pathfinder)
+RouteRequester::RouteRequester(IRobotInstructor& instructor,
+	path::PathFinder& pathfinder,
+	path::PathToProtocolInstruction& converter)
 	: instructor(instructor)
 	, pathfinder(pathfinder)
-	, converter(0, 250)
+	, converter(converter)
 {
 }
 
