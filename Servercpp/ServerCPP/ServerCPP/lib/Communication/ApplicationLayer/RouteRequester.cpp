@@ -11,7 +11,7 @@ using namespace robotguide::com::transportlayer;
 RouteRequester::RouteRequester(IRobotInstructor& instructor, path::PathFinder& pathfinder)
 	: instructor(instructor)
 	, pathfinder(pathfinder)
-	, converter(0, 1000)
+	, converter(0, 250)
 {
 }
 
