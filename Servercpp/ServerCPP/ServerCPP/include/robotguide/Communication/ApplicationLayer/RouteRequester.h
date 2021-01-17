@@ -5,7 +5,6 @@
 #include "robotguide/Communication/TransportLayer/IRobotInstructor.h"
 #include "robotguide/Pathfinding/Path/PathFinder.h"
 #include "robotguide/Pathfinding/Path/PathToProtocolInstruction.h"
-#include "robotguide/Communication/ApplicationLayer/RouteRequest.h"
 
 namespace robotguide::com::applicationlayer
 {
@@ -16,7 +15,7 @@ namespace robotguide::com::applicationlayer
 		path::PathFinder& pathfinder;
 		path::PathToProtocolInstruction converter;
 	public:
-		RouteRequester(transportlayer::IRobotInstructor& instructor, path::PathFinder& pathfinder);
+		RouteRequester(transportlayer::IRobotInstructor& instructor, path::PathFinder& pathfinder, path::PathToProtocolInstruction& converter);
 		~RouteRequester() override = default;
 
 		/// <summary>
