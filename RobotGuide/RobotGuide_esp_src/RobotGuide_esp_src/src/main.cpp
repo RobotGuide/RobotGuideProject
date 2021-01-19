@@ -7,10 +7,10 @@ typedef enum {
   RETURN_STATUS
 } Instruction;
 
-const char* ssid = "Samsung Galaxy S10 Plus Hotspot"; //insert wifi name here
-const char* pass = "hei28!&3ja9"; //insert wifi password here
+const char* ssid = ""; //insert wifi name here
+const char* pass = ""; //insert wifi password here
 
-const char* ip = "192.168.43.18"; //insert server ip here
+const char* ip = ""; //insert server ip here
 const int port = 3030;
 
 int connectionID = -1;
@@ -35,12 +35,12 @@ void setup() {
   WiFi.begin(ssid, pass);
   digitalWrite(LED_BUILTIN, HIGH); // turn led off
   client.setDefaultNoDelay(true);
+
+  ConnectWifi();
+  ConnectServer();
 }
 
 void loop() {
-  ConnectWifi();
-  ConnectServer();
-
   digitalWrite(LED_BUILTIN, LOW); // turn led on
 
   switch (current)
@@ -51,19 +51,20 @@ void loop() {
       String line = client.readStringUntil('\n');
       Serial.print(line);
       Serial.print('\n');
+      current = RETURN_STATUS;
     }
-
-    current = RETURN_STATUS;
     break;
 
   case RETURN_STATUS:
     if (Serial.available())
     {
       String line =  Serial.readStringUntil('\n');
-      client.print(line);
+      if(!line.isEmpty())
+      {
+        client.print(line);
+        current = RECEIVE_INSTRUCTION;
+      }
     }
-
-    current = RECEIVE_INSTRUCTION;
     break;
   
   default:

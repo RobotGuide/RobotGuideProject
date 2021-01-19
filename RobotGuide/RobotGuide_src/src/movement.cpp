@@ -71,9 +71,6 @@ void Movement::Update(unsigned long time)
 
         uint8_t clampedFinalSignalL = constrain(clampedControlSignalL + clampedControlSignalDelta, 0, maxPower);
         leftWheel.SetWheelPower(clampedFinalSignalL);
-
-        Serial.print("L: ");
-        Serial.println(clampedFinalSignalL);
     }
 
     if(rightMoving)
@@ -85,9 +82,6 @@ void Movement::Update(unsigned long time)
 
         uint8_t clampedFinalSignalR = constrain(clampedControlSignalR - clampedControlSignalDelta, 0, maxPower);
         rightWheel.SetWheelPower(clampedFinalSignalR);
-
-        Serial.print("R: ");
-        Serial.println(clampedFinalSignalR);
     }
 
     FinishIfDestinationReached(errorL, errorR);
