@@ -62,13 +62,13 @@ void Robot::HandleMessage(const std::string& message)
 			HandleResponseRobot(*instruction);
 		}
 	}
-	catch (LexerException&)
+	catch (LexerException& e)
 	{
-		std::cout << "Lexer exception encountered" << std::endl;
+		std::cout << "Lexer exception encountered: " << e.what() << std::endl;
 	}
-	catch (ParserException&)
+	catch (ParserException& e)
 	{
-		std::cout << "Parser exception encountered" << std::endl;
+		std::cout << "Parser exception encountered: " << e.what() << std::endl;
 	}
 	std::cout << "Robot " << id << ": " << message;
 }

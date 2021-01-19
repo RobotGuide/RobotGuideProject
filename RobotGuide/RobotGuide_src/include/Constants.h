@@ -24,15 +24,15 @@ const int PLATFORM_DIAMETER = 125;
 //resolution of encoder disks
 const int ENCODER_DISK_TICS = 40;
 
-const uint8_t MAX_MOTOR_POWER = 100;
+const uint8_t MAX_MOTOR_POWER = 105;
 const uint8_t TARGET_ERROR_BOUND = 0;
 
 //percentage of control signal composition
 //CONTROL_SIGNAL_PERCENTILE is the initial control signal from the motor's PID-controller
 //SIGNAL_CORRECTION_PERCENTILE is the control signal from the error delta correction from the delta PID-controller
 //these added together should always be 1
-const float CONTROL_SIGNAL_PERCENTILE = 0.85f;
-const float SIGNAL_CORRECTION_PERCENTILE = 0.15f;
+const float CONTROL_SIGNAL_PERCENTILE = 0.82f;
+const float SIGNAL_CORRECTION_PERCENTILE = 0.18f;
 
 //if signal saturation delta is higher than this integrator will be cut off
 const float INTEGRATOR_CUTOFF_BOUND = 0.5f;
@@ -74,8 +74,8 @@ const float RIGHT_MOTOR_P_VALUE = 2.0f;
 const float RIGHT_MOTOR_I_VALUE = 0.05f;
 const float RIGHT_MOTOR_D_VALUE = 0.5f;
 
-const float ERROR_DELTA_P_VALUE = 4.0f;
+const float ERROR_DELTA_P_VALUE = 8.0f;
 const float ERROR_DELTA_I_VALUE = 0.0f;
-const float ERROR_DELTA_D_VALUE = 0.1f;
+const float ERROR_DELTA_D_VALUE = 0.0f;
 
 #endif
